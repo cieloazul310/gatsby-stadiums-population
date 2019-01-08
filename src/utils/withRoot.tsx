@@ -10,7 +10,7 @@ const theme = createMuiTheme({
     secondary: blueGrey
   },
   typography: {
-    useNextVariants: false
+    useNextVariants: true
   }
 });
 

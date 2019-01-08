@@ -19,12 +19,6 @@ module.exports = {
         path: `${__dirname}/src/content`
       }
     },
-    /*{
-      resolve: 'gatsby-plugin-typography',
-      options: {
-        pathToConfigModule: `${__dirname}/src/utils/typography.ts`
-      }
-    },*/
     {
       resolve: 'gatsby-transformer-remark',
       options: {
