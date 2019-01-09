@@ -40,7 +40,7 @@ const Layout: React.FunctionComponent<Props> = ({ children, className }) => (
             { name: 'keywords', content: 'gatsbyjs, gatsby, javascript, sample, something' }
           ]}
         />
-        <AppBar position="static">
+        <AppBar position="sticky">
           <Toolbar>
             <Typography variant="h6">{data.site.siteMetadata.title}</Typography>
           </Toolbar>
