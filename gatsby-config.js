@@ -45,6 +45,12 @@ module.exports = {
     },
     'gatsby-transformer-json',
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./src/data/stadiums/topojson`
+      }
+    },
+    {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
         siteUrl: 'https://gatsby-starter-typescript-plus.netlify.com'

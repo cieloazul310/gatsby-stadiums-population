@@ -1,7 +1,44 @@
+// @ts-check
 'use strict';
 
 const path = require('path');
+const { createFilePath } = require(`gatsby-source-filesystem`);
 
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  if (node.internal.type === 'TopojsonJson') {
+    const { createNodeField } = actions;
+    const slug = createFilePath({ node, getNode, basePath: `pages` });
+    createNodeField({ node, name: `slug`, value: slug });
+  }
+};
+
+exports.createPages = ({ graphql, actions }) => {
+  const { createPage } = actions;
+  return graphql(`
+    {
+      allTopojsonJson {
+        edges {
+          node {
+            fields {
+              slug
+            }
+          }
+        }
+      }
+    }
+  `).then(result => {
+    result.data.allTopojsonJson.edges.forEach(({ node }) => {
+      createPage({
+        path: node.fields.slug,
+        component: path.resolve(`./src/templates/maps.tsx`),
+        context: {
+          slug: node.fields.slug
+        }
+      });
+    });
+  });
+};
+/*
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
@@ -83,3 +120,4 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 };
+*/
