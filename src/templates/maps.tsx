@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, navigate } from 'gatsby';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowForward from '@material-ui/icons/ArrowForward';
 import Typography from '@material-ui/core/Typography';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
@@ -11,16 +13,15 @@ import { feature as topofeature } from 'topojson-client';
 import { Topology } from 'topojson-specification';
 
 import circle from '@turf/circle';
+import center from '@turf/center';
 import MapApp from '../components/MapApp';
-
-const center = [140.46, 36.36];
-const buffer = circle(center, 5000, {
-  units: 'meters'
-});
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {},
+    apptitle: {
+      flexGrow: 1
+    },
     autoSizerWrapper: {
       height: 'calc(100vh - 56px)'
     }
@@ -32,31 +33,45 @@ interface Props extends WithStyles<typeof styles> {
   };
 }
 
-const MapPage: React.FunctionComponent<Props> = (props: Props) => (
-  <div className={props.classes.root}>
-    <AppBar position="static">
-      <ToolBar>
-        <Typography variant="h6">Map Page</Typography>
-      </ToolBar>
-    </AppBar>
-    <div className={props.classes.autoSizerWrapper}>
-      <AutoSizer>
-        {({ width, height }) => (
-          <MapApp
-            width={width}
-            height={height}
-            geojson={topofeature(props.data.topojsonJson, props.data.topojsonJson.objects.radius5000)}
-            feature={
-              topofeature(props.data.topojsonJson, props.data.topojsonJson.objects.radius5000).features.filter(
-                feature => feature.geometry.type === 'Polygon'
-              )[0]
-            }
-          />
-        )}
-      </AutoSizer>
+const MapPage: React.FunctionComponent<Props> = (props: Props) => {
+  const { classes, data } = props;
+  const geojson = topofeature(data.topojsonJson, data.topojsonJson.objects.radius5000);
+  const buffer = geojson.features.filter(feature => feature.geometry.type === 'Polygon')[0];
+  const bufferLarge = circle(center(buffer), 10, {
+    units: 'kilometers'
+  });
+  console.log(bufferLarge);
+  const { name } = buffer.properties;
+
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <ToolBar>
+          <Typography color="inherit" className={classes.apptitle} variant="h6">
+            {name}
+          </Typography>
+          <IconButton
+            aria-owns="next"
+            aria-haspopup="true"
+            onClick={() => {
+              const next = Math.round(Math.random() * 101);
+              navigate(`/${next.toString()}/`);
+            }}
+            color="inherit"
+          >
+            <ArrowForward />
+          </IconButton>
+        </ToolBar>
+      </AppBar>
+      <div className={classes.autoSizerWrapper}>
+        <AutoSizer>{({ width, height }) => <MapApp width={width} height={height} geojson={geojson} feature={buffer} />}</AutoSizer>
+      </div>
+      <div>
+        <Typography variant="h4">{name}</Typography>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default withStyles(styles)(MapPage);
 
@@ -73,6 +88,7 @@ export const query = graphql`
             properties {
               id
               val
+              name
             }
             arcs
             coordinates

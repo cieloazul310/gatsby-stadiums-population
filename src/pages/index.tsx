@@ -24,17 +24,6 @@ type Props = WithStyles<typeof styles>;
 
 const IndexPage: React.FunctionComponent<Props> = (props: Props) => (
   <Layout>
-    <Typography variant="body1">
-      <Link to="/MapPage/">Go to page 2</Link>
-    </Typography>
-    <Button
-      onClick={() => {
-        console.log('Pushed!');
-      }}
-      color="primary"
-    >
-      Push!
-    </Button>
     <TableApp title="スタジアムと距離圏人口" />
   </Layout>
 );

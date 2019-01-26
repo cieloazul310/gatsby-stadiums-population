@@ -73,8 +73,12 @@ class TileSet {
   private fetchTile(tile: Tile, url: string): Promise<TileWithURL> {
     const { x, y, z } = tile;
     const fetchUrl = url.replace('{z}/{x}/{y}', `${z}/${x}/${y}`);
+
     return fetch(fetchUrl)
-      .then(res => res.blob())
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.blob();
+      })
       .then(blob => {
         const tileWithURL: TileWithURL = {
           ...tile,

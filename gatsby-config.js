@@ -11,6 +11,7 @@ module.exports = {
       email: 'cieloazul310@gmail.com'
     }
   },
+  pathPrefix: '/gatsby-stadiums-population',
   plugins: [
     {
       resolve: 'gatsby-source-filesystem',

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'gatsby';
 import Toolbar from '@material-ui/core/Toolbar';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -149,7 +150,7 @@ class TableApp extends React.Component<Props, State> {
                     {index + 1}
                   </TableCell>
                   <TableCell className={classes.nameCell} component="th" scope="row">
-                    {feature.properties.name}
+                    <Link to={`/${feature.properties.id}/`}>{feature.properties.name}</Link>
                   </TableCell>
                   <TableCell align="right">{feature.properties.radius500.toLocaleString()}</TableCell>
                   <TableCell align="right">{feature.properties.radius1000.toLocaleString()}</TableCell>

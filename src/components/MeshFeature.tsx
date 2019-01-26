@@ -29,7 +29,7 @@ const MeshRect: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <rect
       fill={colorScale(val)}
-      fillOpacity={0.4}
+      fillOpacity={0.6}
       x={center[0] - size / 2}
       y={center[1] - size / 2}
       width={size}
