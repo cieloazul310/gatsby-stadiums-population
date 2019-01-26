@@ -1,0 +1,1 @@
+{"errors":[{"message":"Variable \"$slug\" is never used in operation \"PageTemplateQuery\".","locations":[{"line":2,"column":3}]}],"pageContext":{"0":"/","1":"7","2":"8","3":"/"}}
