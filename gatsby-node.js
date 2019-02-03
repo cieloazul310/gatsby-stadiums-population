@@ -5,9 +5,13 @@ const path = require('path');
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
-  if (node.internal.type === 'TopojsonJson') {
+  if (node.internal.type === 'VenuesJson') {
     const { createNodeField } = actions;
-    const slug = createFilePath({ node, getNode, basePath: `pages` });
+    const slug = createFilePath({
+      node,
+      getNode,
+      basePath: `pages`
+    });
     createNodeField({ node, name: `slug`, value: slug });
   }
 };
@@ -16,7 +20,7 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
   return graphql(`
     {
-      allTopojsonJson {
+      allVenuesJson {
         edges {
           node {
             fields {
@@ -27,17 +31,16 @@ exports.createPages = ({ graphql, actions }) => {
       }
     }
   `).then(result => {
-    result.data.allTopojsonJson.edges.forEach(({ node }) => {
+    result.data.allVenuesJson.edges.forEach(({ node }) => {
       createPage({
         path: node.fields.slug,
         component: path.resolve(`./src/templates/maps.tsx`),
-        context: {
-          slug: node.fields.slug
-        }
+        context: { slug: node.fields.slug }
       });
     });
   });
 };
+
 /*
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;

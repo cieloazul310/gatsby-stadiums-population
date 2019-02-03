@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { graphql, navigate } from 'gatsby';
+import { graphql, Link, navigate } from 'gatsby';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,9 +12,10 @@ import { AutoSizer } from 'react-virtualized';
 import { feature as topofeature } from 'topojson-client';
 import { Topology } from 'topojson-specification';
 
-import circle from '@turf/circle';
-import center from '@turf/center';
 import MapApp from '../components/MapApp';
+import BufferArcs from '../components/BuffersArcs';
+import { Summary } from '../utils/types';
+import withRoot from '../utils/withRoot';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
@@ -24,24 +25,43 @@ const styles = (theme: Theme): StyleRules =>
     },
     autoSizerWrapper: {
       height: 'calc(100vh - 56px)'
+    },
+    description: {
+      maxWidth: 800,
+      margin: 'auto',
+      padding: '1em'
     }
   });
 
 interface Props extends WithStyles<typeof styles> {
   data: {
-    topojsonJson: Topology;
+    allVenuesJson: {
+      edges: Array<{
+        node: {
+          summary: {
+            slug: string;
+          };
+        };
+      }>;
+    };
+    venuesJson: {
+      fields: {
+        slug: string;
+      };
+      summary: Summary;
+      topojson: Topology;
+    };
   };
 }
 
 const MapPage: React.FunctionComponent<Props> = (props: Props) => {
   const { classes, data } = props;
-  const geojson = topofeature(data.topojsonJson, data.topojsonJson.objects.radius5000);
-  const buffer = geojson.features.filter(feature => feature.geometry.type === 'Polygon')[0];
-  const bufferLarge = circle(center(buffer), 10, {
-    units: 'kilometers'
-  });
-  console.log(bufferLarge);
-  const { name } = buffer.properties;
+  const { edges } = data.allVenuesJson;
+  const { summary, topojson } = data.venuesJson;
+  const geojson = topofeature(topojson, topojson.objects.points);
+  const buffers = topofeature(topojson, topojson.objects.buffers).features;
+
+  const { name, radius1000, radius3000, radius5000, radius10000 } = summary;
 
   return (
     <div className={classes.root}>
@@ -54,8 +74,9 @@ const MapPage: React.FunctionComponent<Props> = (props: Props) => {
             aria-owns="next"
             aria-haspopup="true"
             onClick={() => {
-              const next = Math.round(Math.random() * 101);
-              navigate(`/${next.toString()}/`);
+              const slugs = edges.map(edge => edge.node.summary.slug);
+              const next = slugs[Math.round(Math.random() * slugs.length)];
+              navigate(`/${next}/`);
             }}
             color="inherit"
           >
@@ -64,41 +85,91 @@ const MapPage: React.FunctionComponent<Props> = (props: Props) => {
         </ToolBar>
       </AppBar>
       <div className={classes.autoSizerWrapper}>
-        <AutoSizer>{({ width, height }) => <MapApp width={width} height={height} geojson={geojson} feature={buffer} />}</AutoSizer>
+        <AutoSizer>{({ width, height }) => <MapApp width={width} height={height} geojson={geojson} buffers={buffers} />}</AutoSizer>
       </div>
-      <div>
+      <div className={classes.description}>
         <Typography variant="h4">{name}</Typography>
+        <div>
+          <BufferArcs buffers={buffers} />
+        </div>
+        <ul>
+          <li>{`1km: ${radius1000}`}</li>
+          <li>{`3km: ${radius3000}`}</li>
+          <li>{`5km: ${radius5000}`}</li>
+          <li>{`10km: ${radius10000}`}</li>
+        </ul>
+        <Link to="/">トップに戻る</Link>
       </div>
     </div>
   );
 };
 
-export default withStyles(styles)(MapPage);
+export default withRoot(withStyles(styles)(MapPage));
 
 // helper
 export const query = graphql`
   query($slug: String!) {
-    topojsonJson(fields: { slug: { eq: $slug } }) {
-      type
-      objects {
-        radius5000 {
-          type
-          geometries {
-            type
-            properties {
-              id
-              val
-              name
-            }
-            arcs
-            coordinates
+    allVenuesJson {
+      edges {
+        node {
+          summary {
+            slug
           }
         }
       }
-      arcs
-      transform {
-        scale
-        translate
+    }
+    venuesJson(fields: { slug: { eq: $slug } }) {
+      fields {
+        slug
+      }
+      summary {
+        name
+        shortname
+        category
+        radius1000
+        radius3000
+        radius5000
+        radius10000
+      }
+      topojson {
+        type
+        transform {
+          scale
+          translate
+        }
+        objects {
+          points {
+            type
+            geometries {
+              type
+              coordinates
+              properties {
+                id
+                val
+              }
+            }
+          }
+          buffers {
+            type
+            geometries {
+              type
+              arcs
+              properties {
+                radius
+                population
+                north
+                northeast
+                east
+                southeast
+                south
+                southwest
+                west
+                northwest
+              }
+            }
+          }
+        }
+        arcs
       }
     }
   }

@@ -4,12 +4,11 @@ import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/wit
 import createStyles from '@material-ui/core/styles/createStyles';
 const d3tile = require('d3-tile').tile;
 
-import { geoMercator, geoPath, GeoProjection, GeoPath, ExtendedFeature } from 'd3-geo';
-import centroid from '@turf/centroid';
+import { geoMercator, geoPath, GeoProjection, GeoPath } from 'd3-geo';
 import TileSet, { Tile, TileWithURL } from '../utils/tileTree';
 import MeshFeature from '../components/MeshFeature';
 import GrayScaleFilter from '../components/GrayScaleFilter';
-import { GeoJSONObject } from '@turf/helpers';
+import { GeoJSONObject, Feature } from '@turf/helpers';
 
 import Place from '../image/place.svg';
 
@@ -37,8 +36,8 @@ interface D3TileArray<T> extends Array<T> {
 interface Props extends WithStyles<typeof styles> {
   width: number;
   height: number;
-  geojson?: GeoJSONObject;
-  feature?: ExtendedFeature;
+  geojson: GeoJSONObject;
+  buffers: Feature[];
 }
 
 interface State {
@@ -50,7 +49,9 @@ class Map extends React.Component<Props, State> {
     fetchStatus: 'yet'
   };
   _projection: GeoProjection = geoMercator();
-  _tileSet = new TileSet({ url: '//cyberjapandata.gsi.go.jp/xyz/slopemap/{z}/{x}/{y}.png' });
+  _tileSet = new TileSet();
+  // Tile Maps
+  // slope: //cyberjapandata.gsi.go.jp/xyz/slopemap/{z}/{x}/{y}.png
 
   private _getTileCoordinates = (projection: GeoProjection): Tile[] => {
     const { width, height } = this.props;
@@ -82,8 +83,9 @@ class Map extends React.Component<Props, State> {
 
   public render() {
     console.log('Render');
-    const { classes, width, height, feature, geojson } = this.props;
-    const projection = geoMercator().fitExtent([[20, 20], [width - 20, height - 20]], feature);
+    const { classes, width, height, buffers, geojson } = this.props;
+    const projection = geoMercator().fitExtent([[10, 40], [width - 10, height - 40]], buffers[buffers.length - 1]);
+
     console.log(projection.scale());
     const path: GeoPath = geoPath(projection);
     const tileCoords = this._getTileCoordinates(projection);
@@ -119,11 +121,19 @@ class Map extends React.Component<Props, State> {
             ))}
           </g>
         </g>
-        <path className={classes.buffer} d={path(feature) || undefined} />
+        <g>
+          {buffers.length
+            ? buffers.map((feature, index) => (
+                <path key={index} d={path(feature)} fill="none" stroke="rgba(200, 60, 80, 0.2)" strokeWidth={3} />
+              ))
+            : null}
+        </g>
         <g className={classes.points} style={{ opacity: this.state.fetchStatus === 'fetched' ? 1 : 0 }}>
-          {geojson.features.map((ftr, index) =>
-            ftr.geometry.type === 'Point' ? <MeshFeature key={index} feature={ftr} projection={projection} /> : null
-          )}
+          {geojson
+            ? geojson.features.map((feature, index) =>
+                feature.geometry.type === 'Point' ? <MeshFeature key={index} feature={feature} projection={projection} /> : null
+              )
+            : null}
         </g>
         <g>
           <image xlinkHref={Place} x={width / 2} y={height / 2} width={28} height={28} transform="translate(-14, -26)" />

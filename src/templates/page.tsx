@@ -42,7 +42,7 @@ const PageTemplate: React.SFC = ({ data }) => {
 };
 
 export default PageTemplate;
-
+/*
 export const query = graphql`
   query($slug: String!) {
     topojsonJson(fields: { slug: { eq: $slug } }) {
@@ -69,28 +69,4 @@ export const query = graphql`
     }
   }
 `;
-
-/*
-export const query = graphql`
-  query PageTemplateQuery($slug: String!) {
-    site {
-      siteMetadata {
-        title
-        description
-        author {
-          name
-          url
-        }
-      }
-    }
-  }
-`;
-*/
-/*
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      excerpt
-      frontmatter {
-        title
-      }
-    }
 */

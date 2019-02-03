@@ -23,7 +23,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import Typography from '@material-ui/core/Typography';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
-import data from '../data/stadiums.json';
+import { VenueEdge } from '../utils/types';
 
 const tableStyles = (theme: Theme): StyleRules =>
   createStyles({
@@ -47,8 +47,21 @@ const tableStyles = (theme: Theme): StyleRules =>
     }
   });
 
+interface Summary {
+  name: string;
+  club: string;
+  category: string;
+  shortname: string;
+  slug: string;
+  radius1000: number;
+  radius3000: number;
+  radius5000: number;
+  radius10000: number;
+}
+
 interface Props extends WithStyles<typeof tableStyles> {
   title: string;
+  data: Array<VenueEdge>;
 }
 
 interface State {
@@ -73,7 +86,7 @@ class TableApp extends React.Component<Props, State> {
 
   public render() {
     let anchorEl = null;
-    const { classes, title } = this.props;
+    const { classes, title, data } = this.props;
     const { ascSort, sortKey, menuOpen } = this.state;
     return (
       <Paper className={classes.root}>
@@ -131,7 +144,7 @@ class TableApp extends React.Component<Props, State> {
                   i
                 </TableCell>
                 <TableCell className={classes.nameCell}>name</TableCell>
-                {['500m', '1000m', '1500m', '3000m', '5000m'].map((str, index) => (
+                {['1km', '3km', '5km', '10km'].map((str, index) => (
                   <TableCell key={index} align="right">
                     <TableSortLabel
                       active={index === sortKey}
@@ -144,19 +157,18 @@ class TableApp extends React.Component<Props, State> {
               </TableRow>
             </TableHead>
             <TableBody>
-              {sortedFeatures(data.features, ascSort, sortKey).map((feature, index) => (
+              {sortData(data, ascSort, sortKey).map((datum, index) => (
                 <TableRow key={index}>
                   <TableCell className={classes.indexCell} component="th" scope="row" align="right">
                     {index + 1}
                   </TableCell>
                   <TableCell className={classes.nameCell} component="th" scope="row">
-                    <Link to={`/${feature.properties.id}/`}>{feature.properties.name}</Link>
+                    <Link to={`/${datum.node.summary.slug}/`}>{datum.node.summary.name}</Link>
                   </TableCell>
-                  <TableCell align="right">{feature.properties.radius500.toLocaleString()}</TableCell>
-                  <TableCell align="right">{feature.properties.radius1000.toLocaleString()}</TableCell>
-                  <TableCell align="right">{feature.properties.radius1500.toLocaleString()}</TableCell>
-                  <TableCell align="right">{feature.properties.radius3000.toLocaleString()}</TableCell>
-                  <TableCell align="right">{feature.properties.radius5000.toLocaleString()}</TableCell>
+                  <TableCell align="right">{datum.node.summary.radius1000.toLocaleString()}</TableCell>
+                  <TableCell align="right">{datum.node.summary.radius3000.toLocaleString()}</TableCell>
+                  <TableCell align="right">{datum.node.summary.radius5000.toLocaleString()}</TableCell>
+                  <TableCell align="right">{datum.node.summary.radius10000.toLocaleString()}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -171,10 +183,9 @@ export default withStyles(tableStyles)(TableApp);
 
 // utils
 
-function sortedFeatures(features: any[], ascSort: boolean, sortKey: number) {
+function sortData(data: Array<{ node: { summary: Summary } }>, ascSort: boolean, sortKey: number) {
   const isAsc = ascSort ? 1 : -1;
-  const sortProperty =
-    sortKey === 0 ? 'radius500' : sortKey === 1 ? 'radius1000' : sortKey === 2 ? 'radius1500' : sortKey === 3 ? 'radius3000' : 'radius5000';
+  const sortProperty = sortKey === 0 ? 'radius1000' : sortKey === 1 ? 'radius3000' : sortKey === 2 ? 'radius5000' : 'radius10000';
 
-  return features.sort((a, b) => isAsc * (a.properties[sortProperty] - b.properties[sortProperty]));
+  return data.sort((a, b) => isAsc * (a.node.summary[sortProperty] - b.node.summary[sortProperty]));
 }
