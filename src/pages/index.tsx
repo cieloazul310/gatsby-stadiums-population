@@ -7,14 +7,12 @@ import Layout from '../layouts/Layout';
 import withRoot from '../utils/withRoot';
 import TableApp from '../components/TableApp';
 import { VenueEdge } from '../utils/types';
-//import SimpleCounterApp from '../components/SimpleCounterApp';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {
       textAlign: 'center',
-      width: '100%',
-      padding: '1em'
+      width: '100%'
     }
   });
 

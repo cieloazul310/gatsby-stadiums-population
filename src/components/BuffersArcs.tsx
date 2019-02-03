@@ -1,30 +1,15 @@
 import * as React from 'react';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
-import { Feature, Polygon } from '@turf/helpers';
-import { arc as d3arc, pie as d3pie, arc } from 'd3-shape';
+import { arc as d3arc } from 'd3-shape';
 import { scaleSequential } from 'd3-scale';
-import { interpolateYlOrRd } from 'd3-scale-chromatic';
+import { interpolateSpectral } from 'd3-scale-chromatic';
 
-const styles = (themes: Theme) => ({
+import { Buffer } from '../utils/types';
+
+const styles = (themes: Theme): StyleRules => ({
   root: {}
 });
-
-interface BufferPropertis {
-  name: string;
-  radius: number;
-  population: number;
-  north: number;
-  east: number;
-  south: number;
-  west: number;
-  northeast: number;
-  southeast: number;
-  southwest: number;
-  northwest: number;
-}
-
-type Buffer = Feature<Polygon, BufferPropertis>;
 
 interface Props extends WithStyles<typeof styles> {
   width?: number;
@@ -32,11 +17,11 @@ interface Props extends WithStyles<typeof styles> {
   buffers: Buffer[];
 }
 
-const color = scaleSequential(interpolateYlOrRd).domain([10000, 100000]);
+const color = scaleSequential(interpolateSpectral).domain([10000, 0]);
 
 const BufferArcs: React.FunctionComponent<Props> = (props: Props) => {
-  const { classes, buffers } = props;
-  console.log(buffers);
+  const { classes, buffers, width, height } = props;
+  const size = width && height ? Math.min(width, height) : 320;
   const data = buffers.map(feature =>
     feature.properties
       ? {
@@ -46,21 +31,44 @@ const BufferArcs: React.FunctionComponent<Props> = (props: Props) => {
         }
       : {}
   );
+  const dirs = buffersToDirection(buffers);
   const arcs = d3arc()
-    .outerRadius(200)
-    .innerRadius(100);
+    .outerRadius(size / 2)
+    .innerRadius(size / 3)
+    .padAngle(0.01);
 
   return (
-    <svg className={classes.root} width={400} height={400}>
-      <g transform={`translate(${200}, ${200})`}>
-        {Object.values(data[3].directions).map((datum, index) => (
+    <svg className={classes.root} width={size} height={size}>
+      <g transform={`translate(${size / 2}, ${size / 2})`}>
+        {dirs.map((dir, index) => (
           <g key={index}>
-            <path d={arcs(datum) || undefined} fill={color(datum.val)} />
-            <text x={arcs.centroid(datum)[0]} y={arcs.centroid(datum)[1]} textAnchor="middle">
-              {datum.val}
-            </text>
+            {dir.items.map((item, i) => {
+              const arc = d3arc()
+                .outerRadius(((size / 2 - 20) * item.to) / 10000)
+                .innerRadius(((size / 2 - 20) * item.from) / 10000 + 4)
+                .padAngle(0.01);
+              return (
+                <g key={i}>
+                  <path d={arc(item)} fill={color(calcDensity(item.val, item.from, item.to))} />
+                </g>
+              );
+            })}
           </g>
         ))}
+      </g>
+      <g>
+        <text x={size / 2} dy="1em" textAnchor="middle">
+          N
+        </text>
+        <text x={size / 2} y={size} textAnchor="middle">
+          S
+        </text>
+        <text y={size / 2} dy=".5em" textAnchor="start">
+          W
+        </text>
+        <text x={size} y={size / 2} dy=".5em" textAnchor="end">
+          E
+        </text>
       </g>
     </svg>
   );
@@ -70,10 +78,24 @@ export default withStyles(styles)(BufferArcs);
 
 // utils
 
-function createDirection(feature: Feature<Polygon, BufferPropertis>) {
+function buffersToDirection(buffers: Buffer[]) {
+  const directions = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
+  const dirObjs = directions.map(str => ({
+    direction: str,
+    items: buffers.map((feature, index, arr) => ({
+      ...directionToAngle(str),
+      from: index > 0 ? arr[index - 1].properties.radius : 0,
+      to: feature.properties.radius,
+      val: index > 0 ? feature.properties[str] - arr[index - 1].properties[str] : feature.properties[str]
+    }))
+  }));
+  return dirObjs;
+}
+
+function createDirection(feature: Buffer) {
   if (!feature.properties) return null;
   const { north, northeast, east, southeast, south, southwest, west, northwest } = feature.properties;
-  const direction = { north, northeast, east, southeast, south, southwest, west, northwest };
+  const direction: any = { north, northeast, east, southeast, south, southwest, west, northwest };
   for (let key in direction) {
     const val = direction[key];
     direction[key] = { ...directionToAngle(key), val, dir: key };
@@ -88,4 +110,10 @@ function directionToAngle(key: string) {
     startAngle: directions.indexOf(key) * angle - angle / 2,
     endAngle: directions.indexOf(key) * angle + angle / 2
   };
+}
+
+function calcDensity(val: number, from: number, to: number) {
+  return from === 0
+    ? (val * 8) / (Math.pow(to / 1000, 2) * Math.PI)
+    : (val * 8) / (Math.pow(to / 1000, 2) * Math.PI - Math.pow(from / 1000, 2) * Math.PI);
 }

@@ -1,17 +1,13 @@
 import * as React from 'react';
 import { scaleLinear, scalePow, scaleSequential } from 'd3-scale';
 import { interpolateSpectral } from 'd3-scale-chromatic';
-import { Feature } from '@turf/helpers';
+import { Feature, Point } from '@turf/helpers';
 import { GeoProjection } from 'd3-geo';
 
-interface MeshFeature extends Feature {
-  properties: {
-    val: number;
-  };
-}
+import { MeshProperties } from '../utils/types';
 
 interface Props {
-  feature: MeshFeature;
+  feature: Feature<Point, MeshProperties>;
   projection: GeoProjection;
 }
 

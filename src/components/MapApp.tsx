@@ -8,7 +8,8 @@ import { geoMercator, geoPath, GeoProjection, GeoPath } from 'd3-geo';
 import TileSet, { Tile, TileWithURL } from '../utils/tileTree';
 import MeshFeature from '../components/MeshFeature';
 import GrayScaleFilter from '../components/GrayScaleFilter';
-import { GeoJSONObject, Feature } from '@turf/helpers';
+import { Feature, Point } from '@turf/helpers';
+import { Buffer, MeshProperties } from '../utils/types';
 
 import Place from '../image/place.svg';
 
@@ -36,8 +37,11 @@ interface D3TileArray<T> extends Array<T> {
 interface Props extends WithStyles<typeof styles> {
   width: number;
   height: number;
-  geojson: GeoJSONObject;
-  buffers: Feature[];
+  geojson: {
+    type: 'FeatureCollection';
+    features: Feature<Point, MeshProperties>[];
+  };
+  buffers: Buffer[];
 }
 
 interface State {
@@ -48,7 +52,6 @@ class Map extends React.Component<Props, State> {
   readonly state: State = {
     fetchStatus: 'yet'
   };
-  _projection: GeoProjection = geoMercator();
   _tileSet = new TileSet();
   // Tile Maps
   // slope: //cyberjapandata.gsi.go.jp/xyz/slopemap/{z}/{x}/{y}.png
@@ -76,31 +79,22 @@ class Map extends React.Component<Props, State> {
     return this._tileSet.updateTiles(tiles);
   };
 
-  componentDidMount() {
-    console.log('Component Did Mount');
-    console.log(this.props.geojson);
-  }
+  componentDidMount() {}
 
   public render() {
-    console.log('Render');
     const { classes, width, height, buffers, geojson } = this.props;
-    const projection = geoMercator().fitExtent([[10, 40], [width - 10, height - 40]], buffers[buffers.length - 1]);
+    const projection = buffers
+      ? geoMercator().fitExtent([[10, 40], [width - 10, height - 40]], buffers[buffers.length - 1])
+      : geoMercator();
 
-    console.log(projection.scale());
     const path: GeoPath = geoPath(projection);
     const tileCoords = this._getTileCoordinates(projection);
 
-    console.log(tileCoords);
-    console.log(projection.scale());
-
     let renderTiles: TileWithURL[] = this._tileSet.setTileUrlFromTree(tileCoords);
 
-    if (this._tileSet.isRequireFetch(tileCoords) /*tiles.length !== tileCoords.length*/) {
-      console.log('Fetch Tiles Starts');
+    if (this._tileSet.isRequireFetch(tileCoords)) {
       this._fetchTiles(tileCoords).then(newTiles => {
         this.setState({ fetchStatus: 'fetched' });
-        console.log('Fetch Tiles Ends');
-        console.log(newTiles);
       });
     }
 
@@ -122,7 +116,7 @@ class Map extends React.Component<Props, State> {
           </g>
         </g>
         <g>
-          {buffers.length
+          {buffers
             ? buffers.map((feature, index) => (
                 <path key={index} d={path(feature)} fill="none" stroke="rgba(200, 60, 80, 0.2)" strokeWidth={3} />
               ))

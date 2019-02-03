@@ -32,7 +32,7 @@ const tableStyles = (theme: Theme): StyleRules =>
       marginTop: theme.spacing.unit * 3
     },
     table: {
-      minWidth: 920
+      minWidth: 760
     },
     tableWrapper: {
       overflowX: 'auto'
