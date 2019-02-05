@@ -12,7 +12,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Popper from '@material-ui/core/Popper';
-import Fade from '@material-ui/core/Fade';
+import Grow from '@material-ui/core/Grow';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -44,6 +44,9 @@ const tableStyles = (theme: Theme): StyleRules =>
     nameCell: {
       width: '16em',
       padding: '4px 16px 4px 24px'
+    },
+    filterMenuWrapper: {
+      zIndex: 1
     }
   });
 
@@ -71,6 +74,7 @@ interface State {
 }
 
 class TableApp extends React.Component<Props, State> {
+  private anchorEl: HTMLElement = undefined;
   readonly state: State = {
     ascSort: false,
     sortKey: 3,
@@ -85,7 +89,6 @@ class TableApp extends React.Component<Props, State> {
   };
 
   public render() {
-    let anchorEl = null;
     const { classes, title, data } = this.props;
     const { ascSort, sortKey, menuOpen } = this.state;
     return (
@@ -96,30 +99,42 @@ class TableApp extends React.Component<Props, State> {
           </div>
           <div style={{ flex: '1 1 100%' }} />
           <div>
-            <ClickAwayListener
-              onClickAway={() => {
-                this.setState({ menuOpen: false });
-              }}
-            >
-              <div>
-                <Tooltip title="Filter">
-                  <IconButton
-                    aria-describedby="filter"
-                    aria-label="Filter"
-                    onClick={event => {
-                      anchorEl = event.currentTarget;
-                      this.setState(prev => ({ menuOpen: !prev.menuOpen }));
-                    }}
-                  >
-                    <FilterListIcon />
-                  </IconButton>
-                </Tooltip>
-                <Popper anchorEl={anchorEl} open={menuOpen} id="filter" transition disablePortal placement="bottom-end">
-                  {({ TransitionProps }) => (
-                    <Fade {...TransitionProps}>
-                      <Paper>
+            <div>
+              <Tooltip title="Filter">
+                <IconButton
+                  aria-owns={menuOpen ? 'menu-list' : undefined}
+                  aria-haspopup="true"
+                  buttonRef={node => {
+                    this.anchorEl = node;
+                  }}
+                  onClick={() => {
+                    this.setState(prev => ({ menuOpen: !prev.menuOpen }));
+                  }}
+                >
+                  <FilterListIcon />
+                </IconButton>
+              </Tooltip>
+              <Popper
+                className={classes.filterMenuWrapper}
+                anchorEl={this.anchorEl}
+                open={menuOpen}
+                transition
+                disablePortal
+                placement="bottom-end"
+              >
+                {({ TransitionProps }) => (
+                  <Grow id="menu-list" {...TransitionProps} style={{ transformOrigin: 'right top' }}>
+                    <Paper>
+                      <ClickAwayListener
+                        onClickAway={event => {
+                          if (this.anchorEl.contains(event.target)) {
+                            return;
+                          }
+                          this.setState({ menuOpen: false });
+                        }}
+                      >
                         <MenuList>
-                          {['J1', 'J2', 'J3', 'JFL', '地域'].map((str, index) => (
+                          {['J1', 'J2', 'J3', 'JFL', '地域', 'その他'].map((str, index) => (
                             <MenuItem key={index}>
                               <ListItemIcon>
                                 <CheckCircleIcon />
@@ -128,12 +143,12 @@ class TableApp extends React.Component<Props, State> {
                             </MenuItem>
                           ))}
                         </MenuList>
-                      </Paper>
-                    </Fade>
-                  )}
-                </Popper>
-              </div>
-            </ClickAwayListener>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </div>
           </div>
         </Toolbar>
         <div className={classes.tableWrapper}>
@@ -146,12 +161,9 @@ class TableApp extends React.Component<Props, State> {
                 <TableCell className={classes.nameCell}>name</TableCell>
                 {['1km', '3km', '5km', '10km'].map((str, index) => (
                   <TableCell key={index} align="right">
-                    <TableSortLabel
-                      active={index === sortKey}
-                      direction={ascSort ? 'asc' : 'desc'}
-                      onClick={() => this._handleSort(index)}
-                    />
-                    {str}
+                    <TableSortLabel active={index === sortKey} direction={ascSort ? 'asc' : 'desc'} onClick={() => this._handleSort(index)}>
+                      {str}
+                    </TableSortLabel>
                   </TableCell>
                 ))}
               </TableRow>
@@ -163,7 +175,9 @@ class TableApp extends React.Component<Props, State> {
                     {index + 1}
                   </TableCell>
                   <TableCell className={classes.nameCell} component="th" scope="row">
-                    <Link to={`/${datum.node.summary.slug}/`}>{datum.node.summary.name}</Link>
+                    <Link to={`/${datum.node.summary.slug}/`} state={{ tableState: this.state }}>
+                      {datum.node.summary.name}
+                    </Link>
                   </TableCell>
                   <TableCell align="right">{datum.node.summary.radius1000.toLocaleString()}</TableCell>
                   <TableCell align="right">{datum.node.summary.radius3000.toLocaleString()}</TableCell>

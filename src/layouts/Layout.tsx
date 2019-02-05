@@ -49,7 +49,9 @@ const Layout: React.FunctionComponent<Props> = (props: Props) => (
         />
         <AppBar position="sticky">
           <Toolbar>
-            <Typography variant="h6">{data.site.siteMetadata.title}</Typography>
+            <Typography variant="h6" color="inherit">
+              {data.site.siteMetadata.title}
+            </Typography>
           </Toolbar>
         </AppBar>
         {props.children}

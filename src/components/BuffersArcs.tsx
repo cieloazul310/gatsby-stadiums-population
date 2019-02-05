@@ -12,30 +12,16 @@ const styles = (themes: Theme): StyleRules => ({
 });
 
 interface Props extends WithStyles<typeof styles> {
-  width?: number;
-  height?: number;
+  width: number;
   buffers: Buffer[];
 }
 
 const color = scaleSequential(interpolateSpectral).domain([10000, 0]);
 
 const BufferArcs: React.FunctionComponent<Props> = (props: Props) => {
-  const { classes, buffers, width, height } = props;
-  const size = width && height ? Math.min(width, height) : 320;
-  const data = buffers.map(feature =>
-    feature.properties
-      ? {
-          radius: feature.properties.radius,
-          population: feature.properties.population,
-          directions: createDirection(feature)
-        }
-      : {}
-  );
+  const { classes, buffers, width } = props;
+  const size = Math.min(width, 600);
   const dirs = buffersToDirection(buffers);
-  const arcs = d3arc()
-    .outerRadius(size / 2)
-    .innerRadius(size / 3)
-    .padAngle(0.01);
 
   return (
     <svg className={classes.root} width={size} height={size}>
@@ -44,12 +30,12 @@ const BufferArcs: React.FunctionComponent<Props> = (props: Props) => {
           <g key={index}>
             {dir.items.map((item, i) => {
               const arc = d3arc()
-                .outerRadius(((size / 2 - 20) * item.to) / 10000)
-                .innerRadius(((size / 2 - 20) * item.from) / 10000 + 4)
-                .padAngle(0.01);
+                .outerRadius(((size - 48) * (i + 2)) / 10)
+                .innerRadius(((size - 48) * (i + 1)) / 10 + 4)
+                .padAngle(0.02);
               return (
                 <g key={i}>
-                  <path d={arc(item)} fill={color(calcDensity(item.val, item.from, item.to))} />
+                  <path d={arc(item)} fill={color(calcDensity(item.val, item.from, item.to))} fillOpacity={item.val ? 1 : 0.1} />
                 </g>
               );
             })}
@@ -58,16 +44,16 @@ const BufferArcs: React.FunctionComponent<Props> = (props: Props) => {
       </g>
       <g>
         <text x={size / 2} dy="1em" textAnchor="middle">
-          N
+          北
         </text>
         <text x={size / 2} y={size} textAnchor="middle">
-          S
+          南
         </text>
         <text y={size / 2} dy=".5em" textAnchor="start">
-          W
+          西
         </text>
         <text x={size} y={size / 2} dy=".5em" textAnchor="end">
-          E
+          東
         </text>
       </g>
     </svg>
@@ -90,17 +76,6 @@ function buffersToDirection(buffers: Buffer[]) {
     }))
   }));
   return dirObjs;
-}
-
-function createDirection(feature: Buffer) {
-  if (!feature.properties) return null;
-  const { north, northeast, east, southeast, south, southwest, west, northwest } = feature.properties;
-  const direction: any = { north, northeast, east, southeast, south, southwest, west, northwest };
-  for (let key in direction) {
-    const val = direction[key];
-    direction[key] = { ...directionToAngle(key), val, dir: key };
-  }
-  return direction;
 }
 
 function directionToAngle(key: string) {

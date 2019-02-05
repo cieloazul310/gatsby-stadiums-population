@@ -9,7 +9,7 @@ import TileSet, { Tile, TileWithURL } from '../utils/tileTree';
 import MeshFeature from '../components/MeshFeature';
 import GrayScaleFilter from '../components/GrayScaleFilter';
 import { Feature, Point } from '@turf/helpers';
-import { Buffer, MeshProperties } from '../utils/types';
+import { Buffer, MeshProperties, LocationWithState } from '../utils/types';
 
 import Place from '../image/place.svg';
 
@@ -42,6 +42,7 @@ interface Props extends WithStyles<typeof styles> {
     features: Feature<Point, MeshProperties>[];
   };
   buffers: Buffer[];
+  location: LocationWithState;
 }
 
 interface State {
@@ -82,7 +83,9 @@ class Map extends React.Component<Props, State> {
   componentDidMount() {}
 
   public render() {
-    const { classes, width, height, buffers, geojson } = this.props;
+    const { classes, buffers, geojson } = this.props;
+    const width = this.props.width || 400;
+    const height = this.props.height || 400;
     const projection = buffers
       ? geoMercator().fitExtent([[10, 40], [width - 10, height - 40]], buffers[buffers.length - 1])
       : geoMercator();
@@ -118,7 +121,7 @@ class Map extends React.Component<Props, State> {
         <g>
           {buffers
             ? buffers.map((feature, index) => (
-                <path key={index} d={path(feature)} fill="none" stroke="rgba(200, 60, 80, 0.2)" strokeWidth={3} />
+                <path key={index} d={path(feature) || undefined} fill="none" stroke="rgba(200, 60, 80, 0.2)" strokeWidth={3} />
               ))
             : null}
         </g>

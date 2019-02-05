@@ -1,4 +1,17 @@
 import { Feature, Polygon } from '@turf/helpers';
+import { LocationProps } from '@reach/router';
+
+export interface AppState {
+  readonly ascSort: boolean;
+  readonly sortKey: number;
+  readonly menuOpen: boolean;
+  readonly mapView: number;
+  readonly mapTile: string;
+}
+
+export interface LocationWithState extends LocationProps {
+  state: AppState;
+}
 
 export interface Summary {
   name: string;

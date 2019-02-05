@@ -20,6 +20,7 @@ module.exports = {
         path: `${__dirname}/src/content`
       }
     },
+    /*
     {
       resolve: 'gatsby-transformer-remark',
       options: {
@@ -44,6 +45,7 @@ module.exports = {
         ]
       }
     },
+    */
     'gatsby-transformer-json',
     {
       resolve: `gatsby-source-filesystem`,
@@ -59,8 +61,8 @@ module.exports = {
     },
     'gatsby-plugin-emotion',
     'gatsby-plugin-typescript',
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
+    //'gatsby-plugin-sharp',
+    //'gatsby-transformer-sharp',
     'gatsby-plugin-react-helmet'
   ]
 };

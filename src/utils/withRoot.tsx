@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import lightblue from '@material-ui/core/colors/lightBlue';
-import blueGrey from '@material-ui/core/colors/blueGrey';
+//import lightblue from '@material-ui/core/colors/lightBlue';
+//import blueGrey from '@material-ui/core/colors/blueGrey';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-const theme = createMuiTheme({
+export const theme = createMuiTheme({
+  /*
   palette: {
     primary: lightblue,
     secondary: blueGrey
-  },
+  },*/
   typography: {
     useNextVariants: true
   }
