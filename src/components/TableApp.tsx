@@ -23,7 +23,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import Typography from '@material-ui/core/Typography';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
-import { VenueEdge } from '../utils/types';
+import { VenueEdge, AppState, TableState } from '../utils/types';
 
 const tableStyles = (theme: Theme): StyleRules =>
   createStyles({
@@ -65,21 +65,25 @@ interface Summary {
 interface Props extends WithStyles<typeof tableStyles> {
   title: string;
   data: Array<VenueEdge>;
+  appState: AppState | null;
 }
 
-interface State {
-  readonly ascSort: boolean;
-  readonly sortKey: number;
+interface State extends TableState {
   readonly menuOpen: boolean;
 }
 
 class TableApp extends React.Component<Props, State> {
   private anchorEl: HTMLElement = undefined;
-  readonly state: State = {
-    ascSort: false,
-    sortKey: 3,
-    menuOpen: false
-  };
+  readonly state: State = this.props.appState
+    ? {
+        ...this.props.appState.tableState,
+        menuOpen: false
+      }
+    : {
+        ascSort: false,
+        sortKey: 3,
+        menuOpen: false
+      };
 
   private _handleSort = (index: number) => {
     this.setState(prevState => ({
@@ -89,8 +93,9 @@ class TableApp extends React.Component<Props, State> {
   };
 
   public render() {
-    const { classes, title, data } = this.props;
+    const { classes, title, data, appState } = this.props;
     const { ascSort, sortKey, menuOpen } = this.state;
+    console.log(this.state);
     return (
       <Paper className={classes.root}>
         <Toolbar>
@@ -175,7 +180,16 @@ class TableApp extends React.Component<Props, State> {
                     {index + 1}
                   </TableCell>
                   <TableCell className={classes.nameCell} component="th" scope="row">
-                    <Link to={`/${datum.node.summary.slug}/`} state={{ tableState: this.state }}>
+                    <Link
+                      to={`/${datum.node.summary.slug}/`}
+                      state={{
+                        mapState: appState.mapState || null,
+                        tableState: {
+                          ascSort,
+                          sortKey
+                        }
+                      }}
+                    >
                       {datum.node.summary.name}
                     </Link>
                   </TableCell>
@@ -197,7 +211,7 @@ export default withStyles(tableStyles)(TableApp);
 
 // utils
 
-function sortData(data: Array<{ node: { summary: Summary } }>, ascSort: boolean, sortKey: number) {
+export function sortData(data: Array<{ node: { summary: Summary } }>, ascSort: boolean, sortKey: number) {
   const isAsc = ascSort ? 1 : -1;
   const sortProperty = sortKey === 0 ? 'radius1000' : sortKey === 1 ? 'radius3000' : sortKey === 2 ? 'radius5000' : 'radius10000';
 

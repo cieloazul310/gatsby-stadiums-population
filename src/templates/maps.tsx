@@ -11,21 +11,32 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import Switch from '@material-ui/core/Switch';
 import Divider from '@material-ui/core/Divider';
 import ArrowForward from '@material-ui/icons/ArrowForward';
-import ListIcon from '@material-ui/icons/List';
 import Typography from '@material-ui/core/Typography';
+// styles
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
+// icons
+import ZoomIn from '@material-ui/icons/ZoomIn';
+import ZoomOut from '@material-ui/icons/ZoomOut';
+import ListIcon from '@material-ui/icons/List';
+import PeopleIcon from '@material-ui/icons/People';
+import Adjust from '@material-ui/icons/Adjust';
+import LandScape from '@material-ui/icons/Landscape';
+
 import { AutoSizer } from 'react-virtualized';
 import { feature as topofeature } from 'topojson-client';
 import { Topology } from 'topojson-specification';
 
 import MapApp from '../components/MapApp';
+import { sortData } from '../components/TableApp';
 import BufferArcs from '../components/BuffersArcs';
-import { Summary, LocationWithState } from '../utils/types';
+import { Summary, LocationWithState, VenueEdge, MapState, initialAppState, TableState } from '../utils/types';
 import withRoot from '../utils/withRoot';
 
 const drawerWidth = 240;
@@ -57,9 +68,16 @@ const styles = (theme: Theme): StyleRules =>
     drawerPaper: {
       width: drawerWidth
     },
+    itemTitle: {
+      fontSize: '80%',
+      fontWeight: 'bold'
+    },
+    itemNumber: {
+      textAlign: 'right'
+    },
     content: {
       flexGrow: 1,
-      paddingTop: 48
+      paddingTop: 56
     },
     apptitle: {
       flexGrow: 1
@@ -82,14 +100,7 @@ const styles = (theme: Theme): StyleRules =>
 interface Props extends WithStyles<typeof styles> {
   data: {
     allVenuesJson: {
-      edges: Array<{
-        node: {
-          summary: {
-            name: string;
-            slug: string;
-          };
-        };
-      }>;
+      edges: Array<VenueEdge>;
     };
     venuesJson: {
       fields: {
@@ -102,36 +113,63 @@ interface Props extends WithStyles<typeof styles> {
   location: LocationWithState;
 }
 
-interface State {
+interface State extends MapState {
   readonly drawerOpen: boolean;
 }
 
 class MapPage extends React.Component<Props, State> {
-  readonly state = {
-    drawerOpen: false
-  };
+  readonly state = this.props.location.state
+    ? {
+        ...this.props.location.state.mapState,
+        drawerOpen: false
+      }
+    : {
+        ...initialAppState.mapState,
+        drawerOpen: false
+      };
   private handleDrawerToggle = () => {
     this.setState(prev => ({
       drawerOpen: !prev.drawerOpen
     }));
   };
+  private handlePopVisibility = () => {
+    this.setState(prev => ({
+      popVisibility: !prev.popVisibility
+    }));
+  };
+  private handleBufferVisibility = () => {
+    this.setState(prev => ({
+      bufferVisibility: !prev.bufferVisibility
+    }));
+  };
 
   public render() {
-    const { classes, data } = this.props;
+    const { classes, data, location } = this.props;
+    const { popVisibility, bufferVisibility, zoomLevel } = this.state;
+    const tableState = location.state ? location.state.tableState : initialAppState.tableState;
     const { edges } = data.allVenuesJson;
-    const { summary, topojson, fields } = data.venuesJson;
+    const { summary, topojson } = data.venuesJson;
     const geojson = topofeature(topojson, topojson.objects.points);
     const buffers = topofeature(topojson, topojson.objects.buffers).features;
+    const others = sortData(edges, tableState.ascSort, tableState.sortKey);
+    const sortProp =
+      tableState.sortKey === 0
+        ? 'radius1000'
+        : tableState.sortKey === 1
+        ? 'radius3000'
+        : tableState.sortKey === 2
+        ? 'radius5000'
+        : 'radius10000';
 
     const { name, radius1000, radius3000, radius5000, radius10000, slug } = summary;
-
     const drawer = (
       <div>
+        <div className={classes.toolbar} />
         <List subheader={<ListSubheader>地図</ListSubheader>}>
           <ListItem
             button
             onClick={() => {
-              navigate('/');
+              navigate('/', { state: { tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } } });
             }}
           >
             <ListItemIcon>
@@ -140,43 +178,76 @@ class MapPage extends React.Component<Props, State> {
             <ListItemText>表に戻る</ListItemText>
           </ListItem>
           <Divider />
-          <ListItem button>
+          <ListItem
+            button
+            selected={zoomLevel === 0}
+            onClick={() => {
+              this.setState(prev => ({ zoomLevel: prev.zoomLevel !== 0 ? prev.zoomLevel - 1 : prev.zoomLevel }));
+            }}
+          >
             <ListItemIcon>
-              <ListIcon />
+              <ZoomIn />
             </ListItemIcon>
             <ListItemText>地図を拡大</ListItemText>
           </ListItem>
+          <ListItem
+            button
+            selected={zoomLevel === 3}
+            onClick={() => {
+              this.setState(prev => ({ zoomLevel: prev.zoomLevel !== 3 ? prev.zoomLevel + 1 : prev.zoomLevel }));
+            }}
+          >
+            <ListItemIcon>
+              <ZoomOut />
+            </ListItemIcon>
+            <ListItemText>地図を縮小</ListItemText>
+          </ListItem>
           <ListItem button>
             <ListItemIcon>
-              <ListIcon />
+              <LandScape />
             </ListItemIcon>
             <ListItemText>地形モード</ListItemText>
           </ListItem>
-          <ListItem button>
+          <ListItem>
             <ListItemIcon>
-              <ListIcon />
+              <PeopleIcon />
             </ListItemIcon>
-            <ListItemText>人口を非表示</ListItemText>
+            <ListItemText>人口</ListItemText>
+            <ListItemSecondaryAction>
+              <Switch onChange={this.handlePopVisibility} checked={popVisibility} />
+            </ListItemSecondaryAction>
           </ListItem>
-          <ListItem button>
+          <ListItem>
             <ListItemIcon>
-              <ListIcon />
+              <Adjust />
             </ListItemIcon>
-            <ListItemText>距離円を非表示</ListItemText>
+            <ListItemText>距離円</ListItemText>
+            <ListItemSecondaryAction>
+              <Switch onChange={this.handleBufferVisibility} checked={bufferVisibility} />
+            </ListItemSecondaryAction>
           </ListItem>
           <Divider />
         </List>
-        <List subheader={<ListSubheader>一覧</ListSubheader>}>
-          {edges.map(edge => (
+        <List subheader={<ListSubheader>{`一覧 ${createSortString(tableState)}`}</ListSubheader>}>
+          {others.map(edge => (
             <ListItem
               key={edge.node.summary.slug}
               button
               selected={edge.node.summary.slug === slug}
               onClick={() => {
-                navigate(`/${edge.node.summary.slug}/`);
+                navigate(`/${edge.node.summary.slug}/`, {
+                  state: { tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } }
+                });
               }}
             >
-              <ListItemText>{edge.node.summary.name}</ListItemText>
+              <ListItemText
+                primary={<Typography className={classes.itemTitle}>{edge.node.summary.name}</Typography>}
+                secondary={
+                  <Typography component="span" className={classes.itemNumber}>
+                    {edge.node.summary[sortProp].toLocaleString()}
+                  </Typography>
+                }
+              />
             </ListItem>
           ))}
         </List>
@@ -208,9 +279,11 @@ class MapPage extends React.Component<Props, State> {
               aria-owns="next"
               aria-haspopup="true"
               onClick={() => {
-                const slugs = edges.map(edge => edge.node.summary.slug);
-                const next = slugs[Math.round(Math.random() * slugs.length)];
-                navigate(`/${next}/`, { state: { from: fields.slug } });
+                const currentIndex = others.map(edge => edge.node.summary.slug).indexOf(slug);
+                const next = currentIndex === others.length - 1 ? others[0] : others[currentIndex + 1];
+                navigate(`/${next.node.summary.slug}/`, {
+                  state: { tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } }
+                });
               }}
               color="inherit"
             >
@@ -246,7 +319,17 @@ class MapPage extends React.Component<Props, State> {
         </nav>
         <div className={classes.content}>
           <div className={classes.autoSizerWrapper}>
-            <AutoSizer>{({ width, height }) => <MapApp width={width} height={height} geojson={geojson} buffers={buffers} />}</AutoSizer>
+            <AutoSizer>
+              {({ width, height }) => (
+                <MapApp
+                  width={width}
+                  height={height}
+                  geojson={geojson}
+                  buffers={buffers}
+                  mapState={{ popVisibility, bufferVisibility, zoomLevel }}
+                />
+              )}
+            </AutoSizer>
           </div>
           <div className={classes.description}>
             <Typography variant="h5">{name}</Typography>
@@ -272,6 +355,14 @@ class MapPage extends React.Component<Props, State> {
 export default withRoot(withStyles(styles)(MapPage));
 
 // helper
+function createSortString(tableState: TableState): string {
+  const { ascSort, sortKey } = tableState;
+  const sortRule = ascSort ? '昇順' : '降順';
+  const sortLabel = ['1km', '3km', '5km', '10km'][sortKey];
+
+  return `${sortLabel}圏内人口 ${sortRule}`;
+}
+
 export const query = graphql`
   query($slug: String!) {
     allVenuesJson {
@@ -280,6 +371,10 @@ export const query = graphql`
           summary {
             slug
             name
+            radius1000
+            radius3000
+            radius5000
+            radius10000
           }
         }
       }
@@ -296,6 +391,7 @@ export const query = graphql`
         radius3000
         radius5000
         radius10000
+        slug
       }
       topojson {
         type

@@ -1,16 +1,36 @@
 import { Feature, Polygon } from '@turf/helpers';
 import { LocationProps } from '@reach/router';
 
-export interface AppState {
+export const initialAppState: AppState = {
+  tableState: {
+    ascSort: false,
+    sortKey: 3
+  },
+  mapState: {
+    popVisibility: true,
+    bufferVisibility: true,
+    zoomLevel: 3
+  }
+};
+
+export interface TableState {
   readonly ascSort: boolean;
   readonly sortKey: number;
-  readonly menuOpen: boolean;
-  readonly mapView: number;
-  readonly mapTile: string;
+}
+
+export interface MapState {
+  readonly popVisibility: boolean;
+  readonly bufferVisibility: boolean;
+  readonly zoomLevel: number;
+}
+
+export interface AppState {
+  tableState: TableState;
+  mapState: MapState;
 }
 
 export interface LocationWithState extends LocationProps {
-  state: AppState;
+  state: AppState | null;
 }
 
 export interface Summary {

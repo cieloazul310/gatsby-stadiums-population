@@ -17,7 +17,7 @@ const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {},
     tiles: {
-      transition: 'opacity 1s'
+      //transition: 'opacity 1s'
     },
     buffer: {
       fill: 'none',
@@ -25,7 +25,7 @@ const styles = (theme: Theme): StyleRules =>
       strokeWidth: 2
     },
     points: {
-      transition: 'opacity 1s .5s'
+      //transition: 'opacity 1s .5s'
     }
   });
 
@@ -37,6 +37,11 @@ interface D3TileArray<T> extends Array<T> {
 interface Props extends WithStyles<typeof styles> {
   width: number;
   height: number;
+  mapState: {
+    popVisibility: boolean;
+    bufferVisibility: boolean;
+    zoomLevel: number;
+  };
   geojson: {
     type: 'FeatureCollection';
     features: Feature<Point, MeshProperties>[];
@@ -83,11 +88,12 @@ class Map extends React.Component<Props, State> {
   componentDidMount() {}
 
   public render() {
-    const { classes, buffers, geojson } = this.props;
+    const { classes, buffers, geojson, mapState } = this.props;
+    console.log(mapState);
     const width = this.props.width || 400;
     const height = this.props.height || 400;
     const projection = buffers
-      ? geoMercator().fitExtent([[10, 40], [width - 10, height - 40]], buffers[buffers.length - 1])
+      ? geoMercator().fitExtent([[10, 40], [width - 10, height - 40]], buffers[mapState.zoomLevel])
       : geoMercator();
 
     const path: GeoPath = geoPath(projection);
@@ -118,20 +124,27 @@ class Map extends React.Component<Props, State> {
             ))}
           </g>
         </g>
-        <g>
+        <g style={{ opacity: mapState.bufferVisibility ? 1 : 0 }}>
           {buffers
             ? buffers.map((feature, index) => (
-                <path key={index} d={path(feature) || undefined} fill="none" stroke="rgba(200, 60, 80, 0.2)" strokeWidth={3} />
+                <path
+                  key={index}
+                  d={path(feature) || undefined}
+                  fill="none"
+                  stroke="rgba(200, 60, 80, 0.2)" strokeWidth={3}
+                />
               ))
             : null}
         </g>
-        <g className={classes.points} style={{ opacity: this.state.fetchStatus === 'fetched' ? 1 : 0 }}>
-          {geojson
-            ? geojson.features.map((feature, index) =>
-                feature.geometry.type === 'Point' ? <MeshFeature key={index} feature={feature} projection={projection} /> : null
-              )
-            : null}
-        </g>
+        {mapState.popVisibility ? (
+          <g className={classes.points} style={{ opacity: this.state.fetchStatus === 'fetched' ? 1 : 0 }}>
+            {geojson
+              ? geojson.features.map((feature, index) =>
+                  feature.geometry.type === 'Point' ? <MeshFeature key={index} feature={feature} projection={projection} /> : null
+                )
+              : null}
+          </g>
+        ) : null}
         <g>
           <image xlinkHref={Place} x={width / 2} y={height / 2} width={28} height={28} transform="translate(-14, -26)" />
         </g>
