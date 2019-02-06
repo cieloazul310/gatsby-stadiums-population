@@ -4,12 +4,13 @@ import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/wit
 import createStyles from '@material-ui/core/styles/createStyles';
 const d3tile = require('d3-tile').tile;
 
+import bbox from '@turf/bbox';
 import { geoMercator, geoPath, GeoProjection, GeoPath } from 'd3-geo';
 import TileSet, { Tile, TileWithURL } from '../utils/tileTree';
 import MeshFeature from '../components/MeshFeature';
 import GrayScaleFilter from '../components/GrayScaleFilter';
 import { Feature, Point } from '@turf/helpers';
-import { Buffer, MeshProperties, LocationWithState } from '../utils/types';
+import { Buffer, MeshProperties, LocationWithState, MapState } from '../utils/types';
 
 import Place from '../image/place.svg';
 
@@ -20,9 +21,10 @@ const styles = (theme: Theme): StyleRules =>
       //transition: 'opacity 1s'
     },
     buffer: {
-      fill: 'none',
-      stroke: theme.palette.primary.main,
-      strokeWidth: 2
+      opacity: 0.2,
+      '&:hover': {
+        opacity: 1
+      }
     },
     points: {
       //transition: 'opacity 1s .5s'
@@ -37,17 +39,12 @@ interface D3TileArray<T> extends Array<T> {
 interface Props extends WithStyles<typeof styles> {
   width: number;
   height: number;
-  mapState: {
-    popVisibility: boolean;
-    bufferVisibility: boolean;
-    zoomLevel: number;
-  };
+  mapState: MapState;
   geojson: {
     type: 'FeatureCollection';
     features: Feature<Point, MeshProperties>[];
   };
   buffers: Buffer[];
-  location: LocationWithState;
 }
 
 interface State {
@@ -89,12 +86,10 @@ class Map extends React.Component<Props, State> {
 
   public render() {
     const { classes, buffers, geojson, mapState } = this.props;
-    console.log(mapState);
+    const { popVisibility, bufferVisibility, zoomLevel } = mapState;
     const width = this.props.width || 400;
     const height = this.props.height || 400;
-    const projection = buffers
-      ? geoMercator().fitExtent([[10, 40], [width - 10, height - 40]], buffers[mapState.zoomLevel])
-      : geoMercator();
+    const projection = buffers ? geoMercator().fitExtent([[10, 40], [width - 10, height - 40]], buffers[zoomLevel]) : geoMercator();
 
     const path: GeoPath = geoPath(projection);
     const tileCoords = this._getTileCoordinates(projection);
@@ -124,24 +119,30 @@ class Map extends React.Component<Props, State> {
             ))}
           </g>
         </g>
-        <g style={{ opacity: mapState.bufferVisibility ? 1 : 0 }}>
-          {buffers
-            ? buffers.map((feature, index) => (
-                <path
-                  key={index}
-                  d={path(feature) || undefined}
-                  fill="none"
-                  stroke="rgba(200, 60, 80, 0.2)" strokeWidth={3}
-                />
-              ))
-            : null}
-        </g>
-        {mapState.popVisibility ? (
+        {popVisibility ? (
           <g className={classes.points} style={{ opacity: this.state.fetchStatus === 'fetched' ? 1 : 0 }}>
             {geojson
               ? geojson.features.map((feature, index) =>
                   feature.geometry.type === 'Point' ? <MeshFeature key={index} feature={feature} projection={projection} /> : null
                 )
+              : null}
+          </g>
+        ) : null}
+        {bufferVisibility ? (
+          <g>
+            {buffers
+              ? buffers.map((feature, index) => {
+                  const bb = bbox(feature);
+                  const lb = projection([bb[2] + (bb[0] - bb[2]) / 2, bb[1]]);
+                  return (
+                    <g key={index} className={classes.buffer}>
+                      <path d={path(feature) || undefined} fill="none" stroke="rgb(200, 60, 80)" strokeWidth={3} />
+                      <text x={lb[0]} y={lb[1]} dy="1em" textAnchor="middle" fill="rgb(200, 60, 80)" style={{ fontWeight: 'bold' }}>
+                        {feature.properties.radius}
+                      </text>
+                    </g>
+                  );
+                })
               : null}
           </g>
         ) : null}

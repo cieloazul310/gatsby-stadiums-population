@@ -95,7 +95,6 @@ class TableApp extends React.Component<Props, State> {
   public render() {
     const { classes, title, data, appState } = this.props;
     const { ascSort, sortKey, menuOpen } = this.state;
-    console.log(this.state);
     return (
       <Paper className={classes.root}>
         <Toolbar>
