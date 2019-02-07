@@ -36,6 +36,7 @@ import { Topology } from 'topojson-specification';
 import MapApp from '../components/MapApp';
 import { sortData } from '../components/TableApp';
 import BufferArcs from '../components/BuffersArcs';
+import ValuesTable from '../components/ValuesTable';
 import { Summary, LocationWithState, VenueEdge, MapState, initialAppState, TableState } from '../utils/types';
 import withRoot from '../utils/withRoot';
 
@@ -59,7 +60,7 @@ const styles = (theme: Theme): StyleRules =>
       }
     },
     menuButton: {
-      marginRight: 20,
+      marginRight: 10,
       [theme.breakpoints.up('md')]: {
         display: 'none'
       }
@@ -80,7 +81,11 @@ const styles = (theme: Theme): StyleRules =>
       paddingTop: 56
     },
     apptitle: {
-      flexGrow: 1
+      flexGrow: 1,
+      lineHeight: 1.2,
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '90%'
+      }
     },
     autoSizerWrapper: {
       height: 'calc(100vh - 56px)'
@@ -92,8 +97,14 @@ const styles = (theme: Theme): StyleRules =>
     },
     description: {
       maxWidth: 800,
-      margin: 'auto',
-      padding: theme.spacing.unit * 3
+      margin: 'auto'
+    },
+    descTitle: {
+      padding: theme.spacing.unit * 2
+    },
+    descParagraph: {
+      paddingLeft: theme.spacing.unit * 2,
+      paddingRight: theme.spacing.unit * 2
     }
   });
 
@@ -161,7 +172,7 @@ class MapPage extends React.Component<Props, State> {
         ? 'radius5000'
         : 'radius10000';
 
-    const { name, radius1000, radius3000, radius5000, radius10000, slug } = summary;
+    const { name, club, shortname, category, radius1000, radius3000, radius5000, radius10000, slug } = summary;
     const drawer = (
       <div>
         <div className={classes.toolbar} />
@@ -200,19 +211,19 @@ class MapPage extends React.Component<Props, State> {
             <ListItemIcon>
               <ZoomOut />
             </ListItemIcon>
-            <ListItemText>地図を縮小</ListItemText>
+            <ListItemText primary="地図を縮小" />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
               <LandScape />
             </ListItemIcon>
-            <ListItemText>地形モード</ListItemText>
+            <ListItemText primary="地形モード" />
           </ListItem>
           <ListItem>
             <ListItemIcon>
               <PeopleIcon />
             </ListItemIcon>
-            <ListItemText>人口</ListItemText>
+            <ListItemText primary="人口" />
             <ListItemSecondaryAction>
               <Switch onChange={this.handlePopVisibility} checked={popVisibility} />
             </ListItemSecondaryAction>
@@ -221,7 +232,7 @@ class MapPage extends React.Component<Props, State> {
             <ListItemIcon>
               <Adjust />
             </ListItemIcon>
-            <ListItemText>距離円</ListItemText>
+            <ListItemText primary="距離円" />
             <ListItemSecondaryAction>
               <Switch onChange={this.handleBufferVisibility} checked={bufferVisibility} />
             </ListItemSecondaryAction>
@@ -332,7 +343,13 @@ class MapPage extends React.Component<Props, State> {
             </AutoSizer>
           </div>
           <div className={classes.description}>
-            <Typography variant="h5">{name}</Typography>
+            <Typography className={classes.descTitle} variant="h6">
+              {name}
+            </Typography>
+            <Typography className={classes.descParagraph} variant="subtitle1">
+              {club} {category}
+            </Typography>
+            <ValuesTable buffers={buffers} />
             <div className={classes.buffersWrapper}>
               <AutoSizer disableHeight>{({ width }) => <BufferArcs buffers={buffers} width={width} />}</AutoSizer>
             </div>
@@ -360,7 +377,7 @@ function createSortString(tableState: TableState): string {
   const sortRule = ascSort ? '昇順' : '降順';
   const sortLabel = ['1km', '3km', '5km', '10km'][sortKey];
 
-  return `${sortLabel}圏内人口 ${sortRule}`;
+  return `${sortLabel}圏内 ${sortRule}`;
 }
 
 export const query = graphql`
@@ -385,6 +402,7 @@ export const query = graphql`
       }
       summary {
         name
+        club
         shortname
         category
         radius1000

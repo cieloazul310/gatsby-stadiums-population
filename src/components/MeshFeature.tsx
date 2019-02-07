@@ -22,7 +22,7 @@ const MeshRect: React.FunctionComponent<Props> = (props: Props) => {
   const { feature, projection } = props;
   const { val } = feature.properties;
   const center = projection(feature.geometry.coordinates);
-  const size = Math.abs(sizeScale(val) * Math.max(1, projection.scale() / 125000));
+  const size = Math.abs(sizeScale(val) * Math.min(Math.max(1, projection.scale() / 125000), 2.5));
 
   return (
     <rect

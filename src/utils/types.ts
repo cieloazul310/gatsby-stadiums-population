@@ -35,9 +35,9 @@ export interface LocationWithState extends LocationProps {
 
 export interface Summary {
   name: string;
-  club: string;
-  category: string;
-  shortname: string;
+  club: string[];
+  category: string[];
+  shortname: string[];
   slug: string;
   radius1000: number;
   radius3000: number;

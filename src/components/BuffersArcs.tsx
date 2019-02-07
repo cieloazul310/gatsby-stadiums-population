@@ -1,15 +1,23 @@
 import * as React from 'react';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
+import createStyles from '@material-ui/core/styles/createStyles';
 import { arc as d3arc } from 'd3-shape';
 import { scaleSequential } from 'd3-scale';
 import { interpolateSpectral } from 'd3-scale-chromatic';
 
 import { Buffer } from '../utils/types';
 
-const styles = (themes: Theme): StyleRules => ({
-  root: {}
-});
+const styles = (themes: Theme): StyleRules =>
+  createStyles({
+    root: {},
+    arc: {
+      strokeWidth: 0,
+      '&:hover': {
+        strokeWidth: 3
+      }
+    }
+  });
 
 interface Props extends WithStyles<typeof styles> {
   width: number;
@@ -35,7 +43,13 @@ const BufferArcs: React.FunctionComponent<Props> = (props: Props) => {
                 .padAngle(0.02);
               return (
                 <g key={i}>
-                  <path d={arc(item)} fill={color(calcDensity(item.val, item.from, item.to))} fillOpacity={item.val ? 1 : 0.1} />
+                  <path
+                    className={classes.arc}
+                    d={arc(item)}
+                    fill={color(calcDensity(item.val, item.from, item.to))}
+                    fillOpacity={item.val ? 0.8 : 0.1}
+                    stroke={color(calcDensity(item.val, item.from, item.to))}
+                  />
                 </g>
               );
             })}

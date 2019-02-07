@@ -10,7 +10,7 @@ import TileSet, { Tile, TileWithURL } from '../utils/tileTree';
 import MeshFeature from '../components/MeshFeature';
 import GrayScaleFilter from '../components/GrayScaleFilter';
 import { Feature, Point } from '@turf/helpers';
-import { Buffer, MeshProperties, LocationWithState, MapState } from '../utils/types';
+import { Buffer, MeshProperties, MapState } from '../utils/types';
 
 import Place from '../image/place.svg';
 
@@ -27,6 +27,7 @@ const styles = (theme: Theme): StyleRules =>
       }
     },
     points: {
+      mixBlendMode: 'multiply'
       //transition: 'opacity 1s .5s'
     }
   });
@@ -55,7 +56,7 @@ class Map extends React.Component<Props, State> {
   readonly state: State = {
     fetchStatus: 'yet'
   };
-  _tileSet = new TileSet();
+  private _tileSet = new TileSet();
   // Tile Maps
   // slope: //cyberjapandata.gsi.go.jp/xyz/slopemap/{z}/{x}/{y}.png
 
@@ -115,6 +116,7 @@ class Map extends React.Component<Props, State> {
                 y={((tile.y + tile.translate[1]) * tile.scale) / tile.mag}
                 width={tile.scale / tile.mag}
                 height={tile.scale / tile.mag}
+                imageRendering="optimizeQuality"
               />
             ))}
           </g>
@@ -136,8 +138,16 @@ class Map extends React.Component<Props, State> {
                   const lb = projection([bb[2] + (bb[0] - bb[2]) / 2, bb[1]]);
                   return (
                     <g key={index} className={classes.buffer}>
+                      <path d={path(feature) || undefined} fill="none" stroke="rgba(255, 255, 255, 0.2)" strokeWidth={12} />
                       <path d={path(feature) || undefined} fill="none" stroke="rgb(200, 60, 80)" strokeWidth={3} />
-                      <text x={lb[0]} y={lb[1]} dy="1em" textAnchor="middle" fill="rgb(200, 60, 80)" style={{ fontWeight: 'bold' }}>
+                      <text
+                        x={lb[0]}
+                        y={lb[1]}
+                        dy="1em"
+                        textAnchor="middle"
+                        fill="rgb(200, 60, 80)"
+                        style={{ fontSize: '80%', fontFamily: 'sans-serif', fontWeight: 'bold' }}
+                      >
                         {feature.properties.radius}
                       </text>
                     </g>
