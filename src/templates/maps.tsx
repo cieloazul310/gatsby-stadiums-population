@@ -34,6 +34,7 @@ import { feature as topofeature } from 'topojson-client';
 import { Topology } from 'topojson-specification';
 
 import MapApp from '../components/MapApp';
+import { colorScale, sizeScale } from '../components/MeshFeature';
 import { sortData } from '../components/TableApp';
 import BufferArcs from '../components/BuffersArcs';
 import ValuesTable from '../components/ValuesTable';
@@ -95,6 +96,7 @@ const styles = (theme: Theme): StyleRules =>
       maxWidth: 600,
       margin: 'auto'
     },
+    legend: {},
     description: {
       maxWidth: 800,
       margin: 'auto'
@@ -162,7 +164,7 @@ class MapPage extends React.Component<Props, State> {
     const { summary, topojson } = data.venuesJson;
     const geojson = topofeature(topojson, topojson.objects.points);
     const buffers = topofeature(topojson, topojson.objects.buffers).features;
-    const others = sortData(edges, tableState.ascSort, tableState.sortKey);
+    const others = sortData(edges, tableState.ascSort, tableState.sortKey, tableState.filterRule);
     const sortProp =
       tableState.sortKey === 0
         ? 'radius1000'
@@ -268,9 +270,19 @@ class MapPage extends React.Component<Props, State> {
     return (
       <div className={classes.root}>
         <Helmet>
-          <title>{summary.name}周辺の人口 | サッカースタジアムと人口</title>
-          <meta name="description" content={`${summary.name}周辺の人口を表示した地図`} />
+          <title>{name}周辺の人口 | サッカースタジアムと人口</title>
+          <meta
+            name="description"
+            content={`${club.join(
+              ','
+            )}のホームスタジアム・${name}周辺の人口を総務省統計局の地域メッシュ統計から算出し、地図に表示しました。`}
+          />
           <meta property="og:type" content="article" />
+          <meta property="og:title" content={`${name}周辺の人口`} />
+          <meta property="og:image" content="https://cieloazul310.github.io/img/ogp2.png" />
+          <meta property="og:url" content={`https://cieloazul310.github.io/gatsby-stadiums-population/${slug}/`} />
+          <meta property="og:site_name" content="水戸地図" />
+          <meta name="twitter:card" content="summary" />
         </Helmet>
         <AppBar className={classes.appBar} position="fixed">
           <ToolBar>
@@ -309,21 +321,13 @@ class MapPage extends React.Component<Props, State> {
               variant="temporary"
               open={this.state.drawerOpen}
               onClose={this.handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper
-              }}
+              classes={{ paper: classes.drawerPaper }}
             >
               {drawer}
             </Drawer>
           </Hidden>
           <Hidden smDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              variant="permanent"
-              open
-            >
+            <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
               {drawer}
             </Drawer>
           </Hidden>
@@ -341,6 +345,17 @@ class MapPage extends React.Component<Props, State> {
                 />
               )}
             </AutoSizer>
+          </div>
+          <div className={classes.legend}>
+            {[100, 250, 500, 750, 1000, 1500, 2000].map(val => {
+              const size = sizeScale(val) * 2;
+              const color = colorScale(val);
+              return (
+                <svg key={val} width={30} height={30}>
+                  <rect x={15 - size / 2} y={15 - size / 2} width={size} height={size} fill={color} />
+                </svg>
+              );
+            })}
           </div>
           <div className={classes.description}>
             <Typography className={classes.descTitle} variant="h6">
@@ -388,6 +403,9 @@ export const query = graphql`
           summary {
             slug
             name
+            club
+            shortname
+            category
             radius1000
             radius3000
             radius5000

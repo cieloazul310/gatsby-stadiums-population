@@ -4,7 +4,8 @@ import { LocationProps } from '@reach/router';
 export const initialAppState: AppState = {
   tableState: {
     ascSort: false,
-    sortKey: 3
+    sortKey: 3,
+    filterRule: []
   },
   mapState: {
     popVisibility: true,
@@ -16,6 +17,7 @@ export const initialAppState: AppState = {
 export interface TableState {
   readonly ascSort: boolean;
   readonly sortKey: number;
+  readonly filterRule: string[];
 }
 
 export interface MapState {

@@ -19,11 +19,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import RemoveIcon from '@material-ui/icons/Remove';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import Typography from '@material-ui/core/Typography';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
-import { VenueEdge, AppState, TableState } from '../utils/types';
+import { Summary, VenueEdge, AppState, TableState } from '../utils/types';
 
 const tableStyles = (theme: Theme): StyleRules =>
   createStyles({
@@ -50,18 +51,6 @@ const tableStyles = (theme: Theme): StyleRules =>
     }
   });
 
-interface Summary {
-  name: string;
-  club: string;
-  category: string;
-  shortname: string;
-  slug: string;
-  radius1000: number;
-  radius3000: number;
-  radius5000: number;
-  radius10000: number;
-}
-
 interface Props extends WithStyles<typeof tableStyles> {
   title: string;
   data: Array<VenueEdge>;
@@ -82,6 +71,7 @@ class TableApp extends React.Component<Props, State> {
     : {
         ascSort: false,
         sortKey: 3,
+        filterRule: [],
         menuOpen: false
       };
 
@@ -92,9 +82,16 @@ class TableApp extends React.Component<Props, State> {
     }));
   };
 
+  private _handleFilterRule = (str: string) => {
+    this.setState(prevState => ({
+      filterRule:
+        prevState.filterRule.indexOf(str) >= 0 ? prevState.filterRule.filter(filter => filter !== str) : [...prevState.filterRule, str]
+    }));
+  };
+
   public render() {
     const { classes, title, data, appState } = this.props;
-    const { ascSort, sortKey, menuOpen } = this.state;
+    const { ascSort, sortKey, filterRule, menuOpen } = this.state;
     return (
       <Paper className={classes.root}>
         <Toolbar>
@@ -139,10 +136,13 @@ class TableApp extends React.Component<Props, State> {
                       >
                         <MenuList>
                           {['J1', 'J2', 'J3', 'JFL', '地域', 'その他'].map((str, index) => (
-                            <MenuItem key={index}>
-                              <ListItemIcon>
-                                <CheckCircleIcon />
-                              </ListItemIcon>
+                            <MenuItem
+                              key={index}
+                              onClick={() => {
+                                this._handleFilterRule(str);
+                              }}
+                            >
+                              <ListItemIcon>{filterRule.indexOf(str) < 0 ? <CheckCircleIcon /> : <RemoveIcon />}</ListItemIcon>
                               <ListItemText inset primary={str} />
                             </MenuItem>
                           ))}
@@ -173,7 +173,7 @@ class TableApp extends React.Component<Props, State> {
               </TableRow>
             </TableHead>
             <TableBody>
-              {sortData(data, ascSort, sortKey).map((datum, index) => (
+              {sortData(data, ascSort, sortKey, filterRule).map((datum, index) => (
                 <TableRow key={index}>
                   <TableCell className={classes.indexCell} component="th" scope="row" align="right">
                     {index + 1}
@@ -185,7 +185,8 @@ class TableApp extends React.Component<Props, State> {
                         mapState: appState.mapState || null,
                         tableState: {
                           ascSort,
-                          sortKey
+                          sortKey,
+                          filterRule
                         }
                       }}
                     >
@@ -210,9 +211,19 @@ export default withStyles(tableStyles)(TableApp);
 
 // utils
 
-export function sortData(data: Array<{ node: { summary: Summary } }>, ascSort: boolean, sortKey: number) {
+export function sortData(data: VenueEdge[], ascSort: boolean, sortKey: number, filterRule: string[] = []): VenueEdge[] {
   const isAsc = ascSort ? 1 : -1;
   const sortProperty = sortKey === 0 ? 'radius1000' : sortKey === 1 ? 'radius3000' : sortKey === 2 ? 'radius5000' : 'radius10000';
 
-  return data.sort((a, b) => isAsc * (a.node.summary[sortProperty] - b.node.summary[sortProperty]));
+  return filterRule.length
+    ? data
+        .filter(datum => datum.node.summary.category.some(category => filterRule.indexOf(category) < 0))
+        .sort((a, b) => isAsc * (a.node.summary[sortProperty] - b.node.summary[sortProperty]))
+    : data.sort((a, b) => isAsc * (a.node.summary[sortProperty] - b.node.summary[sortProperty]));
+}
+
+function filterIncludesEdge(filterRule: string[], edge: VenueEdge): boolean {
+  const categories = edge.node.summary.category;
+
+  return categories.some(category => filterRule.indexOf(category) < 0);
 }

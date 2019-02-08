@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
+import { Helmet } from 'react-helmet';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -35,6 +36,19 @@ class IndexPage extends React.PureComponent<Props> {
     const { classes } = this.props;
     return (
       <div>
+        <Helmet>
+          <title>サッカースタジアムと人口</title>
+          <meta
+            name="description"
+            content="日本国内の主要なサッカースタジアムの周辺人口を総務省統計局の地域メッシュ統計から算出し、地図に表示しました。"
+          />
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="サッカースタジアムと人口" />
+          <meta property="og:url" content="https://cieloazul310.github.io/gatsby-stadiums-population/" />
+          <meta property="og:image" content="https://cieloazul310.github.io/img/ogp2.png" />
+          <meta property="og:site_name" content="水戸地図" />
+          <meta name="twitter:card" content="summary" />
+        </Helmet>
         <AppBar>
           <ToolBar>
             <Typography variant="h6" color="inherit">
