@@ -28,13 +28,19 @@ export interface TileTree {
 
 interface TileSetOptions {
   url?: string;
+  maxZoom?: number;
+  minZoom?: number;
 }
 
 class TileSet {
   readonly tileTree: TileTree;
+  readonly maxZoom: number;
+  readonly minZoom: number;
   readonly tileUrl: string;
   constructor(options: TileSetOptions = {}) {
     this.tileUrl = options.url || '//cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png';
+    this.maxZoom = options.maxZoom || 20;
+    this.minZoom = options.maxZoom || 2;
     this.tileTree = {};
   }
 

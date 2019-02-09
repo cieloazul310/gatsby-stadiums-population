@@ -24,6 +24,7 @@ const styles = (theme: Theme): StyleRules =>
         opacity: 1
       }
     },
+    bufferText: { fontSize: '80%', fontFamily: 'sans-serif', fontWeight: 'bold' },
     progress: {
       position: 'absolute',
       width: '100%',
@@ -65,8 +66,15 @@ class Map extends React.Component<Props, State> {
 
   private _getTileCoordinates = (projection: GeoProjection): Tile[] => {
     const { width, height } = this.props;
-    const mag: number = 1.5;
-
+    let mag: number = 1.5;
+    /*
+    const zoomer = Math.log2((projection.scale() * 2 * mag * Math.PI) / 256);
+    const maxZoom = 15;
+    // required zoom level > maxZoom
+    if (zoomer > maxZoom + 0.5) {
+      mag = Math.pow(2, maxZoom + 0.5 - zoomer);
+    }
+    */
     const tiles: Tile[] = d3tile()
       .size([width * mag, height * mag])
       .scale(projection.scale() * 2 * Math.PI * mag)
@@ -116,6 +124,8 @@ class Map extends React.Component<Props, State> {
               {renderTiles.map((tile, index) => (
                 <image
                   key={index}
+                  id={tile.id}
+                  className={tile.mag.toString()}
                   xlinkHref={tile.url}
                   x={((tile.x + tile.translate[0]) * tile.scale) / tile.mag}
                   y={((tile.y + tile.translate[1]) * tile.scale) / tile.mag}
@@ -145,14 +155,7 @@ class Map extends React.Component<Props, State> {
                       <g key={index} className={classes.buffer}>
                         <path d={path(feature) || undefined} fill="none" stroke="rgba(255, 255, 255, 0.2)" strokeWidth={12} />
                         <path d={path(feature) || undefined} fill="none" stroke="rgb(200, 60, 80)" strokeWidth={3} />
-                        <text
-                          x={lb[0]}
-                          y={lb[1]}
-                          dy="1em"
-                          textAnchor="middle"
-                          fill="rgb(200, 60, 80)"
-                          style={{ fontSize: '80%', fontFamily: 'sans-serif', fontWeight: 'bold' }}
-                        >
+                        <text className={classes.bufferText} x={lb[0]} y={lb[1]} dy="1em" textAnchor="middle" fill="rgb(200, 60, 80)">
                           {feature.properties.radius}
                         </text>
                       </g>

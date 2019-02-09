@@ -26,12 +26,12 @@ import createStyles from '@material-ui/core/styles/createStyles';
 // icons
 import ZoomIn from '@material-ui/icons/ZoomIn';
 import ZoomOut from '@material-ui/icons/ZoomOut';
-import ListIcon from '@material-ui/icons/List';
 import PeopleIcon from '@material-ui/icons/People';
 import Adjust from '@material-ui/icons/Adjust';
 import LandScape from '@material-ui/icons/Landscape';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import Reply from '@material-ui/icons/Reply';
 
 import { AutoSizer } from 'react-virtualized';
 import { feature as topofeature } from 'topojson-client';
@@ -43,6 +43,7 @@ import { sortData } from '../components/TableApp';
 import BufferArcs from '../components/BuffersArcs';
 import ValuesTable from '../components/ValuesTable';
 import TwitterIcon from '../components/fa-buttons/TwitterIcon';
+import FacebookIcon from '../components/fa-buttons/FacebookIcon';
 import { Summary, LocationWithState, VenueEdge, MapState, initialAppState, TableState } from '../utils/types';
 import withRoot from '../utils/withRoot';
 
@@ -203,8 +204,24 @@ class MapPage extends React.Component<Props, State> {
     const { name, club, shortname, category, radius1000, radius3000, radius5000, radius10000, slug } = summary;
     const drawer = (
       <div>
+        <div className={classes.toolbar}>
+          <List>
+            <ListItem
+              button
+              onClick={() => {
+                navigate('/', { state: { tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } } });
+              }}
+            >
+              <ListItemIcon>
+                <Reply />
+              </ListItemIcon>
+              <ListItemText>表に戻る</ListItemText>
+            </ListItem>
+          </List>
+        </div>
+        {/*
         <div className={classes.toolbar} />
-        <List subheader={<ListSubheader>地図</ListSubheader>}>
+                <List>
           <ListItem
             button
             onClick={() => {
@@ -212,11 +229,15 @@ class MapPage extends React.Component<Props, State> {
             }}
           >
             <ListItemIcon>
-              <ListIcon />
+              <Reply />
             </ListItemIcon>
             <ListItemText>表に戻る</ListItemText>
           </ListItem>
-          <Divider />
+        </List>
+        */}
+        <Divider />
+        <ValuesTable summary={summary} />
+        <List subheader={<ListSubheader>地図</ListSubheader>}>
           <Hidden smDown implementation="css">
             <ListItem button selected={zoomLevel === 0} onClick={this.handleZoomIn}>
               <ListItemIcon>
@@ -255,14 +276,43 @@ class MapPage extends React.Component<Props, State> {
               <Switch onChange={this.handleBufferVisibility} checked={bufferVisibility} />
             </ListItemSecondaryAction>
           </ListItem>
-          <Divider />
-          <ListItem button>
+        </List>
+        <Divider />
+        <List subheader={<ListSubheader>シェア</ListSubheader>}>
+          <ListItem
+            button
+            component="a"
+            href={
+              `https://twitter.com/intent/tweet?text=` +
+              encodeURI(`${name}周辺の人口`) +
+              `&url=` +
+              encodeURIComponent(`https://cieloazul310.github.io/gatsby-stadiums-population/${slug}/`)
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <ListItemIcon>
               <TwitterIcon />
             </ListItemIcon>
             <ListItemText primary="Twitterで共有" />
           </ListItem>
+          <ListItem
+            button
+            component="a"
+            href={
+              `https://www.facebook.com/sharer/sharer.php?u=` +
+              encodeURIComponent(`https://cieloazul310.github.io/gatsby-stadiums-population/${slug}/`)
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <ListItemIcon>
+              <FacebookIcon />
+            </ListItemIcon>
+            <ListItemText primary="Facebookで共有" />
+          </ListItem>
         </List>
+        <Divider />
         <List subheader={<ListSubheader>{`一覧 ${createSortString(tableState)}`}</ListSubheader>}>
           {others.map(edge => (
             <ListItem
@@ -293,24 +343,14 @@ class MapPage extends React.Component<Props, State> {
       <div className={classes.root}>
         <Helmet>
           <title>{name}周辺の人口 | サッカースタジアムと人口</title>
-          <meta
-            name="description"
-            content={`${club.join(
-              ','
-            )}のホームスタジアム・${name}周辺の人口を総務省統計局の地域メッシュ統計から算出し、地図に表示しました。`}
-          />
+          <meta name="description" content={createDescriptionString(name, club)} />
           <meta property="og:type" content="article" />
           <meta property="og:title" content={`${name}周辺の人口`} />
           <meta property="og:image" content="https://cieloazul310.github.io/img/ogp2.png" />
           <meta property="og:url" content={`https://cieloazul310.github.io/gatsby-stadiums-population/${slug}/`} />
           <meta property="og:site_name" content="水戸地図" />
           <meta name="twitter:card" content="summary" />
-          <meta
-            name="twitter:description"
-            content={`${club.join(
-              ','
-            )}のホームスタジアム・${name}周辺の人口を総務省統計局の地域メッシュ統計から算出し、地図に表示しました。`}
-          />
+          <meta name="twitter:description" content={createDescriptionString(name, club)} />
         </Helmet>
         <AppBar className={classes.appBar} position="fixed">
           <ToolBar>
@@ -389,19 +429,10 @@ class MapPage extends React.Component<Props, State> {
             <Typography className={classes.descTitle} variant="h6">
               {name}
             </Typography>
-            <Typography className={classes.descParagraph} variant="subtitle1">
-              {club} {category}
-            </Typography>
-            <ValuesTable buffers={buffers} />
+            <ValuesTable summary={summary} />
             <div className={classes.buffersWrapper}>
               <AutoSizer disableHeight>{({ width }) => <BufferArcs buffers={buffers} width={width} />}</AutoSizer>
             </div>
-            <ul>
-              <li>{`1km: ${radius1000}`}</li>
-              <li>{`3km: ${radius3000}`}</li>
-              <li>{`5km: ${radius5000}`}</li>
-              <li>{`10km: ${radius10000}`}</li>
-            </ul>
             <Link to="/" state={{ tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } }}>
               トップに戻る
             </Link>
@@ -421,6 +452,11 @@ function createSortString(tableState: TableState): string {
   const sortLabel = ['1km', '3km', '5km', '10km'][sortKey];
 
   return `${sortLabel}圏内 ${sortRule}`;
+}
+
+function createDescriptionString(name: string, club: string[]): string {
+  const intro = club[0] !== 'その他' ? `${club.join(',')} のホームスタジアム・` : '';
+  return `${intro}${name}周辺の人口を総務省統計局の国勢調査に関する地域メッシュ統計(平成27年度)から算出し、地図に表示しました。`;
 }
 
 export const query = graphql`

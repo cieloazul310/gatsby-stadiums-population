@@ -5,53 +5,53 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Buffer } from '../utils/types';
+import Typography from '@material-ui/core/Typography';
+import { Summary } from '../utils/types';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
-    root: {}
+    root: {},
+    thead: {
+      padding: theme.spacing.unit * 2
+    }
   });
 
 interface Props extends WithStyles<typeof styles> {
-  buffers: Buffer[];
+  summary: Summary;
 }
 
 const ValuesTable: React.FunctionComponent<Props> = (props: Props) => {
+  const { classes, summary } = props;
+  const { club, category, radius1000, radius3000, radius5000, radius10000 } = summary;
+
   return (
-    <Paper className={props.classes.root}>
+    <div className={classes.root}>
+      <div className={classes.thead}>
+        <Typography variant="caption">クラブ: {club.join(', ')}</Typography>
+        <Typography variant="caption">カテゴリー: {category.join(', ')}</Typography>
+      </div>
       <Table>
-        {/*
-        <TableHead>
-          <TableRow>
-            <TableCell>1km</TableCell>
-            <TableCell>3km</TableCell>
-            <TableCell>5km</TableCell>
-            <TableCell>10km</TableCell>
-          </TableRow>
-      </TableHead>*/}
         <TableBody>
           <TableRow>
-            <TableCell>1km</TableCell>
-            <TableCell>val</TableCell>
+            <TableCell align="right">1km圏</TableCell>
+            <TableCell align="right">{radius1000.toLocaleString()}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>1km</TableCell>
-            <TableCell>val</TableCell>
+            <TableCell align="right">3km圏</TableCell>
+            <TableCell align="right">{radius3000.toLocaleString()}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>1km</TableCell>
-            <TableCell>val</TableCell>
+            <TableCell align="right">5km圏</TableCell>
+            <TableCell align="right">{radius5000.toLocaleString()}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>1km</TableCell>
-            <TableCell>val</TableCell>
+            <TableCell align="right">10km圏</TableCell>
+            <TableCell align="right">{radius10000.toLocaleString()}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
-    </Paper>
+    </div>
   );
 };
 

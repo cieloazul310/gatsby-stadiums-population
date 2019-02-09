@@ -17,6 +17,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,md}\"",
     "lint": "tslint 'src/**/*.{ts,tsx}' -p tsconfig.json",
     "start": "npm run dev",
+    "publish": "gh-pages -d public",
     "test": "npm run type-check && npm run lint",
     "type-check": "tsc"
   },
@@ -26,6 +27,10 @@
   "dependencies": {
     "@emotion/core": "^10.0.5",
     "@emotion/styled": "^10.0.5",
+    "@fortawesome/fontawesome-svg-core": "^1.2.14",
+    "@fortawesome/free-brands-svg-icons": "^5.7.1",
+    "@fortawesome/free-solid-svg-icons": "^5.7.1",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "@mapbox/tile-cover": "^3.0.2",
     "@material-ui/core": "3.7.1",
     "@material-ui/icons": "^3.0.1",
