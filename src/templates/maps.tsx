@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
 import Drawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/icons/Menu';
@@ -13,6 +14,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import Fab from '@material-ui/core/Fab';
 import Switch from '@material-ui/core/Switch';
 import Divider from '@material-ui/core/Divider';
 import ArrowForward from '@material-ui/icons/ArrowForward';
@@ -28,20 +30,23 @@ import ListIcon from '@material-ui/icons/List';
 import PeopleIcon from '@material-ui/icons/People';
 import Adjust from '@material-ui/icons/Adjust';
 import LandScape from '@material-ui/icons/Landscape';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 import { AutoSizer } from 'react-virtualized';
 import { feature as topofeature } from 'topojson-client';
 import { Topology } from 'topojson-specification';
 
 import MapApp from '../components/MapApp';
-import { colorScale, sizeScale } from '../components/MeshFeature';
+import MapLegends from '../components/MapLegends';
 import { sortData } from '../components/TableApp';
 import BufferArcs from '../components/BuffersArcs';
 import ValuesTable from '../components/ValuesTable';
+import TwitterIcon from '../components/fa-buttons/TwitterIcon';
 import { Summary, LocationWithState, VenueEdge, MapState, initialAppState, TableState } from '../utils/types';
 import withRoot from '../utils/withRoot';
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
@@ -79,7 +84,10 @@ const styles = (theme: Theme): StyleRules =>
     },
     content: {
       flexGrow: 1,
-      paddingTop: 56
+      paddingTop: 56,
+      '@media (min-width: 600px)': {
+        paddingTop: 64
+      }
     },
     apptitle: {
       flexGrow: 1,
@@ -89,14 +97,26 @@ const styles = (theme: Theme): StyleRules =>
       }
     },
     autoSizerWrapper: {
-      height: 'calc(100vh - 56px)'
+      height: 'calc(100vh - 56px)',
+      '@media (min-width: 600px)': {
+        height: 'calc(100vh - 64px)'
+      }
+    },
+    fabZoomIn: {
+      position: 'absolute',
+      bottom: theme.spacing.unit * 10,
+      right: theme.spacing.unit * 2
+    },
+    fabZoomOut: {
+      position: 'absolute',
+      bottom: theme.spacing.unit * 2,
+      right: theme.spacing.unit * 2
     },
     buffersWrapper: {
       width: '100%',
-      maxWidth: 600,
+      maxWidth: 480,
       margin: 'auto'
     },
-    legend: {},
     description: {
       maxWidth: 800,
       margin: 'auto'
@@ -155,6 +175,12 @@ class MapPage extends React.Component<Props, State> {
       bufferVisibility: !prev.bufferVisibility
     }));
   };
+  private handleZoomIn = () => {
+    this.setState(prev => ({ zoomLevel: prev.zoomLevel !== 0 ? prev.zoomLevel - 1 : prev.zoomLevel }));
+  };
+  private handleZoomOut = () => {
+    this.setState(prev => ({ zoomLevel: prev.zoomLevel !== 3 ? prev.zoomLevel + 1 : prev.zoomLevel }));
+  };
 
   public render() {
     const { classes, data, location } = this.props;
@@ -191,30 +217,20 @@ class MapPage extends React.Component<Props, State> {
             <ListItemText>表に戻る</ListItemText>
           </ListItem>
           <Divider />
-          <ListItem
-            button
-            selected={zoomLevel === 0}
-            onClick={() => {
-              this.setState(prev => ({ zoomLevel: prev.zoomLevel !== 0 ? prev.zoomLevel - 1 : prev.zoomLevel }));
-            }}
-          >
-            <ListItemIcon>
-              <ZoomIn />
-            </ListItemIcon>
-            <ListItemText>地図を拡大</ListItemText>
-          </ListItem>
-          <ListItem
-            button
-            selected={zoomLevel === 3}
-            onClick={() => {
-              this.setState(prev => ({ zoomLevel: prev.zoomLevel !== 3 ? prev.zoomLevel + 1 : prev.zoomLevel }));
-            }}
-          >
-            <ListItemIcon>
-              <ZoomOut />
-            </ListItemIcon>
-            <ListItemText primary="地図を縮小" />
-          </ListItem>
+          <Hidden smDown implementation="css">
+            <ListItem button selected={zoomLevel === 0} onClick={this.handleZoomIn}>
+              <ListItemIcon>
+                <ZoomIn />
+              </ListItemIcon>
+              <ListItemText>地図を拡大</ListItemText>
+            </ListItem>
+            <ListItem button selected={zoomLevel === 3} onClick={this.handleZoomOut}>
+              <ListItemIcon>
+                <ZoomOut />
+              </ListItemIcon>
+              <ListItemText primary="地図を縮小" />
+            </ListItem>
+          </Hidden>
           <ListItem button>
             <ListItemIcon>
               <LandScape />
@@ -240,6 +256,12 @@ class MapPage extends React.Component<Props, State> {
             </ListItemSecondaryAction>
           </ListItem>
           <Divider />
+          <ListItem button>
+            <ListItemIcon>
+              <TwitterIcon />
+            </ListItemIcon>
+            <ListItemText primary="Twitterで共有" />
+          </ListItem>
         </List>
         <List subheader={<ListSubheader>{`一覧 ${createSortString(tableState)}`}</ListSubheader>}>
           {others.map(edge => (
@@ -283,6 +305,12 @@ class MapPage extends React.Component<Props, State> {
           <meta property="og:url" content={`https://cieloazul310.github.io/gatsby-stadiums-population/${slug}/`} />
           <meta property="og:site_name" content="水戸地図" />
           <meta name="twitter:card" content="summary" />
+          <meta
+            name="twitter:description"
+            content={`${club.join(
+              ','
+            )}のホームスタジアム・${name}周辺の人口を総務省統計局の地域メッシュ統計から算出し、地図に表示しました。`}
+          />
         </Helmet>
         <AppBar className={classes.appBar} position="fixed">
           <ToolBar>
@@ -315,16 +343,16 @@ class MapPage extends React.Component<Props, State> {
           </ToolBar>
         </AppBar>
         <nav className={classes.drawer}>
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
           <Hidden mdUp implementation="css">
-            <Drawer
+            <SwipeableDrawer
               variant="temporary"
               open={this.state.drawerOpen}
               onClose={this.handleDrawerToggle}
+              onOpen={this.handleDrawerToggle}
               classes={{ paper: classes.drawerPaper }}
             >
               {drawer}
-            </Drawer>
+            </SwipeableDrawer>
           </Hidden>
           <Hidden smDown implementation="css">
             <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
@@ -336,27 +364,27 @@ class MapPage extends React.Component<Props, State> {
           <div className={classes.autoSizerWrapper}>
             <AutoSizer>
               {({ width, height }) => (
-                <MapApp
-                  width={width}
-                  height={height}
-                  geojson={geojson}
-                  buffers={buffers}
-                  mapState={{ popVisibility, bufferVisibility, zoomLevel }}
-                />
+                <div>
+                  <MapApp
+                    width={width}
+                    height={height}
+                    geojson={geojson}
+                    buffers={buffers}
+                    mapState={{ popVisibility, bufferVisibility, zoomLevel }}
+                  />
+                  <Hidden implementation="css" mdUp>
+                    <Fab className={classes.fabZoomIn} color="primary" disabled={zoomLevel === 0} onClick={this.handleZoomIn}>
+                      <AddIcon />
+                    </Fab>
+                    <Fab className={classes.fabZoomOut} color="primary" disabled={zoomLevel === 3} onClick={this.handleZoomOut}>
+                      <RemoveIcon />
+                    </Fab>
+                  </Hidden>
+                </div>
               )}
             </AutoSizer>
           </div>
-          <div className={classes.legend}>
-            {[100, 250, 500, 750, 1000, 1500, 2000].map(val => {
-              const size = sizeScale(val) * 2;
-              const color = colorScale(val);
-              return (
-                <svg key={val} width={30} height={30}>
-                  <rect x={15 - size / 2} y={15 - size / 2} width={size} height={size} fill={color} />
-                </svg>
-              );
-            })}
-          </div>
+          <MapLegends />
           <div className={classes.description}>
             <Typography className={classes.descTitle} variant="h6">
               {name}
@@ -374,7 +402,7 @@ class MapPage extends React.Component<Props, State> {
               <li>{`5km: ${radius5000}`}</li>
               <li>{`10km: ${radius10000}`}</li>
             </ul>
-            <Link to="/" state={this.props.location.state}>
+            <Link to="/" state={{ tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } }}>
               トップに戻る
             </Link>
           </div>

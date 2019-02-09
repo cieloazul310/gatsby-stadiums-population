@@ -4,6 +4,7 @@ import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/wit
 import createStyles from '@material-ui/core/styles/createStyles';
 const d3tile = require('d3-tile').tile;
 
+import LinearProgress from '@material-ui/core/LinearProgress';
 import bbox from '@turf/bbox';
 import { geoMercator, geoPath, GeoProjection, GeoPath } from 'd3-geo';
 import TileSet, { Tile, TileWithURL } from '../utils/tileTree';
@@ -17,18 +18,20 @@ import Place from '../image/place.svg';
 const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {},
-    tiles: {
-      //transition: 'opacity 1s'
-    },
     buffer: {
       opacity: 0.2,
       '&:hover': {
         opacity: 1
       }
     },
+    progress: {
+      position: 'absolute',
+      width: '100%',
+      top: 0,
+      left: 0
+    },
     points: {
       mixBlendMode: 'multiply'
-      //transition: 'opacity 1s .5s'
     }
   });
 
@@ -96,70 +99,74 @@ class Map extends React.Component<Props, State> {
     const tileCoords = this._getTileCoordinates(projection);
 
     let renderTiles: TileWithURL[] = this._tileSet.setTileUrlFromTree(tileCoords);
-
+    let hoge = null;
     if (this._tileSet.isRequireFetch(tileCoords)) {
-      this._fetchTiles(tileCoords).then(newTiles => {
+      hoge = <LinearProgress className={classes.progress} color="secondary" />;
+      this._fetchTiles(tileCoords).then(() => {
         this.setState({ fetchStatus: 'fetched' });
       });
     }
 
     return (
-      <svg className={classes.root} width={width} height={height}>
-        <g>
-          <GrayScaleFilter id="grayscale" />
-          <g filter="url(#grayscale)" className={classes.tiles} style={{ opacity: this.state.fetchStatus === 'fetched' ? 1 : 0 }}>
-            {renderTiles.map((tile, index) => (
-              <image
-                key={index}
-                xlinkHref={tile.url}
-                x={((tile.x + tile.translate[0]) * tile.scale) / tile.mag}
-                y={((tile.y + tile.translate[1]) * tile.scale) / tile.mag}
-                width={tile.scale / tile.mag}
-                height={tile.scale / tile.mag}
-                imageRendering="optimizeQuality"
-              />
-            ))}
-          </g>
-        </g>
-        {popVisibility ? (
-          <g className={classes.points} style={{ opacity: this.state.fetchStatus === 'fetched' ? 1 : 0 }}>
-            {geojson
-              ? geojson.features.map((feature, index) =>
-                  feature.geometry.type === 'Point' ? <MeshFeature key={index} feature={feature} projection={projection} /> : null
-                )
-              : null}
-          </g>
-        ) : null}
-        {bufferVisibility ? (
+      <div className={classes.root}>
+        <svg width={width} height={height}>
           <g>
-            {buffers
-              ? buffers.map((feature, index) => {
-                  const bb = bbox(feature);
-                  const lb = projection([bb[2] + (bb[0] - bb[2]) / 2, bb[1]]);
-                  return (
-                    <g key={index} className={classes.buffer}>
-                      <path d={path(feature) || undefined} fill="none" stroke="rgba(255, 255, 255, 0.2)" strokeWidth={12} />
-                      <path d={path(feature) || undefined} fill="none" stroke="rgb(200, 60, 80)" strokeWidth={3} />
-                      <text
-                        x={lb[0]}
-                        y={lb[1]}
-                        dy="1em"
-                        textAnchor="middle"
-                        fill="rgb(200, 60, 80)"
-                        style={{ fontSize: '80%', fontFamily: 'sans-serif', fontWeight: 'bold' }}
-                      >
-                        {feature.properties.radius}
-                      </text>
-                    </g>
-                  );
-                })
-              : null}
+            <GrayScaleFilter id="grayscale" />
+            <g filter="url(#grayscale)" className={classes.tiles} style={{ opacity: this.state.fetchStatus !== 'fetching' ? 1 : 0 }}>
+              {renderTiles.map((tile, index) => (
+                <image
+                  key={index}
+                  xlinkHref={tile.url}
+                  x={((tile.x + tile.translate[0]) * tile.scale) / tile.mag}
+                  y={((tile.y + tile.translate[1]) * tile.scale) / tile.mag}
+                  width={tile.scale / tile.mag}
+                  height={tile.scale / tile.mag}
+                  imageRendering="optimizeQuality"
+                />
+              ))}
+            </g>
           </g>
-        ) : null}
-        <g>
-          <image xlinkHref={Place} x={width / 2} y={height / 2} width={28} height={28} transform="translate(-14, -26)" />
-        </g>
-      </svg>
+          {popVisibility ? (
+            <g className={classes.points} style={{ opacity: this.state.fetchStatus !== 'yet' ? 1 : 0 }}>
+              {geojson
+                ? geojson.features.map((feature, index) =>
+                    feature.geometry.type === 'Point' ? <MeshFeature key={index} feature={feature} projection={projection} /> : null
+                  )
+                : null}
+            </g>
+          ) : null}
+          {bufferVisibility ? (
+            <g>
+              {buffers
+                ? buffers.map((feature, index) => {
+                    const bb = bbox(feature);
+                    const lb = projection([bb[2] + (bb[0] - bb[2]) / 2, bb[1]]);
+                    return (
+                      <g key={index} className={classes.buffer}>
+                        <path d={path(feature) || undefined} fill="none" stroke="rgba(255, 255, 255, 0.2)" strokeWidth={12} />
+                        <path d={path(feature) || undefined} fill="none" stroke="rgb(200, 60, 80)" strokeWidth={3} />
+                        <text
+                          x={lb[0]}
+                          y={lb[1]}
+                          dy="1em"
+                          textAnchor="middle"
+                          fill="rgb(200, 60, 80)"
+                          style={{ fontSize: '80%', fontFamily: 'sans-serif', fontWeight: 'bold' }}
+                        >
+                          {feature.properties.radius}
+                        </text>
+                      </g>
+                    );
+                  })
+                : null}
+            </g>
+          ) : null}
+          <g>
+            <image xlinkHref={Place} x={width / 2} y={height / 2} width={28} height={28} transform="translate(-14, -26)" />
+          </g>
+        </svg>
+        {hoge || null}
+      </div>
     );
   }
 }

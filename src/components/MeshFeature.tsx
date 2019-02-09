@@ -11,7 +11,7 @@ interface Props {
   projection: GeoProjection;
 }
 
-export const colorScale = scaleSequential(interpolateSpectral).domain([1000, 0]);
+export const colorScale = scaleSequential(interpolateSpectral).domain([1250, 0]);
 
 export const sizeScale = scalePow()
   .domain([0, 1000])
