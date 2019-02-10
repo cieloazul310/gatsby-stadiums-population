@@ -21,6 +21,8 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
+import { VenueEdge, AppState, TableState } from '../utils/types';
+
 const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {
@@ -107,55 +109,35 @@ const styles = (theme: Theme): StyleRules =>
     }
   });
 
-interface Datum {
-  name: string;
-  category: string[];
-  radius1000: number;
-  radius3000: number;
-  radius5000: number;
-  radius10000: number;
-}
-
-const categories = ['J1', 'J2', 'J3', 'JFL', '地域', 'その他'];
-
-const initialData: Datum[] = Array.from({ length: 100 }, () => ({
-  name: Math.random()
-    .toString(36)
-    .slice(-16),
-  category:
-    Math.random() > 0.9
-      ? [categories[Math.round(Math.random() * (categories.length - 1))], categories[Math.round(Math.random() * (categories.length - 1))]]
-      : [categories[Math.round(Math.random() * (categories.length - 1))]],
-  radius1000: Math.round(Math.random() * 10000),
-  radius3000: Math.round(Math.random() * 100000),
-  radius5000: Math.round(Math.random() * 500000),
-  radius10000: Math.round(Math.random() * 1000000)
-}));
-
 interface Props extends WithStyles<typeof styles> {
-  data?: Datum[];
+  data: VenueEdge[];
   width: number;
   height: number;
+  appState: AppState;
 }
 
-interface State {
+interface State extends TableState {
   readonly menuOpen: boolean;
-  readonly sortAsc: boolean;
   readonly sortKey: number;
   readonly filterRule: string[];
 }
 
 class RCTable extends React.Component<Props, State> {
-  readonly state = {
-    menuOpen: false,
-    filterRule: [],
-    sortAsc: false,
-    sortKey: 0
-  };
+  readonly state: State = this.props.appState
+    ? {
+        ...this.props.appState.tableState,
+        menuOpen: false
+      }
+    : {
+        ascSort: false,
+        sortKey: 3,
+        filterRule: [],
+        menuOpen: false
+      };
   private anchorEl: HTMLElement;
   private _handleSort = (index: number) => {
     this.setState(prevState => ({
-      sortAsc: prevState.sortKey === index ? !prevState.sortAsc : false,
+      ascSort: prevState.sortKey === index ? !prevState.ascSort : false,
       sortKey: index
     }));
   };
@@ -171,9 +153,9 @@ class RCTable extends React.Component<Props, State> {
     }));
   };
   public render() {
-    const { classes, data, width, height } = this.props;
-    const { sortAsc, sortKey, filterRule, menuOpen } = this.state;
-    const items = data || initialData;
+    const { classes, data, width, height, appState } = this.props;
+    const { ascSort, sortKey, filterRule, menuOpen } = this.state;
+    const items = data;
     return (
       <Paper
         className={classes.root}
@@ -248,7 +230,7 @@ class RCTable extends React.Component<Props, State> {
               <div className={classes.headerRowBody}>
                 {['1km', '3km', '5km', '10km'].map((str, index) => (
                   <div key={index} className={classes.val}>
-                    <TableSortLabel active={index === sortKey} direction={sortAsc ? 'asc' : 'desc'} onClick={() => this._handleSort(index)}>
+                    <TableSortLabel active={index === sortKey} direction={ascSort ? 'asc' : 'desc'} onClick={() => this._handleSort(index)}>
                       {str}
                     </TableSortLabel>
                   </div>
@@ -263,20 +245,32 @@ class RCTable extends React.Component<Props, State> {
             height: height - 120
           }}
         >
-          {sortData(items, sortAsc, sortKey, filterRule).map((datum, index) => (
+          {sortData(items, ascSort, sortKey, filterRule).map((edge, index) => (
             <div key={index} className={classes.row}>
               <div className={classes.rowHead}>
                 <div className={classes.index}>{index + 1}</div>
                 <div className={classes.name}>
-                  <Link to="/">{datum.name}</Link>
+                  <Link
+                    to={`/${edge.node.summary.slug}/`}
+                    state={{
+                      mapState: appState.mapState || null,
+                      tableState: {
+                        ascSort,
+                        sortKey,
+                        filterRule
+                      }
+                    }}
+                  >
+                    {edge.node.summary.name}
+                  </Link>
                 </div>
-                <div className={classes.category}>{datum.category.join(' ')}</div>
+                <div className={classes.category}>{edge.node.summary.shortname.join(' ')}</div>
               </div>
               <div className={classes.rowBody}>
-                <div className={classes.val}>{datum.radius1000.toLocaleString()}</div>
-                <div className={classes.val}>{datum.radius3000.toLocaleString()}</div>
-                <div className={classes.val}>{datum.radius5000.toLocaleString()}</div>
-                <div className={classes.val}>{datum.radius10000.toLocaleString()}</div>
+                <div className={classes.val}>{edge.node.summary.radius1000.toLocaleString()}</div>
+                <div className={classes.val}>{edge.node.summary.radius3000.toLocaleString()}</div>
+                <div className={classes.val}>{edge.node.summary.radius5000.toLocaleString()}</div>
+                <div className={classes.val}>{edge.node.summary.radius10000.toLocaleString()}</div>
               </div>
             </div>
           ))}
@@ -289,11 +283,13 @@ class RCTable extends React.Component<Props, State> {
 export default withStyles(styles)(RCTable);
 
 // helpers
-function sortData(data: Datum[], sortAsc: boolean, sortKey: number, filterRule: string[]): Datum[] {
-  const isAsc = sortAsc ? 1 : -1;
+function sortData(data: VenueEdge[], ascSort: boolean, sortKey: number, filterRule: string[]): VenueEdge[] {
+  const isAsc = ascSort ? 1 : -1;
   const prop = sortKey === 0 ? 'radius1000' : sortKey === 1 ? 'radius3000' : sortKey === 2 ? 'radius5000' : 'radius10000';
 
   return filterRule.length
-    ? data.filter(datum => datum.category.some(category => filterRule.indexOf(category) < 0)).sort((a, b) => isAsc * (a[prop] - b[prop]))
-    : data.sort((a, b) => isAsc * (a[prop] - b[prop]));
+    ? data
+        .filter(edge => edge.node.summary.category.some(category => filterRule.indexOf(category) < 0))
+        .sort((a, b) => isAsc * (a.node.summary[prop] - b.node.summary[prop]))
+    : data.sort((a, b) => isAsc * (a.node.summary[prop] - b.node.summary[prop]));
 }
