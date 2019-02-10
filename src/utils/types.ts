@@ -1,3 +1,4 @@
+import { navigate } from 'gatsby';
 import { Feature, Polygon } from '@turf/helpers';
 import { LocationProps } from '@reach/router';
 
@@ -10,9 +11,22 @@ export const initialAppState: AppState = {
   mapState: {
     popVisibility: true,
     bufferVisibility: true,
-    zoomLevel: 3
+    zoomLevel: 3,
+    terrain: false
   }
 };
+
+// gatsby navigate with strict type checking
+export const navigateWithState = (to: string, state: AppState) => {
+  navigate(to, { state });
+};
+
+export enum Radiuses {
+  radius1000 = '1km',
+  radius3000 = '3km',
+  radius5000 = '5km',
+  radius10000 = '10km'
+}
 
 export interface TableState {
   readonly ascSort: boolean;
@@ -24,6 +38,7 @@ export interface MapState {
   readonly popVisibility: boolean;
   readonly bufferVisibility: boolean;
   readonly zoomLevel: number;
+  readonly terrain?: boolean;
 }
 
 export interface AppState {

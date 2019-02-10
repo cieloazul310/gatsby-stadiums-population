@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { graphql, Link, navigate } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import Helmet from 'react-helmet';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
@@ -8,15 +8,7 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/icons/Menu';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import Fab from '@material-ui/core/Fab';
-import Switch from '@material-ui/core/Switch';
-import Divider from '@material-ui/core/Divider';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 import Typography from '@material-ui/core/Typography';
 // styles
@@ -24,27 +16,21 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
 // icons
-import ZoomIn from '@material-ui/icons/ZoomIn';
-import ZoomOut from '@material-ui/icons/ZoomOut';
-import PeopleIcon from '@material-ui/icons/People';
-import Adjust from '@material-ui/icons/Adjust';
-import LandScape from '@material-ui/icons/Landscape';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import Reply from '@material-ui/icons/Reply';
 
 import { AutoSizer } from 'react-virtualized';
 import { feature as topofeature } from 'topojson-client';
 import { Topology } from 'topojson-specification';
 
 import MapApp from '../components/MapApp';
+import DrawerInner from '../components/DrawerInner';
 import MapLegends from '../components/MapLegends';
 import { sortData } from '../components/TableApp';
 import BufferArcs from '../components/BuffersArcs';
 import ValuesTable from '../components/ValuesTable';
-import TwitterIcon from '../components/fa-buttons/TwitterIcon';
-import FacebookIcon from '../components/fa-buttons/FacebookIcon';
-import { Summary, LocationWithState, VenueEdge, MapState, initialAppState, TableState } from '../utils/types';
+import Attribution from '../components/Attribution';
+import { Summary, LocationWithState, VenueEdge, MapState, initialAppState, navigateWithState } from '../utils/types';
 import withRoot from '../utils/withRoot';
 
 const drawerWidth = 280;
@@ -72,16 +58,8 @@ const styles = (theme: Theme): StyleRules =>
         display: 'none'
       }
     },
-    toolbar: theme.mixins.toolbar,
     drawerPaper: {
       width: drawerWidth
-    },
-    itemTitle: {
-      fontSize: '80%',
-      fontWeight: 'bold'
-    },
-    itemNumber: {
-      textAlign: 'right'
     },
     content: {
       flexGrow: 1,
@@ -182,167 +160,41 @@ class MapPage extends React.Component<Props, State> {
   private handleZoomOut = () => {
     this.setState(prev => ({ zoomLevel: prev.zoomLevel !== 3 ? prev.zoomLevel + 1 : prev.zoomLevel }));
   };
+  private handleTerrain = () => {
+    this.setState(prev => ({
+      terrain: !prev.terrain
+    }));
+  };
 
   public render() {
     const { classes, data, location } = this.props;
-    const { popVisibility, bufferVisibility, zoomLevel } = this.state;
+    const { popVisibility, bufferVisibility, zoomLevel, terrain } = this.state;
     const tableState = location.state ? location.state.tableState : initialAppState.tableState;
     const { edges } = data.allVenuesJson;
     const { summary, topojson } = data.venuesJson;
     const geojson = topofeature(topojson, topojson.objects.points);
     const buffers = topofeature(topojson, topojson.objects.buffers).features;
     const others = sortData(edges, tableState.ascSort, tableState.sortKey, tableState.filterRule);
-    const sortProp =
-      tableState.sortKey === 0
-        ? 'radius1000'
-        : tableState.sortKey === 1
-        ? 'radius3000'
-        : tableState.sortKey === 2
-        ? 'radius5000'
-        : 'radius10000';
-
-    const { name, club, shortname, category, radius1000, radius3000, radius5000, radius10000, slug } = summary;
+    const { name, club, slug } = summary;
     const drawer = (
-      <div>
-        <div className={classes.toolbar}>
-          <List>
-            <ListItem
-              button
-              onClick={() => {
-                navigate('/', { state: { tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } } });
-              }}
-            >
-              <ListItemIcon>
-                <Reply />
-              </ListItemIcon>
-              <ListItemText>表に戻る</ListItemText>
-            </ListItem>
-          </List>
-        </div>
-        {/*
-        <div className={classes.toolbar} />
-                <List>
-          <ListItem
-            button
-            onClick={() => {
-              navigate('/', { state: { tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } } });
-            }}
-          >
-            <ListItemIcon>
-              <Reply />
-            </ListItemIcon>
-            <ListItemText>表に戻る</ListItemText>
-          </ListItem>
-        </List>
-        */}
-        <Divider />
-        <ValuesTable summary={summary} />
-        <List subheader={<ListSubheader>地図</ListSubheader>}>
-          <Hidden smDown implementation="css">
-            <ListItem button selected={zoomLevel === 0} onClick={this.handleZoomIn}>
-              <ListItemIcon>
-                <ZoomIn />
-              </ListItemIcon>
-              <ListItemText>地図を拡大</ListItemText>
-            </ListItem>
-            <ListItem button selected={zoomLevel === 3} onClick={this.handleZoomOut}>
-              <ListItemIcon>
-                <ZoomOut />
-              </ListItemIcon>
-              <ListItemText primary="地図を縮小" />
-            </ListItem>
-          </Hidden>
-          <ListItem button>
-            <ListItemIcon>
-              <LandScape />
-            </ListItemIcon>
-            <ListItemText primary="地形モード" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <PeopleIcon />
-            </ListItemIcon>
-            <ListItemText primary="人口" />
-            <ListItemSecondaryAction>
-              <Switch onChange={this.handlePopVisibility} checked={popVisibility} />
-            </ListItemSecondaryAction>
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <Adjust />
-            </ListItemIcon>
-            <ListItemText primary="距離円" />
-            <ListItemSecondaryAction>
-              <Switch onChange={this.handleBufferVisibility} checked={bufferVisibility} />
-            </ListItemSecondaryAction>
-          </ListItem>
-        </List>
-        <Divider />
-        <List subheader={<ListSubheader>シェア</ListSubheader>}>
-          <ListItem
-            button
-            component="a"
-            href={
-              `https://twitter.com/intent/tweet?text=` +
-              encodeURI(`${name}周辺の人口`) +
-              `&url=` +
-              encodeURIComponent(`https://cieloazul310.github.io/gatsby-stadiums-population/${slug}/`)
-            }
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <ListItemIcon>
-              <TwitterIcon />
-            </ListItemIcon>
-            <ListItemText primary="Twitterで共有" />
-          </ListItem>
-          <ListItem
-            button
-            component="a"
-            href={
-              `https://www.facebook.com/sharer/sharer.php?u=` +
-              encodeURIComponent(`https://cieloazul310.github.io/gatsby-stadiums-population/${slug}/`)
-            }
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <ListItemIcon>
-              <FacebookIcon />
-            </ListItemIcon>
-            <ListItemText primary="Facebookで共有" />
-          </ListItem>
-        </List>
-        <Divider />
-        <List subheader={<ListSubheader>{`一覧 ${createSortString(tableState)}`}</ListSubheader>}>
-          {others.map(edge => (
-            <ListItem
-              key={edge.node.summary.slug}
-              button
-              selected={edge.node.summary.slug === slug}
-              onClick={() => {
-                navigate(`/${edge.node.summary.slug}/`, {
-                  state: { tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } }
-                });
-              }}
-            >
-              <ListItemText
-                primary={<Typography className={classes.itemTitle}>{edge.node.summary.name}</Typography>}
-                secondary={
-                  <Typography component="span" className={classes.itemNumber}>
-                    {edge.node.summary[sortProp].toLocaleString()}
-                  </Typography>
-                }
-              />
-            </ListItem>
-          ))}
-        </List>
-      </div>
+      <DrawerInner
+        summary={summary}
+        edges={others}
+        appState={{ tableState, mapState: { popVisibility, bufferVisibility, zoomLevel, terrain } }}
+        handleDrawerToggle={this.handleDrawerToggle}
+        handleZoomIn={this.handleZoomIn}
+        handleZoomOut={this.handleZoomOut}
+        handleBufferVisibility={this.handleBufferVisibility}
+        handlePopVisibility={this.handlePopVisibility}
+        handleTerrain={this.handleTerrain}
+      />
     );
 
     return (
       <div className={classes.root}>
         <Helmet>
           <title>{name}周辺の人口 | サッカースタジアムと人口</title>
+          <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" />
           <meta name="description" content={createDescriptionString(name, club)} />
           <meta property="og:type" content="article" />
           <meta property="og:title" content={`${name}周辺の人口`} />
@@ -351,6 +203,8 @@ class MapPage extends React.Component<Props, State> {
           <meta property="og:site_name" content="水戸地図" />
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:description" content={createDescriptionString(name, club)} />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         </Helmet>
         <AppBar className={classes.appBar} position="fixed">
           <ToolBar>
@@ -372,8 +226,9 @@ class MapPage extends React.Component<Props, State> {
               onClick={() => {
                 const currentIndex = others.map(edge => edge.node.summary.slug).indexOf(slug);
                 const next = currentIndex === others.length - 1 ? others[0] : others[currentIndex + 1];
-                navigate(`/${next.node.summary.slug}/`, {
-                  state: { tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } }
+                navigateWithState(`/${next.node.summary.slug}/`, {
+                  tableState,
+                  mapState: { popVisibility, bufferVisibility, zoomLevel, terrain }
                 });
               }}
               color="inherit"
@@ -410,7 +265,7 @@ class MapPage extends React.Component<Props, State> {
                     height={height}
                     geojson={geojson}
                     buffers={buffers}
-                    mapState={{ popVisibility, bufferVisibility, zoomLevel }}
+                    mapState={{ popVisibility, bufferVisibility, zoomLevel, terrain }}
                   />
                   <Hidden implementation="css" mdUp>
                     <Fab className={classes.fabZoomIn} color="primary" disabled={zoomLevel === 0} onClick={this.handleZoomIn}>
@@ -433,6 +288,7 @@ class MapPage extends React.Component<Props, State> {
             <div className={classes.buffersWrapper}>
               <AutoSizer disableHeight>{({ width }) => <BufferArcs buffers={buffers} width={width} />}</AutoSizer>
             </div>
+            <Attribution />
             <Link to="/" state={{ tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } }}>
               トップに戻る
             </Link>
@@ -446,13 +302,6 @@ class MapPage extends React.Component<Props, State> {
 export default withRoot(withStyles(styles)(MapPage));
 
 // helper
-function createSortString(tableState: TableState): string {
-  const { ascSort, sortKey } = tableState;
-  const sortRule = ascSort ? '昇順' : '降順';
-  const sortLabel = ['1km', '3km', '5km', '10km'][sortKey];
-
-  return `${sortLabel}圏内 ${sortRule}`;
-}
 
 function createDescriptionString(name: string, club: string[]): string {
   const intro = club[0] !== 'その他' ? `${club.join(',')} のホームスタジアム・` : '';

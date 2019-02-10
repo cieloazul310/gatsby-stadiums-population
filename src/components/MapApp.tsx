@@ -61,20 +61,22 @@ class Map extends React.Component<Props, State> {
     fetchStatus: 'yet'
   };
   private _tileSet = new TileSet();
+  private _terrain = new TileSet({
+    url: '//cyberjapandata.gsi.go.jp/xyz/slopemap/{z}/{x}/{y}.png'
+  });
   // Tile Maps
   // slope: //cyberjapandata.gsi.go.jp/xyz/slopemap/{z}/{x}/{y}.png
 
-  private _getTileCoordinates = (projection: GeoProjection): Tile[] => {
+  private _getTileCoordinates = (projection: GeoProjection, maxZoom: number = 20): Tile[] => {
     const { width, height } = this.props;
     let mag: number = 1.5;
-    /*
+
     const zoomer = Math.log2((projection.scale() * 2 * mag * Math.PI) / 256);
-    const maxZoom = 15;
     // required zoom level > maxZoom
-    if (zoomer > maxZoom + 0.5) {
+    if (zoomer >= maxZoom + 0.5) {
       mag = Math.pow(2, maxZoom + 0.5 - zoomer);
     }
-    */
+
     const tiles: Tile[] = d3tile()
       .size([width * mag, height * mag])
       .scale(projection.scale() * 2 * Math.PI * mag)
@@ -90,27 +92,28 @@ class Map extends React.Component<Props, State> {
     return tiles;
   };
 
-  private _fetchTiles = (tiles: Tile[]) => {
-    return this._tileSet.updateTiles(tiles);
+  private _fetchTiles = (tiles: Tile[], tileSet: TileSet) => {
+    return tileSet.updateTiles(tiles);
   };
 
   componentDidMount() {}
 
   public render() {
     const { classes, buffers, geojson, mapState } = this.props;
-    const { popVisibility, bufferVisibility, zoomLevel } = mapState;
+    const { popVisibility, bufferVisibility, zoomLevel, terrain } = mapState;
     const width = this.props.width || 400;
     const height = this.props.height || 400;
     const projection = buffers ? geoMercator().fitExtent([[10, 40], [width - 10, height - 40]], buffers[zoomLevel]) : geoMercator();
 
     const path: GeoPath = geoPath(projection);
-    const tileCoords = this._getTileCoordinates(projection);
+    const tileSet = !terrain ? this._tileSet : this._terrain;
+    const tileCoords = !terrain ? this._getTileCoordinates(projection) : this._getTileCoordinates(projection, 15);
 
-    let renderTiles: TileWithURL[] = this._tileSet.setTileUrlFromTree(tileCoords);
+    let renderTiles: TileWithURL[] = tileSet.setTileUrlFromTree(tileCoords);
     let hoge = null;
-    if (this._tileSet.isRequireFetch(tileCoords)) {
+    if (tileSet.isRequireFetch(tileCoords)) {
       hoge = <LinearProgress className={classes.progress} color="secondary" />;
-      this._fetchTiles(tileCoords).then(() => {
+      this._fetchTiles(tileCoords, tileSet).then(() => {
         this.setState({ fetchStatus: 'fetched' });
       });
     }
@@ -124,8 +127,6 @@ class Map extends React.Component<Props, State> {
               {renderTiles.map((tile, index) => (
                 <image
                   key={index}
-                  id={tile.id}
-                  className={tile.mag.toString()}
                   xlinkHref={tile.url}
                   x={((tile.x + tile.translate[0]) * tile.scale) / tile.mag}
                   y={((tile.y + tile.translate[1]) * tile.scale) / tile.mag}

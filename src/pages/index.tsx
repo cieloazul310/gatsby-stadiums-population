@@ -38,6 +38,7 @@ class IndexPage extends React.PureComponent<Props> {
       <div>
         <Helmet>
           <title>サッカースタジアムと人口</title>
+          <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" />
           <meta
             name="description"
             content="日本国内の主要なサッカースタジアムの周辺人口を総務省統計局の地域メッシュ統計から算出し、地図に表示しました。"
@@ -48,6 +49,8 @@ class IndexPage extends React.PureComponent<Props> {
           <meta property="og:image" content="https://cieloazul310.github.io/img/ogp2.png" />
           <meta property="og:site_name" content="水戸地図" />
           <meta name="twitter:card" content="summary" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         </Helmet>
         <AppBar>
           <ToolBar>
