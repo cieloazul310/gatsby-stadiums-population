@@ -15,6 +15,7 @@ import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import lightBlue from '@material-ui/core/colors/lightBlue';
 // Icons
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -26,17 +27,23 @@ import { VenueEdge, AppState, TableState } from '../utils/types';
 const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {
-      fontSize: '80%'
+      fontSize: '80%',
+      fontFamily: theme.typography.fontFamily
     },
     table: {
-      overflowY: 'scroll'
+      overflowY: 'scroll',
+      overflowScrolling: 'touch',
+      WebkitOverflowScrolling: 'touch',
+      zIndex: 0
     },
     header: {
-      backgroundColor: theme.palette.primary.light,
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
       position: 'sticky',
       display: 'flex',
       flexDirection: 'column',
-      boxShadow: theme.shadows[1]
+      boxShadow: theme.shadows[1],
+      zIndex: 99
     },
     toolbar: {
       display: 'flex',
@@ -47,7 +54,7 @@ const styles = (theme: Theme): StyleRules =>
       flex: 1
     },
     filterMenuWrapper: {
-      zIndex: 1
+      zIndex: 100
     },
     headerRowHead: {
       flex: 1,
@@ -59,6 +66,24 @@ const styles = (theme: Theme): StyleRules =>
     headerRowBody: {
       display: 'flex',
       justifyContent: 'space-evenly'
+    },
+    labelRoot: {
+      color: '#ddd',
+      '&:hover': {
+        color: theme.palette.primary.contrastText
+      },
+      '&:focus': {
+        color: theme.palette.primary.contrastText
+      }
+    },
+    labelActive: {
+      color: theme.palette.primary.contrastText,
+      '&:hover': {
+        color: theme.palette.primary.contrastText
+      },
+      '&:focus': {
+        color: theme.palette.primary.contrastText
+      }
     },
     thead: {},
     row: {
@@ -106,6 +131,15 @@ const styles = (theme: Theme): StyleRules =>
       boxSizing: 'border-box',
       display: 'flex',
       flexDirection: 'row-reverse'
+    },
+    link: {
+      color: theme.palette.primary.main,
+      '&:visited': {
+        color: lightBlue[900]
+      },
+      '&:hover': {
+        color: lightBlue[500]
+      }
     }
   });
 
@@ -166,11 +200,12 @@ class RCTable extends React.Component<Props, State> {
       >
         <div className={classes.header}>
           <Toolbar className={classes.toolbar}>
-            <Typography className={classes.title} variant="h6">
+            <Typography className={classes.title} variant="h6" color="inherit">
               スタジアムと距離圏人口
             </Typography>
             <Tooltip title="フィルター">
               <IconButton
+                color="inherit"
                 aria-owns={menuOpen ? 'menu-list' : undefined}
                 aria-haspopup="true"
                 buttonRef={node => {
@@ -230,7 +265,15 @@ class RCTable extends React.Component<Props, State> {
               <div className={classes.headerRowBody}>
                 {['1km', '3km', '5km', '10km'].map((str, index) => (
                   <div key={index} className={classes.val}>
-                    <TableSortLabel active={index === sortKey} direction={ascSort ? 'asc' : 'desc'} onClick={() => this._handleSort(index)}>
+                    <TableSortLabel
+                      classes={{
+                        root: classes.labelRoot,
+                        active: classes.labelActive
+                      }}
+                      active={index === sortKey}
+                      direction={ascSort ? 'asc' : 'desc'}
+                      onClick={() => this._handleSort(index)}
+                    >
                       {str}
                     </TableSortLabel>
                   </div>
@@ -242,7 +285,7 @@ class RCTable extends React.Component<Props, State> {
         <div
           className={classes.table}
           style={{
-            height: height - 120
+            height: height - 140
           }}
         >
           {sortData(items, ascSort, sortKey, filterRule).map((edge, index) => (
@@ -252,6 +295,7 @@ class RCTable extends React.Component<Props, State> {
                 <div className={classes.name}>
                   <Link
                     to={`/${edge.node.summary.slug}/`}
+                    className={classes.link}
                     state={{
                       mapState: appState.mapState || null,
                       tableState: {

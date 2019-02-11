@@ -1,14 +1,6 @@
 import * as React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import createStyles from '@material-ui/core/styles/createStyles';
-import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-
-const styles = (theme: Theme): StyleRules =>
-  createStyles({
-    root: {}
-  });
 
 interface Query {
   site: {
@@ -19,14 +11,15 @@ interface Query {
       author: {
         name: string;
         url: string;
+        siteName: string;
+        twitter: string;
+        github: string;
       };
     };
   };
 }
 
-type Props = WithStyles<typeof styles>;
-
-const Attribution: React.FunctionComponent<Props> = ({ classes }: Props) => (
+const Attribution: React.FunctionComponent<{}> = () => (
   <StaticQuery
     query={graphql`
       query {
@@ -38,20 +31,35 @@ const Attribution: React.FunctionComponent<Props> = ({ classes }: Props) => (
             author {
               name
               url
+              siteName
+              twitter
+              github
             }
           }
         }
       }
     `}
     render={(data: Query) => (
-      <div className={classes.root}>
-        <aside>
-          <Typography variant="h6">{data.site.siteMetadata.title}</Typography>
-          <Typography variant="body1">{data.site.siteMetadata.description}</Typography>
-        </aside>
-      </div>
+      <section>
+        <Typography variant="h5">{data.site.siteMetadata.title}</Typography>
+        <Typography variant="body1">{data.site.siteMetadata.description}</Typography>
+        <ul>
+          <Typography component="li" variant="body1">
+            {`Twitter: `}
+            <a href={`https://twitter.com/${data.site.siteMetadata.author.twitter}`} target="_blank" rel="noopener noreferrer">{`@${
+              data.site.siteMetadata.author.twitter
+            }`}</a>
+          </Typography>
+          <Typography component="li" variant="body1">
+            {`制作: ${data.site.siteMetadata.author.siteName} `}
+            <a href={data.site.siteMetadata.author.url} target="_blank" rel="noopener noreferrer">
+              {data.site.siteMetadata.author.url}
+            </a>
+          </Typography>
+        </ul>
+      </section>
     )}
   />
 );
 
-export default withStyles(styles)(Attribution);
+export default Attribution;

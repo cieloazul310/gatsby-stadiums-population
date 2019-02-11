@@ -7,7 +7,10 @@ module.exports = {
     siteUrl: 'https://cieloazul310.github.io/gatsby-stadiums-population/',
     author: {
       name: 'cieloazul310',
-      url: 'https://twitter.com/cieloazul310',
+      siteName: '水戸地図',
+      url: 'https://cieloazul310.github.io',
+      twitter: 'cieloazul310',
+      github: 'cieloazul310',
       email: 'cieloazul310@gmail.com'
     }
   },
@@ -32,6 +35,18 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: 'UA-74683419-3'
+      }
+    },
+    {
+      resolve: `@wapps/gatsby-plugin-material-ui`,
+      options: {
+        // Add any options here
+        theme: {
+          typography: {
+            useNextVariants: true
+          }
+        },
+        productionPrefix: 'c'
       }
     }
   ]

@@ -30,8 +30,8 @@ import { sortData } from '../components/TableApp';
 import BufferArcs from '../components/BuffersArcs';
 import ValuesTable from '../components/ValuesTable';
 import Attribution from '../components/Attribution';
+import MapAttribution from '../components/MapAttribution';
 import { Summary, LocationWithState, VenueEdge, MapState, initialAppState, navigateWithState } from '../utils/types';
-import withRoot from '../utils/withRoot';
 
 const drawerWidth = 280;
 
@@ -217,7 +217,7 @@ class MapPage extends React.Component<Props, State> {
             >
               <Menu />
             </IconButton>
-            <Typography color="inherit" className={classes.apptitle} variant="h6">
+            <Typography color="inherit" className={classes.apptitle} component="h1" variant="h6">
               {name}
             </Typography>
             <IconButton
@@ -281,7 +281,7 @@ class MapPage extends React.Component<Props, State> {
           </div>
           <MapLegends />
           <div className={classes.description}>
-            <Typography className={classes.descTitle} variant="h6">
+            <Typography className={classes.descTitle} component="h2" variant="h5">
               {name}
             </Typography>
             <ValuesTable summary={summary} />
@@ -289,6 +289,7 @@ class MapPage extends React.Component<Props, State> {
               <AutoSizer disableHeight>{({ width }) => <BufferArcs buffers={buffers} width={width} />}</AutoSizer>
             </div>
             <Attribution />
+            <MapAttribution />
             <Link to="/" state={{ tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } }}>
               トップに戻る
             </Link>
@@ -299,7 +300,8 @@ class MapPage extends React.Component<Props, State> {
   }
 }
 
-export default withRoot(withStyles(styles)(MapPage));
+//export default withRoot(withStyles(styles)(MapPage));
+export default withStyles(styles)(MapPage);
 
 // helper
 

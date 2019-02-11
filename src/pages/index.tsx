@@ -4,8 +4,9 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
 import { Helmet } from 'react-helmet';
-import withRoot from '../utils/withRoot';
 import RCTable from '../components/RCTable';
+import Attribution from '../components/Attribution';
+import MapAttribution from '../components/MapAttribution';
 import { AutoSizer } from 'react-virtualized';
 import { VenueEdge, LocationWithState, initialAppState } from '../utils/types';
 
@@ -70,11 +71,18 @@ class IndexPage extends React.PureComponent<Props> {
             </div>
           </div>
         </main>
+        <aside>
+          <div>
+            <Attribution />
+            <MapAttribution />
+          </div>
+        </aside>
       </div>
     );
   }
 }
-export default withRoot(withStyles(styles)(IndexPage));
+//export default withRoot(withStyles(styles)(IndexPage));
+export default withStyles(styles)(IndexPage);
 
 export const query = graphql`
   {

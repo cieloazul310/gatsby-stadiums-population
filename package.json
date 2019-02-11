@@ -41,6 +41,7 @@
     "@types/react-virtualized": "^9.18.12",
     "@types/topojson-client": "^3.0.0",
     "@types/typography": "^0.16.1",
+    "@wapps/gatsby-plugin-material-ui": "^1.2.0",
     "babel-plugin-styled-components": "^1.7.1",
     "classnames": "^2.2.6",
     "d3": "^5.7.0",

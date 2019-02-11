@@ -17,14 +17,16 @@ import Place from '../image/place.svg';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
-    root: {},
+    root: {
+      fontFamily: theme.typography.fontFamily
+    },
     buffer: {
       opacity: 0.2,
       '&:hover': {
         opacity: 1
       }
     },
-    bufferText: { fontSize: '80%', fontFamily: 'sans-serif', fontWeight: 'bold' },
+    bufferText: { fontSize: '80%', fontWeight: 'bold' },
     progress: {
       position: 'absolute',
       width: '100%',

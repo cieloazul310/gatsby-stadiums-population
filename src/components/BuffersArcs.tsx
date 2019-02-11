@@ -8,9 +8,11 @@ import { interpolateSpectral } from 'd3-scale-chromatic';
 
 import { Buffer } from '../utils/types';
 
-const styles = (themes: Theme): StyleRules =>
+const styles = (theme: Theme): StyleRules =>
   createStyles({
-    root: {},
+    root: {
+      fontFamily: theme.typography.fontFamily
+    },
     arc: {
       strokeWidth: 0,
       '&:hover': {
