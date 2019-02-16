@@ -21,13 +21,6 @@ export const navigateWithState = (to: string, state: AppState) => {
   navigate(to, { state });
 };
 
-export enum Radiuses {
-  radius1000 = '1km',
-  radius3000 = '3km',
-  radius5000 = '5km',
-  radius10000 = '10km'
-}
-
 export interface TableState {
   readonly ascSort: boolean;
   readonly sortKey: number;
@@ -50,16 +43,12 @@ export interface LocationWithState extends LocationProps {
   state: AppState | null;
 }
 
-export interface Summary {
+export interface Summary extends RadiusProps {
   name: string;
   club: string[];
   category: string[];
   shortname: string[];
   slug: string;
-  radius1000: number;
-  radius3000: number;
-  radius5000: number;
-  radius10000: number;
 }
 
 export interface VenueEdge {
@@ -68,29 +57,52 @@ export interface VenueEdge {
   };
 }
 
-export interface BufferPropertis extends EighthDirections {
+export interface BufferProperties extends DirectionProps {
   name: string;
   radius: number;
   population: number;
 }
 
-export type Buffer = Feature<Polygon, BufferPropertis>;
+export type Buffer = Feature<Polygon, BufferProperties>;
 
 export interface MeshProperties {
   id: number;
   val: number;
 }
 
-export interface ForthDirections {
-  north: number;
-  east: number;
-  south: number;
-  west: number;
+export enum Radiuses {
+  radius1000 = 1000,
+  radius3000 = 3000,
+  radius5000 = 5000,
+  radius10000 = 10000
 }
 
-export interface EighthDirections extends ForthDirections {
-  northeast: number;
-  southeast: number;
-  southwest: number;
-  northwest: number;
+export const radiuses: Radiuses[] = [Radiuses.radius1000, Radiuses.radius3000, Radiuses.radius5000, Radiuses.radius10000];
+
+export const radiusKeys: Array<keyof typeof Radiuses> = ['radius1000', 'radius3000', 'radius5000', 'radius10000'];
+
+export type RadiusProps = { [key in keyof typeof Radiuses]: number };
+
+export enum Directions {
+  north,
+  northeast,
+  east,
+  southeast,
+  south,
+  southwest,
+  west,
+  northwest
 }
+
+export const directions: Array<keyof typeof Directions> = [
+  'north',
+  'northeast',
+  'east',
+  'southeast',
+  'south',
+  'southwest',
+  'west',
+  'northwest'
+];
+
+export type DirectionProps = { [key in keyof typeof Directions]: number };

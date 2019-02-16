@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { graphql, Link } from 'gatsby';
 import Helmet from 'react-helmet';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
 import Drawer from '@material-ui/core/Drawer';
@@ -29,8 +30,11 @@ import MapLegends from '../components/MapLegends';
 import { sortData } from '../components/TableApp';
 import BufferArcs from '../components/BuffersArcs';
 import ValuesTable from '../components/ValuesTable';
+import DirectionApp from '../components/DirectionApp';
 import Attribution from '../components/Attribution';
-import MapAttribution from '../components/MapAttribution';
+import Container from '../components/Container';
+import { DataAttribution, MapAttribution } from '../components/MapAttribution';
+import AdBox from '../components/AdBox';
 import { Summary, LocationWithState, VenueEdge, MapState, initialAppState, navigateWithState } from '../utils/types';
 
 const drawerWidth = 280;
@@ -75,6 +79,12 @@ const styles = (theme: Theme): StyleRules =>
         fontSize: '90%'
       }
     },
+    fullWidthContainer: {
+      width: '100%',
+      margin: 'auto',
+      paddingTop: theme.spacing.unit * 2,
+      paddingBottom: theme.spacing.unit * 2
+    },
     autoSizerWrapper: {
       height: 'calc(100vh - 56px)',
       '@media (min-width: 600px)': {
@@ -91,17 +101,9 @@ const styles = (theme: Theme): StyleRules =>
       bottom: theme.spacing.unit * 2,
       right: theme.spacing.unit * 2
     },
-    buffersWrapper: {
-      width: '100%',
-      maxWidth: 480,
-      margin: 'auto'
-    },
     description: {
       maxWidth: 800,
       margin: 'auto'
-    },
-    descTitle: {
-      padding: theme.spacing.unit * 2
     },
     descParagraph: {
       paddingLeft: theme.spacing.unit * 2,
@@ -192,9 +194,11 @@ class MapPage extends React.Component<Props, State> {
 
     return (
       <div className={classes.root}>
+        <CssBaseline />
         <Helmet>
+          <html lang="ja" />
           <title>{name}周辺の人口 | サッカースタジアムと人口</title>
-          <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" />
+          <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,minimal-ui" />
           <meta name="description" content={createDescriptionString(name, club)} />
           <meta property="og:type" content="article" />
           <meta property="og:title" content={`${name}周辺の人口`} />
@@ -210,6 +214,7 @@ class MapPage extends React.Component<Props, State> {
           <ToolBar>
             <IconButton
               className={classes.menuButton}
+              role="presentation"
               aria-owns="menu"
               aria-haspopup="true"
               onClick={this.handleDrawerToggle}
@@ -222,6 +227,7 @@ class MapPage extends React.Component<Props, State> {
             </Typography>
             <IconButton
               aria-owns="next"
+              role="button"
               aria-haspopup="true"
               onClick={() => {
                 const currentIndex = others.map(edge => edge.node.summary.slug).indexOf(slug);
@@ -268,10 +274,16 @@ class MapPage extends React.Component<Props, State> {
                     mapState={{ popVisibility, bufferVisibility, zoomLevel, terrain }}
                   />
                   <Hidden implementation="css" mdUp>
-                    <Fab className={classes.fabZoomIn} color="primary" disabled={zoomLevel === 0} onClick={this.handleZoomIn}>
+                    <Fab className={classes.fabZoomIn} color="primary" disabled={zoomLevel === 0} onClick={this.handleZoomIn} role="button">
                       <AddIcon />
                     </Fab>
-                    <Fab className={classes.fabZoomOut} color="primary" disabled={zoomLevel === 3} onClick={this.handleZoomOut}>
+                    <Fab
+                      className={classes.fabZoomOut}
+                      color="primary"
+                      disabled={zoomLevel === 3}
+                      onClick={this.handleZoomOut}
+                      role="button"
+                    >
                       <RemoveIcon />
                     </Fab>
                   </Hidden>
@@ -279,21 +291,41 @@ class MapPage extends React.Component<Props, State> {
               )}
             </AutoSizer>
           </div>
-          <MapLegends />
-          <div className={classes.description}>
-            <Typography className={classes.descTitle} component="h2" variant="h5">
+          <Container>
+            <MapLegends />
+          </Container>
+          <Container>
+            <AdBox />
+          </Container>
+          <Container>
+            <Typography component="h2" variant="h5" gutterBottom>
               {name}
             </Typography>
+          </Container>
+          <Container>
             <ValuesTable summary={summary} />
-            <div className={classes.buffersWrapper}>
-              <AutoSizer disableHeight>{({ width }) => <BufferArcs buffers={buffers} width={width} />}</AutoSizer>
-            </div>
+          </Container>
+          <Container>
+            <AutoSizer disableHeight>{({ width }) => <BufferArcs buffers={buffers} width={width} />}</AutoSizer>
+          </Container>
+          <div className={classes.fullWidthContainer}>
+            <DirectionApp data={data.venuesJson.topojson.objects.buffers.geometries} />
+          </div>
+          <Container>
             <Attribution />
+          </Container>
+          <Container>
+            <DataAttribution />
+          </Container>
+          <Container>
             <MapAttribution />
             <Link to="/" state={{ tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } }}>
               トップに戻る
             </Link>
-          </div>
+          </Container>
+          <Container>
+            <AdBox />
+          </Container>
         </div>
       </div>
     );

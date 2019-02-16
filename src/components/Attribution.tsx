@@ -41,22 +41,24 @@ const Attribution: React.FunctionComponent<{}> = () => (
     `}
     render={(data: Query) => (
       <section>
-        <Typography variant="h5">{data.site.siteMetadata.title}</Typography>
-        <Typography variant="body1">{data.site.siteMetadata.description}</Typography>
-        <ul>
-          <Typography component="li" variant="body1">
-            {`Twitter: `}
-            <a href={`https://twitter.com/${data.site.siteMetadata.author.twitter}`} target="_blank" rel="noopener noreferrer">{`@${
-              data.site.siteMetadata.author.twitter
-            }`}</a>
-          </Typography>
-          <Typography component="li" variant="body1">
-            {`制作: ${data.site.siteMetadata.author.siteName} `}
-            <a href={data.site.siteMetadata.author.url} target="_blank" rel="noopener noreferrer">
-              {data.site.siteMetadata.author.url}
-            </a>
-          </Typography>
-        </ul>
+        <Typography variant="h5" gutterBottom>
+          {data.site.siteMetadata.title}
+        </Typography>
+        <Typography variant="body1" paragraph>
+          {data.site.siteMetadata.description}
+        </Typography>
+        <Typography variant="body1">
+          {`Twitter: `}
+          <a href={`https://twitter.com/${data.site.siteMetadata.author.twitter}`} target="_blank" rel="noopener noreferrer">{`@${
+            data.site.siteMetadata.author.twitter
+          }`}</a>
+        </Typography>
+        <Typography variant="body1">
+          {`制作: `}
+          <a href={data.site.siteMetadata.author.url} target="_blank" rel="noopener noreferrer">
+            {data.site.siteMetadata.author.siteName}
+          </a>
+        </Typography>
       </section>
     )}
   />

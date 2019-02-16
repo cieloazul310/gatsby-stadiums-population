@@ -11,7 +11,9 @@ import { Buffer } from '../utils/types';
 const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {
-      fontFamily: theme.typography.fontFamily
+      fontFamily: theme.typography.fontFamily,
+      margin: 'auto',
+      display: 'block'
     },
     arc: {
       strokeWidth: 0,
@@ -30,7 +32,7 @@ const color = scaleSequential(interpolateSpectral).domain([10000, 0]);
 
 const BufferArcs: React.FunctionComponent<Props> = (props: Props) => {
   const { classes, buffers, width } = props;
-  const size = Math.min(width, 600);
+  const size = Math.min(width, 320);
   const dirs = buffersToDirection(buffers);
 
   return (
@@ -59,10 +61,10 @@ const BufferArcs: React.FunctionComponent<Props> = (props: Props) => {
         ))}
       </g>
       <g>
-        <text x={size / 2} dy="1em" textAnchor="middle">
+        <text x={size / 2} dy="1.2em" textAnchor="middle">
           北
         </text>
-        <text x={size / 2} y={size} textAnchor="middle">
+        <text x={size / 2} y={size} dy="-.2em" textAnchor="middle">
           南
         </text>
         <text y={size / 2} dy=".5em" textAnchor="start">

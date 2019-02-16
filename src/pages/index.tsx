@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
 import { Helmet } from 'react-helmet';
 import RCTable from '../components/RCTable';
+import Container from '../components/Container';
 import Attribution from '../components/Attribution';
-import MapAttribution from '../components/MapAttribution';
+import { DataAttribution } from '../components/MapAttribution';
 import { AutoSizer } from 'react-virtualized';
 import { VenueEdge, LocationWithState, initialAppState } from '../utils/types';
 
@@ -39,9 +41,11 @@ class IndexPage extends React.PureComponent<Props> {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
+        <CssBaseline />
         <Helmet>
+          <html lang="ja" />
           <title>サッカースタジアムと人口</title>
-          <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" />
+          <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,minimal-ui" />
           <meta
             name="description"
             content="日本国内の主要なサッカースタジアムの周辺人口を総務省統計局の地域メッシュ統計から算出し、地図に表示しました。"
@@ -73,8 +77,12 @@ class IndexPage extends React.PureComponent<Props> {
         </main>
         <aside>
           <div>
-            <Attribution />
-            <MapAttribution />
+            <Container>
+              <Attribution />
+            </Container>
+            <Container>
+              <DataAttribution />
+            </Container>
           </div>
         </aside>
       </div>

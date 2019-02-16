@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'gatsby';
+import classNames from 'classnames';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
@@ -66,6 +67,16 @@ const styles = (theme: Theme): StyleRules =>
     headerRowBody: {
       display: 'flex',
       justifyContent: 'space-evenly'
+    },
+    labelCell: {
+      borderBottom: '2px solid rgba(255, 255, 255, 0)',
+      transition: 'border .25s',
+      '&:hover': {
+        borderBottom: '2px solid white'
+      }
+    },
+    labelCellActive: {
+      borderBottom: '2px solid white'
     },
     labelRoot: {
       color: '#ddd',
@@ -264,7 +275,11 @@ class RCTable extends React.Component<Props, State> {
               </div>
               <div className={classes.headerRowBody}>
                 {['1km', '3km', '5km', '10km'].map((str, index) => (
-                  <div key={index} className={classes.val}>
+                  <div
+                    key={index}
+                    role="button"
+                    className={classNames(classes.val, classes.labelCell, { [`${classes.labelCellActive}`]: index === sortKey })}
+                  >
                     <TableSortLabel
                       classes={{
                         root: classes.labelRoot,
