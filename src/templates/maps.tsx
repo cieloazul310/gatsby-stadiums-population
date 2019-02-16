@@ -12,6 +12,7 @@ import Menu from '@material-ui/icons/Menu';
 import Fab from '@material-ui/core/Fab';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 // styles
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
@@ -28,14 +29,26 @@ import MapApp from '../components/MapApp';
 import DrawerInner from '../components/DrawerInner';
 import MapLegends from '../components/MapLegends';
 import { sortData } from '../components/TableApp';
-import BufferArcs from '../components/BuffersArcs';
+import DirectionTable from '../components/DirectionTable';
 import ValuesTable from '../components/ValuesTable';
+import Pie from '../components/Pie';
 import DirectionApp from '../components/DirectionApp';
 import Attribution from '../components/Attribution';
 import Container from '../components/Container';
 import { DataAttribution, MapAttribution } from '../components/MapAttribution';
 import AdBox from '../components/AdBox';
-import { Summary, LocationWithState, VenueEdge, MapState, initialAppState, navigateWithState } from '../utils/types';
+import {
+  Summary,
+  LocationWithState,
+  VenueEdge,
+  MapState,
+  initialAppState,
+  navigateWithState,
+  Directions,
+  directions,
+  Radiuses,
+  BufferProperties
+} from '../utils/types';
 
 const drawerWidth = 280;
 
@@ -108,6 +121,9 @@ const styles = (theme: Theme): StyleRules =>
     descParagraph: {
       paddingLeft: theme.spacing.unit * 2,
       paddingRight: theme.spacing.unit * 2
+    },
+    grid: {
+      overflow: 'hidden'
     }
   });
 
@@ -303,14 +319,26 @@ class MapPage extends React.Component<Props, State> {
             </Typography>
           </Container>
           <Container>
-            <ValuesTable summary={summary} />
+            <Grid container className={classes.grid}>
+              <Grid item xs={12} sm={7}>
+                <ValuesTable summary={summary} />
+              </Grid>
+              <Grid item xs={12} sm={5}>
+                <AutoSizer disableHeight>
+                  {({ width }) => <Pie item={data.venuesJson.topojson.objects.buffers.geometries} width={width} />}
+                </AutoSizer>
+              </Grid>
+            </Grid>
+            {/*<Grid item xs={12} sm={12}>
+              <DirectionTable directionObject={getItemsDiff(data.venuesJson.topojson.objects.buffers.geometries)} />
+              </Grid>*/}
           </Container>
-          <Container>
-            <AutoSizer disableHeight>{({ width }) => <BufferArcs buffers={buffers} width={width} />}</AutoSizer>
+          {/*          <Container>
+            <ValuesTable summary={summary} />
           </Container>
           <div className={classes.fullWidthContainer}>
             <DirectionApp data={data.venuesJson.topojson.objects.buffers.geometries} />
-          </div>
+</div>*/}
           <Container>
             <Attribution />
           </Container>
@@ -340,6 +368,26 @@ export default withStyles(styles)(MapPage);
 function createDescriptionString(name: string, club: string[]): string {
   const intro = club[0] !== 'その他' ? `${club.join(',')} のホームスタジアム・` : '';
   return `${intro}${name}周辺の人口を総務省統計局の国勢調査に関する地域メッシュ統計(平成27年度)から算出し、地図に表示しました。`;
+}
+
+type DirectionObj = {
+  [key in keyof typeof Directions]: Array<{
+    radius: keyof typeof Radiuses;
+    population: number;
+    diff: number;
+  }>
+};
+
+function getItemsDiff(items: Array<{ properties: BufferProperties }>): DirectionObj {
+  const obj: any = {};
+  directions.forEach(direction => {
+    obj[direction] = items.map((item, index, arr) => ({
+      radius: item.properties.radius,
+      population: item.properties[direction],
+      diff: index === 0 ? item.properties[direction] : item.properties[direction] - arr[index - 1].properties[direction]
+    }));
+  });
+  return obj;
 }
 
 export const query = graphql`
