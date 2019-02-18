@@ -22,8 +22,9 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import RemoveIcon from '@material-ui/icons/Remove';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import ArrowForward from '@material-ui/icons/ArrowForward';
 
-import { VenueEdge, AppState, TableState } from '../utils/types';
+import { VenueEdge, AppState, TableState, navigateWithState } from '../utils/types';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
@@ -211,9 +212,7 @@ class RCTable extends React.Component<Props, State> {
       >
         <div className={classes.header}>
           <Toolbar className={classes.toolbar}>
-            <Typography className={classes.title} variant="h6" color="inherit">
-              スタジアムと距離圏人口
-            </Typography>
+            {' '}
             <Tooltip title="フィルター">
               <IconButton
                 color="inherit"
@@ -233,10 +232,10 @@ class RCTable extends React.Component<Props, State> {
               open={menuOpen}
               transition
               disablePortal
-              placement="bottom-end"
+              placement="bottom-start"
             >
               {({ TransitionProps }) => (
-                <Grow {...TransitionProps} style={{ transformOrigin: 'right top' }}>
+                <Grow {...TransitionProps} style={{ transformOrigin: 'left top' }}>
                   <Paper>
                     <ClickAwayListener
                       onClickAway={event => {
@@ -266,6 +265,29 @@ class RCTable extends React.Component<Props, State> {
                 </Grow>
               )}
             </Popper>
+            <Typography className={classes.title} variant="h6" color="inherit">
+              スタジアムと距離圏人口
+            </Typography>
+            <Tooltip title="ダイジェスト">
+              <IconButton
+                aria-owns="next"
+                role="button"
+                aria-haspopup="true"
+                color="inherit"
+                onClick={() => {
+                  navigateWithState('manholes', {
+                    mapState: appState.mapState,
+                    tableState: {
+                      ascSort,
+                      sortKey,
+                      filterRule
+                    }
+                  });
+                }}
+              >
+                <ArrowForward />
+              </IconButton>
+            </Tooltip>
           </Toolbar>
           <div className={classes.thead}>
             <div className={classes.row}>
@@ -312,7 +334,7 @@ class RCTable extends React.Component<Props, State> {
                     to={`/${edge.node.summary.slug}/`}
                     className={classes.link}
                     state={{
-                      mapState: appState.mapState || null,
+                      mapState: appState.mapState,
                       tableState: {
                         ascSort,
                         sortKey,
@@ -342,7 +364,7 @@ class RCTable extends React.Component<Props, State> {
 export default withStyles(styles)(RCTable);
 
 // helpers
-function sortData(data: VenueEdge[], ascSort: boolean, sortKey: number, filterRule: string[]): VenueEdge[] {
+export function sortData(data: VenueEdge[], ascSort: boolean, sortKey: number, filterRule: string[]): VenueEdge[] {
   const isAsc = ascSort ? 1 : -1;
   const prop = sortKey === 0 ? 'radius1000' : sortKey === 1 ? 'radius3000' : sortKey === 2 ? 'radius5000' : 'radius10000';
 

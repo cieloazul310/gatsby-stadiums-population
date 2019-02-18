@@ -48,7 +48,7 @@ const MapHandler: React.FunctionComponent<Props> = ({
         <ListItemText primary="地図を縮小" />
       </ListItem>
     </Hidden>
-    <ListItem button>
+    <ListItem>
       <ListItemIcon>
         <LandScape />
       </ListItemIcon>

@@ -9,6 +9,7 @@ import RCTable from '../components/RCTable';
 import Container from '../components/Container';
 import Attribution from '../components/Attribution';
 import { DataAttribution } from '../components/MapAttribution';
+import Footer from '../components/Footer';
 import { AutoSizer } from 'react-virtualized';
 import { VenueEdge, LocationWithState, initialAppState } from '../utils/types';
 
@@ -23,7 +24,11 @@ const styles = (theme: Theme): StyleRules =>
     },
     table: {
       width: '100%',
-      height: '100vh'
+      height: 'calc(100vh - 30px)'
+    },
+    aside: {
+      paddingTop: theme.spacing.unit * 4,
+      paddingBottom: theme.spacing.unit * 4
     }
   });
 
@@ -76,7 +81,7 @@ class IndexPage extends React.PureComponent<Props> {
           </div>
         </main>
         <aside>
-          <div>
+          <div className={classes.aside}>
             <Container>
               <Attribution />
             </Container>
@@ -85,6 +90,7 @@ class IndexPage extends React.PureComponent<Props> {
             </Container>
           </div>
         </aside>
+        <Footer />
       </div>
     );
   }

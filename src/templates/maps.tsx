@@ -32,11 +32,11 @@ import { sortData } from '../components/TableApp';
 import DirectionTable from '../components/DirectionTable';
 import ValuesTable from '../components/ValuesTable';
 import Pie from '../components/Pie';
-import DirectionApp from '../components/DirectionApp';
 import Attribution from '../components/Attribution';
 import Container from '../components/Container';
 import { DataAttribution, MapAttribution } from '../components/MapAttribution';
 import AdBox from '../components/AdBox';
+import Footer from '../components/Footer';
 import {
   Summary,
   LocationWithState,
@@ -99,9 +99,9 @@ const styles = (theme: Theme): StyleRules =>
       paddingBottom: theme.spacing.unit * 2
     },
     autoSizerWrapper: {
-      height: 'calc(100vh - 56px)',
+      height: 'calc(100vh - 86px)',
       '@media (min-width: 600px)': {
-        height: 'calc(100vh - 64px)'
+        height: 'calc(100vh - 94px)'
       }
     },
     fabZoomIn: {
@@ -121,9 +121,6 @@ const styles = (theme: Theme): StyleRules =>
     descParagraph: {
       paddingLeft: theme.spacing.unit * 2,
       paddingRight: theme.spacing.unit * 2
-    },
-    grid: {
-      overflow: 'hidden'
     }
   });
 
@@ -193,7 +190,7 @@ class MapPage extends React.Component<Props, State> {
     const geojson = topofeature(topojson, topojson.objects.points);
     const buffers = topofeature(topojson, topojson.objects.buffers).features;
     const others = sortData(edges, tableState.ascSort, tableState.sortKey, tableState.filterRule);
-    const { name, club, slug } = summary;
+    const { name, club, category, slug } = summary;
     const drawer = (
       <DrawerInner
         summary={summary}
@@ -278,82 +275,90 @@ class MapPage extends React.Component<Props, State> {
           </Hidden>
         </nav>
         <div className={classes.content}>
-          <div className={classes.autoSizerWrapper}>
-            <AutoSizer>
-              {({ width, height }) => (
-                <div>
-                  <MapApp
-                    width={width}
-                    height={height}
-                    geojson={geojson}
-                    buffers={buffers}
-                    mapState={{ popVisibility, bufferVisibility, zoomLevel, terrain }}
-                  />
-                  <Hidden implementation="css" mdUp>
-                    <Fab className={classes.fabZoomIn} color="primary" disabled={zoomLevel === 0} onClick={this.handleZoomIn} role="button">
-                      <AddIcon />
-                    </Fab>
-                    <Fab
-                      className={classes.fabZoomOut}
-                      color="primary"
-                      disabled={zoomLevel === 3}
-                      onClick={this.handleZoomOut}
-                      role="button"
-                    >
-                      <RemoveIcon />
-                    </Fab>
-                  </Hidden>
-                </div>
-              )}
-            </AutoSizer>
-          </div>
-          <Container>
-            <MapLegends />
-          </Container>
-          <Container>
-            <AdBox />
-          </Container>
-          <Container>
-            <Typography component="h2" variant="h5" gutterBottom>
-              {name}
-            </Typography>
-          </Container>
-          <Container>
-            <Grid container className={classes.grid}>
-              <Grid item xs={12} sm={7}>
-                <ValuesTable summary={summary} />
+          <main>
+            <div className={classes.autoSizerWrapper}>
+              <AutoSizer>
+                {({ width, height }) => (
+                  <div>
+                    <MapApp
+                      width={width}
+                      height={height}
+                      geojson={geojson}
+                      buffers={buffers}
+                      mapState={{ popVisibility, bufferVisibility, zoomLevel, terrain }}
+                    />
+                    <Hidden implementation="css" mdUp>
+                      <Fab
+                        className={classes.fabZoomIn}
+                        color="primary"
+                        disabled={zoomLevel === 0}
+                        onClick={this.handleZoomIn}
+                        role="button"
+                      >
+                        <AddIcon />
+                      </Fab>
+                      <Fab
+                        className={classes.fabZoomOut}
+                        color="primary"
+                        disabled={zoomLevel === 3}
+                        onClick={this.handleZoomOut}
+                        role="button"
+                      >
+                        <RemoveIcon />
+                      </Fab>
+                    </Hidden>
+                  </div>
+                )}
+              </AutoSizer>
+            </div>
+            <Container>
+              <MapLegends />
+            </Container>
+            <Container>
+              <AdBox />
+            </Container>
+            <Container>
+              <Typography component="h2" variant="h5" gutterBottom>
+                {name}
+              </Typography>
+              <Typography variant="body2" gutterBottom>
+                クラブ: {club.join(', ')}
+                {'  '}
+                カテゴリー: {category.join(', ')}
+              </Typography>
+            </Container>
+            <Container>
+              <Grid container className={classes.grid} direction="row-reverse" alignContent="center">
+                <Grid item xs={12} sm={8}>
+                  <ValuesTable summary={summary} />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <Pie item={data.venuesJson.topojson.objects.buffers.geometries} />
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={5}>
-                <AutoSizer disableHeight>
-                  {({ width }) => <Pie item={data.venuesJson.topojson.objects.buffers.geometries} width={width} />}
-                </AutoSizer>
-              </Grid>
-            </Grid>
-            {/*<Grid item xs={12} sm={12}>
+              {/*<Grid item xs={12} sm={12}>
               <DirectionTable directionObject={getItemsDiff(data.venuesJson.topojson.objects.buffers.geometries)} />
               </Grid>*/}
-          </Container>
-          {/*          <Container>
-            <ValuesTable summary={summary} />
-          </Container>
-          <div className={classes.fullWidthContainer}>
-            <DirectionApp data={data.venuesJson.topojson.objects.buffers.geometries} />
-</div>*/}
-          <Container>
-            <Attribution />
-          </Container>
-          <Container>
-            <DataAttribution />
-          </Container>
-          <Container>
-            <MapAttribution />
-            <Link to="/" state={{ tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } }}>
-              トップに戻る
-            </Link>
-          </Container>
-          <Container>
-            <AdBox />
-          </Container>
+            </Container>
+          </main>
+          <aside>
+            <Container>
+              <Attribution />
+            </Container>
+            <Container>
+              <DataAttribution />
+            </Container>
+            <Container>
+              <MapAttribution />
+              <Link to="/" state={{ tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } }}>
+                トップに戻る
+              </Link>
+            </Container>
+            <Container>
+              <AdBox />
+            </Container>
+          </aside>
+          <Footer />
         </div>
       </div>
     );

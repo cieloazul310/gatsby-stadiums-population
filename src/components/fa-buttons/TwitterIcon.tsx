@@ -16,7 +16,7 @@ class TwitterIcon extends React.PureComponent<Props> {
     const { color } = this.props;
     return (
       <Icon color={color}>
-        <FontAwesomeIcon icon={['fab', 'twitter']} />
+        <FontAwesomeIcon style={{ verticalAlign: '0.125em' }} icon={['fab', 'twitter']} />
       </Icon>
     );
   }

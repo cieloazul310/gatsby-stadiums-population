@@ -4,10 +4,24 @@ import Typography from '@material-ui/core/Typography';
 const DataAttribution: React.FC<{}> = () => (
   <section>
     <Typography variant="h5" gutterBottom>
-      データについて
+      人口データについて
     </Typography>
     <Typography variant="body1" paragraph>
-      {'人口データは総務省統計局の地域メッシュ統計を点データに変換したものを用いています。'}
+      人口データは総務省統計局の地域メッシュ統計を点データに変換したものを用いています。
+    </Typography>
+    <Typography variant="body1" paragraph>
+      {'データ: '}
+      <a
+        href="https://www.e-stat.go.jp/gis/statmap-search?page=1&type=1&toukeiCode=00200521&toukeiYear=2015&aggregateUnit=Q&serveyId=Q002005112015&statsId=T000876"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {'国勢調査 2015年 5次メッシュ(250mメッシュ) その1 人口等基本集計に関する事項'}
+      </a>
+      <br />
+      公開日: 2018年1月4日
+      <br />
+      データ取得日: 2018年4月10日
     </Typography>
     <blockquote>
       <Typography variant="subtitle1" gutterBottom>
@@ -19,32 +33,32 @@ const DataAttribution: React.FC<{}> = () => (
         }
       </Typography>
       <Typography variant="body2">
-        引用元: <a href="https://www.stat.go.jp/data/mesh/m_tuite.html">総務省統計局</a>
-      </Typography>
-    </blockquote>
-    <Typography variant="body1" paragraph>
-      {'国勢調査 2015年 5次メッシュ(250mメッシュ) その1 人口等基本集計に関する事項'}
-    </Typography>
-    <ul>
-      <Typography variant="body1" component="li" style={{ overflowWrap: 'break-word' }}>
-        {'URL: '}
-        <a
-          href="https://www.e-stat.go.jp/gis/statmap-search?page=1&type=1&toukeiCode=00200521&toukeiYear=2015&aggregateUnit=Q&serveyId=Q002005112015&statsId=T000876"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {'地域メッシュ統計'}
+        引用元:{' '}
+        <a href="https://www.stat.go.jp/data/mesh/m_tuite.html" target="_blank" rel="noopener noreferrer">
+          総務省統計局
         </a>
       </Typography>
-    </ul>
+    </blockquote>
     <Typography variant="h5" gutterBottom>
-      距離円と人口データの計算
+      距離円と人口データの演算
     </Typography>
     <Typography variant="body1" paragraph>
-      {'距離円および距離円に含まれる人口データは JavaScript ライブラリである Turf.js で算出しました。'}
+      距離円および距離円に含まれる人口データは JavaScript ライブラリである{' '}
+      <a href="https://turfjs.org" target="_blank" rel="noopener noreferrer">
+        Turf.js
+      </a>{' '}
+      で算出しました。
     </Typography>
     <Typography variant="body1">
-      <a href="https://turfjs.org/">Turf.js</a>
+      人口の算出方法は、
+      <a
+        href="https://midoriit.com/2014/08/qgis%E3%81%AB%E3%82%88%E3%82%8B%E7%B5%B1%E8%A8%88%E8%A7%A3%E6%9E%904.html"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        QGISによるデータ分析(4) 合同会社 緑IT事務所
+      </a>
+      を参考にしています。
     </Typography>
   </section>
 );
@@ -55,7 +69,11 @@ const MapAttribution: React.FC<{}> = () => (
       地図について
     </Typography>
     <Typography variant="body1" paragraph>
-      {'背景地図には国土地理院の地理院タイルを使用しています。標準モードでは電子国土基本図、地形モードでは傾斜量図を表示しています。'}
+      背景地図には国土地理院の
+      <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener noreferrer">
+        地理院タイル
+      </a>
+      を使用しています。標準モードでは電子国土基本図、地形モードでは傾斜量図を表示しています。
     </Typography>
     <blockquote>
       <Typography variant="subtitle1" gutterBottom>

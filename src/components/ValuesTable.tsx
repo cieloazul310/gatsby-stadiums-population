@@ -1,36 +1,20 @@
 import * as React from 'react';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
-import createStyles from '@material-ui/core/styles/createStyles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
 import { Summary } from '../utils/types';
 
-const styles = (theme: Theme): StyleRules =>
-  createStyles({
-    root: {},
-    thead: {
-      padding: theme.spacing.unit * 2
-    }
-  });
-
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   summary: Summary;
 }
 
 const ValuesTable: React.FunctionComponent<Props> = (props: Props) => {
-  const { classes, summary } = props;
-  const { club, category, radius1000, radius3000, radius5000, radius10000 } = summary;
+  const { summary } = props;
+  const { radius1000, radius3000, radius5000, radius10000 } = summary;
 
   return (
-    <div className={classes.root}>
-      <div className={classes.thead}>
-        <Typography variant="caption">クラブ: {club.join(', ')}</Typography>
-        <Typography variant="caption">カテゴリー: {category.join(', ')}</Typography>
-      </div>
+    <div>
       <Table>
         <TableBody>
           <TableRow>
@@ -55,4 +39,4 @@ const ValuesTable: React.FunctionComponent<Props> = (props: Props) => {
   );
 };
 
-export default withStyles(styles)(ValuesTable);
+export default ValuesTable;

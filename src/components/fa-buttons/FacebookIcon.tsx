@@ -16,7 +16,7 @@ class FacebookIcon extends React.PureComponent<Props> {
     const { color } = this.props;
     return (
       <Icon color={color}>
-        <FontAwesomeIcon icon={['fab', 'facebook']} />
+        <FontAwesomeIcon style={{ verticalAlign: '0.125em' }} icon={['fab', 'facebook']} />
       </Icon>
     );
   }

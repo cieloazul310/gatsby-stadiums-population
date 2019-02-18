@@ -1,27 +1,24 @@
 import * as React from 'react';
 import { scaleLinear } from 'd3-scale';
-//import { interpolateSpectral } from 'd3-scale-chromatic';
 import { arc as d3arc } from 'd3-shape';
 import { colorScale } from './MeshFeature';
-import { Directions, directions, Radiuses, radiuses, radiusKeys, BufferProperties } from '../utils/types';
+import { Directions, directions, Radiuses, radiuses, BufferProperties } from '../utils/types';
 
 interface Props {
-  width: number;
   item: Array<{ properties: BufferProperties }>;
 }
 
-//const color = scaleSequential(interpolateSpectral).domain([10000, 0]);
 const color = colorScale.copy();
 color.domain([...colorScale.domain()].map(d => d * 8));
 const opacity = scaleLinear()
   .domain([250, 0])
   .range([1, 0]);
 
-const Pie: React.FC<Props> = ({ width, item }: Props) => {
-  const size = width || 10;
+const Pie: React.FC<Props> = ({ item }: Props) => {
+  const size = 300;
 
   return (
-    <svg width={size} height={size}>
+    <svg viewBox={`0 0 ${size} ${size}`}>
       {item.map((d, i, arr) => (
         <g key={i} transform={`translate(${size / 2}, ${size / 2})`}>
           {directions.map(key => {

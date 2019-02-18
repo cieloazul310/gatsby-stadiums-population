@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { graphql, Link } from 'gatsby';
+import { Helmet } from 'react-helmet';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
@@ -9,8 +10,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { AutoSizer } from 'react-virtualized';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import Pie from '../components/Pie';
+import Footer from '../components/Footer';
+import { LocationWithState, initialAppState, navigateWithState } from '../utils/types';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
@@ -58,20 +62,47 @@ interface Data {
 
 interface Props extends WithStyles<typeof styles> {
   data: Data;
+  location: LocationWithState;
 }
 
 interface State {}
 
 class Pies extends React.Component<Props, State> {
   public render() {
-    const { classes, data } = this.props;
+    const { classes, data, location } = this.props;
+    const { state } = location;
     return (
       <div className={classes.root}>
+        <Helmet>
+          <html lang="ja" />
+          <title>スタジアムと距離圏人口</title>
+          <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,minimal-ui" />
+          <meta
+            name="description"
+            content="日本国内の主要なサッカースタジアムの周辺人口を総務省統計局の地域メッシュ統計から算出し、地図に表示しました。"
+          />
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="サッカースタジアムと人口" />
+          <meta property="og:url" content="https://cieloazul310.github.io/gatsby-stadiums-population/manholes/" />
+          <meta property="og:image" content="https://cieloazul310.github.io/img/ogp2.png" />
+          <meta property="og:site_name" content="水戸地図" />
+          <meta name="twitter:card" content="summary" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        </Helmet>
         <CssBaseline />
         <AppBar>
           <Toolbar>
+            <IconButton
+              color="inherit"
+              onClick={() => {
+                navigateWithState('./', state || initialAppState);
+              }}
+            >
+              <ArrowBack />
+            </IconButton>
             <Typography variant="h6" color="inherit">
-              スタジアムと人口
+              スタジアムと距離圏人口
             </Typography>
           </Toolbar>
         </AppBar>
@@ -87,12 +118,12 @@ class Pies extends React.Component<Props, State> {
                   .sort((a, b) => scorePopulation(b.node.summary) - scorePopulation(a.node.summary))
                   .map((edge, index) => (
                     <Grid key={index} item xs={6} sm={4} md={2} lg={2} className={classes.edge}>
-                      <AutoSizer disableHeight>
-                        {({ width }) => <Pie width={width} item={edge.node.topojson.objects.buffers.geometries} />}
-                      </AutoSizer>
+                      <Pie item={edge.node.topojson.objects.buffers.geometries} />
                       <div>
                         <Typography className={classes.label} variant="caption">
-                          <Link to={`/${edge.node.summary.slug}`}>{edge.node.summary.name}</Link>
+                          <Link to={`/${edge.node.summary.slug}`} state={state || initialAppState}>
+                            {edge.node.summary.name}
+                          </Link>
                         </Typography>
                       </div>
                     </Grid>
@@ -101,6 +132,7 @@ class Pies extends React.Component<Props, State> {
             </Paper>
           ))}
         </div>
+        <Footer />
       </div>
     );
   }
