@@ -1,5 +1,5 @@
 import { navigate } from 'gatsby';
-import { Feature, Polygon } from '@turf/helpers';
+import { Feature, Polygon, FeatureCollection, Point } from '@turf/helpers';
 import { LocationProps } from '@reach/router';
 
 export const initialAppState: AppState = {
@@ -34,9 +34,16 @@ export interface MapState {
   readonly terrain?: boolean;
 }
 
+export const appHasState = (state: AppState): boolean => state.hasOwnProperty('tableState') && state.hasOwnProperty('mapState');
+
+export const createInitialState = (location: LocationWithState): AppState => {
+  return location.state !== null && appHasState(location.state) ? location.state : initialAppState;
+};
+
 export interface AppState {
-  tableState: TableState;
-  mapState: MapState;
+  tableState: TableState | null;
+  mapState: MapState | null;
+  key?: string;
 }
 
 export interface LocationWithState extends LocationProps {
@@ -53,9 +60,17 @@ export interface Summary extends RadiusProps {
 
 export interface VenueEdge {
   node: {
+    fields: {
+      slug: string;
+    };
     summary: Summary;
   };
 }
+
+export type MeshFeatureCollection = FeatureCollection<Point, MeshProperties>;
+
+export const isMeshFeatureCollection = (item: any): item is MeshFeatureCollection =>
+  item.type === 'FeatureCollection' && item.features !== undefined && item.features[0].geometry.type === 'Point';
 
 export interface BufferProperties extends DirectionProps {
   name: string;

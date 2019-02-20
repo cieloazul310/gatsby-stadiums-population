@@ -34,7 +34,7 @@ const DrawerTable: React.FC<Props> = ({ classes, slug, edges, appState }: Props)
         button
         selected={edge.node.summary.slug === slug}
         onClick={() => {
-          navigateWithState(`/${edge.node.summary.slug}/`, appState);
+          navigateWithState(edge.node.fields.slug, appState);
         }}
       >
         <ListItemText

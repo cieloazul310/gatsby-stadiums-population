@@ -10,8 +10,7 @@ import { geoMercator, geoPath, GeoProjection, GeoPath } from 'd3-geo';
 import TileSet, { Tile, TileWithURL } from '../utils/tileTree';
 import MeshFeature from '../components/MeshFeature';
 import GrayScaleFilter from '../components/GrayScaleFilter';
-import { Feature, Point } from '@turf/helpers';
-import { Buffer, MeshProperties, MapState } from '../utils/types';
+import { Buffer, MapState, MeshFeatureCollection } from '../utils/types';
 
 import Place from '../image/place.svg';
 
@@ -47,10 +46,7 @@ interface Props extends WithStyles<typeof styles> {
   width: number;
   height: number;
   mapState: MapState;
-  geojson: {
-    type: 'FeatureCollection';
-    features: Feature<Point, MeshProperties>[];
-  };
+  geojson: MeshFeatureCollection;
   buffers: Buffer[];
 }
 

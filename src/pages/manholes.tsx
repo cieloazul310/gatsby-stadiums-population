@@ -110,7 +110,7 @@ class Pies extends React.Component<Props, State> {
           {['J1', 'J2', 'J3', 'JFL', '地域', 'その他'].map(str => (
             <Paper key={str} className={classes.paper}>
               <Typography className={classes.paperTitle} variant="h5" gutterBottom>
-                {str}のスタジアム
+                {str !== '地域' ? str : '地域リーグ'}のスタジアム
               </Typography>
               <Grid container className={classes.container} spacing={0}>
                 {data.allVenuesJson.edges

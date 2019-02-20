@@ -126,10 +126,10 @@ const styles = (theme: Theme): StyleRules =>
 
 interface Props extends WithStyles<typeof styles> {
   data: {
-    allVenuesJson: {
+    allArenasJson: {
       edges: Array<VenueEdge>;
     };
-    venuesJson: {
+    arenasJson: {
       fields: {
         slug: string;
       };
@@ -182,12 +182,11 @@ class MapPage extends React.Component<Props, State> {
   };
 
   public render() {
-    console.log(this.props);
     const { classes, data, location } = this.props;
     const { popVisibility, bufferVisibility, zoomLevel, terrain } = this.state;
     const tableState = location.state ? location.state.tableState : initialAppState.tableState;
-    const { edges } = data.allVenuesJson;
-    const { summary, topojson } = data.venuesJson;
+    const { edges } = data.allArenasJson;
+    const { summary, topojson } = data.arenasJson;
     const geojson = topofeature(topojson, topojson.objects.points);
     const bufferGeoJSON = topofeature(topojson, topojson.objects.buffers);
     const buffers = bufferGeoJSON.features;
@@ -335,9 +334,12 @@ class MapPage extends React.Component<Props, State> {
                   <ValuesTable summary={summary} />
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                  <Pie item={data.venuesJson.topojson.objects.buffers.geometries} />
+                  <Pie item={data.arenasJson.topojson.objects.buffers.geometries} />
                 </Grid>
               </Grid>
+              {/*<Grid item xs={12} sm={12}>
+              <DirectionTable directionObject={getItemsDiff(data.venuesJson.topojson.objects.buffers.geometries)} />
+              </Grid>*/}
             </Container>
           </main>
           <aside>
@@ -364,6 +366,7 @@ class MapPage extends React.Component<Props, State> {
   }
 }
 
+//export default withRoot(withStyles(styles)(MapPage));
 export default withStyles(styles)(MapPage);
 
 // helper
@@ -394,8 +397,8 @@ function getItemsDiff(items: Array<{ properties: BufferProperties }>): Direction
 }
 
 export const query = graphql`
-  query($slug: String) {
-    allVenuesJson {
+  query($slug: String!) {
+    allArenasJson {
       edges {
         node {
           fields {
@@ -415,7 +418,7 @@ export const query = graphql`
         }
       }
     }
-    venuesJson(fields: { slug: { eq: $slug } }) {
+    arenasJson(fields: { slug: { eq: $slug } }) {
       fields {
         slug
       }

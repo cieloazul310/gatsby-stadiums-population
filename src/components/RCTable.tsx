@@ -180,7 +180,7 @@ class RCTable extends React.Component<Props, State> {
         filterRule: [],
         menuOpen: false
       };
-  private anchorEl: HTMLElement;
+  private anchorEl: HTMLElement | null = null;
   private _handleSort = (index: number) => {
     this.setState(prevState => ({
       ascSort: prevState.sortKey === index ? !prevState.ascSort : false,
@@ -239,7 +239,7 @@ class RCTable extends React.Component<Props, State> {
                   <Paper>
                     <ClickAwayListener
                       onClickAway={event => {
-                        if (this.anchorEl.contains(event.target)) {
+                        if (this.anchorEl === null || this.anchorEl.contains(event.target)) {
                           return;
                         }
                         this.setState({ menuOpen: false });
@@ -331,7 +331,7 @@ class RCTable extends React.Component<Props, State> {
                 <div className={classes.index}>{index + 1}</div>
                 <div className={classes.name}>
                   <Link
-                    to={`/${edge.node.summary.slug}/`}
+                    to={edge.node.fields.slug}
                     className={classes.link}
                     state={{
                       mapState: appState.mapState,

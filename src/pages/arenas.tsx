@@ -11,7 +11,7 @@ import Attribution from '../components/Attribution';
 import { DataAttribution } from '../components/MapAttribution';
 import Footer from '../components/Footer';
 import { AutoSizer } from 'react-virtualized';
-import { VenueEdge, LocationWithState, initialAppState } from '../utils/types';
+import { VenueEdge, LocationWithState, createInitialState } from '../utils/types';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
@@ -37,7 +37,7 @@ const styles = (theme: Theme): StyleRules =>
 
 interface Props extends WithStyles<typeof styles> {
   data: {
-    allVenuesJson: {
+    allArenasJson: {
       edges: Array<VenueEdge>;
     };
   };
@@ -75,8 +75,8 @@ class IndexPage extends React.PureComponent<Props> {
                   <RCTable
                     width={width}
                     height={height}
-                    data={this.props.data.allVenuesJson.edges}
-                    appState={this.props.location.state || initialAppState}
+                    data={this.props.data.allArenasJson.edges}
+                    appState={createInitialState(this.props.location)}
                   />
                 )}
               </AutoSizer>
@@ -103,7 +103,7 @@ export default withStyles(styles)(IndexPage);
 
 export const query = graphql`
   {
-    allVenuesJson {
+    allArenasJson {
       edges {
         node {
           fields {

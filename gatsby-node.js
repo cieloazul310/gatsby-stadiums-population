@@ -5,7 +5,7 @@ const path = require('path');
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
-  if (node.internal.type === 'VenuesJson') {
+  if (node.internal.type === 'VenuesJson' || node.internal.type === 'ArenasJson') {
     const { createNodeField } = actions;
     const slug = createFilePath({
       node,
@@ -29,13 +29,29 @@ exports.createPages = ({ graphql, actions }) => {
           }
         }
       }
+      allArenasJson {
+        edges {
+          node {
+            fields {
+              slug
+            }
+          }
+        }
+      }
     }
   `).then(result => {
     result.data.allVenuesJson.edges.forEach(({ node }) => {
       createPage({
         path: node.fields.slug,
         component: path.resolve(`./src/templates/maps.tsx`),
-        context: { slug: node.fields.slug }
+        context: { slug: node.fields.slug, group: 'venues' }
+      });
+    });
+    result.data.allArenasJson.edges.forEach(({ node }) => {
+      createPage({
+        path: node.fields.slug,
+        component: path.resolve(`./src/templates/arenas.tsx`),
+        context: { slug: node.fields.slug, group: 'arenas' }
       });
     });
   });

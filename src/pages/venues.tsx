@@ -11,7 +11,7 @@ import Attribution from '../components/Attribution';
 import { DataAttribution } from '../components/MapAttribution';
 import Footer from '../components/Footer';
 import { AutoSizer } from 'react-virtualized';
-import { VenueEdge, LocationWithState, initialAppState } from '../utils/types';
+import { VenueEdge, LocationWithState, createInitialState } from '../utils/types';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
@@ -76,7 +76,7 @@ class IndexPage extends React.PureComponent<Props> {
                     width={width}
                     height={height}
                     data={this.props.data.allVenuesJson.edges}
-                    appState={this.props.location.state || initialAppState}
+                    appState={createInitialState(this.props.location)}
                   />
                 )}
               </AutoSizer>

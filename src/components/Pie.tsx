@@ -9,7 +9,8 @@ interface Props {
 }
 
 const color = colorScale.copy();
-color.domain([...colorScale.domain()].map(d => d * 8));
+const newDomain: [number, number] = [colorScale.domain()[0] * 8, 0];
+color.domain(newDomain);
 const opacity = scaleLinear()
   .domain([250, 0])
   .range([1, 0]);
