@@ -288,7 +288,7 @@ class RCTable extends React.Component<Props, State> {
                 aria-haspopup="true"
                 color="inherit"
                 onClick={() => {
-                  navigateWithState('manholes', {
+                  navigateWithState(`/${group}/manholes`, {
                     mapState: appState.mapState,
                     tableState: {
                       ascSort,
