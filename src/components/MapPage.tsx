@@ -174,7 +174,7 @@ class MapInner extends React.Component<Props, State> {
     };
     const drawer = (
       <DrawerInner
-        summary={summary}
+        datum={datum}
         edges={others}
         group={group}
         appState={newAppState}

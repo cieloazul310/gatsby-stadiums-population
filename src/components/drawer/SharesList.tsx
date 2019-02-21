@@ -6,21 +6,21 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import TwitterIcon from '../fa-buttons/TwitterIcon';
 import FacebookIcon from '../fa-buttons/FacebookIcon';
-import { Summary } from '../../utils/types';
+import { Data } from '../../types';
 
 interface Props {
-  summary: Summary;
+  datum: Data;
 }
 
-const SharesList: React.FunctionComponent<Props> = ({ summary }: Props) => (
+const SharesList: React.FunctionComponent<Props> = ({ datum }: Props) => (
   <List subheader={<ListSubheader>シェア</ListSubheader>}>
-    <ListItem button component="a" href={createTwiterShareUrl(summary)} target="_blank" rel="noopener noreferrer">
+    <ListItem button component="a" href={createTwiterShareUrl(datum)} target="_blank" rel="noopener noreferrer">
       <ListItemIcon>
         <TwitterIcon />
       </ListItemIcon>
       <ListItemText primary="Twitterで共有" />
     </ListItem>
-    <ListItem button component="a" href={createFbShareUrl(summary)} target="_blank" rel="noopener noreferrer">
+    <ListItem button component="a" href={createFbShareUrl(datum)} target="_blank" rel="noopener noreferrer">
       <ListItemIcon>
         <FacebookIcon />
       </ListItemIcon>
@@ -32,18 +32,18 @@ const SharesList: React.FunctionComponent<Props> = ({ summary }: Props) => (
 export default SharesList;
 
 // helpers
-function createTwiterShareUrl(summary: Summary): string {
+function createTwiterShareUrl(datum: Data): string {
   return (
     `https://twitter.com/intent/tweet?text=` +
-    encodeURI(`${summary.name}周辺の人口`) +
+    encodeURI(`${datum.summary.name}周辺の人口`) +
     `&url=` +
-    encodeURIComponent(`https://cieloazul310.github.io/gatsby-stadiums-population/${summary.slug}/`)
+    encodeURIComponent(`https://cieloazul310.github.io/gatsby-stadiums-population${datum.fields.slug}`)
   );
 }
 
-function createFbShareUrl(summary: Summary): string {
+function createFbShareUrl(datum: Data): string {
   return (
     `https://www.facebook.com/sharer/sharer.php?u=` +
-    encodeURIComponent(`https://cieloazul310.github.io/gatsby-stadiums-population/${summary.slug}/`)
+    encodeURIComponent(`https://cieloazul310.github.io/gatsby-stadiums-population${datum.fields.slug}`)
   );
 }

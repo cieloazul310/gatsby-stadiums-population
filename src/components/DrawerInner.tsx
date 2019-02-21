@@ -20,7 +20,7 @@ import Clear from '@material-ui/icons/Clear';
 import Reply from '@material-ui/icons/Reply';
 
 import ValuesTable from '../components/ValuesTable';
-import { Summary, AppState, Edge, Group, navigateWithState } from '../types';
+import { Data, AppState, Edge, Group, navigateWithState } from '../types';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
@@ -28,7 +28,7 @@ const styles = (theme: Theme): StyleRules =>
   });
 
 interface Props extends WithStyles<typeof styles> {
-  summary: Summary;
+  datum: Data;
   appState: AppState;
   edges: Edge[];
   group: Group;
@@ -42,9 +42,9 @@ interface Props extends WithStyles<typeof styles> {
 
 const DrawerInner: React.FunctionComponent<Props> = ({
   classes,
-  summary,
   group,
   appState,
+  datum,
   edges,
   handleDrawerToggle,
   ...mapHandler
@@ -80,12 +80,12 @@ const DrawerInner: React.FunctionComponent<Props> = ({
   return (
     <div className={classes.root}>
       <DrawerToolBar />
-      <ValuesTable summary={summary} />
+      <ValuesTable summary={datum.summary} />
       <MapHandler mapState={mapState} {...mapHandler} />
       <Divider />
-      <SharesList summary={summary} />
+      <SharesList datum={datum} />
       <Divider />
-      <DrawerTable slug={summary.slug} edges={edges} appState={appState} />
+      <DrawerTable slug={datum.summary.slug} edges={edges} appState={appState} />
     </div>
   );
 };
