@@ -1,6 +1,7 @@
 import { LocationProps } from '@reach/router';
 import { navigate } from 'gatsby';
 import { Radiuses } from './Radiuses';
+import { Categories } from './Categories';
 
 export interface AppState {
   mapState: MapState;
@@ -19,7 +20,7 @@ export interface LocationWithState extends LocationProps {
 export interface TableState {
   readonly ascSort: boolean;
   readonly sortKey: Radiuses;
-  readonly filterRule: string[];
+  readonly filterRule: Categories[];
 }
 
 export interface MapState {
@@ -29,8 +30,8 @@ export interface MapState {
   readonly terrain: boolean;
 }
 
-export const navigateWithState = (to: string, state: AppState) => {
-  navigate(to, { state });
+export const navigateWithState = (to: string, appState: AppState) => {
+  navigate(to, { state: { appState } });
 };
 
 export const initialTableState: TableState = {

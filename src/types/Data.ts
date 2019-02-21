@@ -21,3 +21,13 @@ export interface Edge {
     summary: Summary;
   };
 }
+
+export interface EdgeWithBuffer {
+  node: {
+    fields: Fields;
+    summary: Summary;
+    topojson: Topology<{
+      buffers: BuffersObject;
+    }>;
+  };
+}

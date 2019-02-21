@@ -2,10 +2,11 @@ import * as React from 'react';
 import { scaleLinear } from 'd3-scale';
 import { arc as d3arc } from 'd3-shape';
 import { colorScale } from './MeshFeature';
-import { Directions, directions, Radiuses, radiuses, BufferProperties } from '../utils/types';
+import { GeometryObject } from 'topojson-specification';
+import { Directions, directions, Radiuses, radiuses, BufferProps } from '../types';
 
 interface Props {
-  item: Array<{ properties: BufferProperties }>;
+  item: GeometryObject<BufferProps>[];
 }
 
 const color = colorScale.copy();

@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { scaleLinear, scalePow, scaleSequential } from 'd3-scale';
+import { scalePow, scaleSequential } from 'd3-scale';
 import { interpolateSpectral } from 'd3-scale-chromatic';
-import { Feature, Point } from '@turf/helpers';
 import { GeoProjection } from 'd3-geo';
-
-import { MeshProperties } from '../utils/types';
+import { Mesh } from '../types';
 
 interface Props {
-  feature: Feature<Point, MeshProperties>;
+  feature: Mesh;
   projection: GeoProjection;
 }
 
@@ -21,20 +19,10 @@ export const sizeScale = scalePow()
 const MeshRect: React.FunctionComponent<Props> = (props: Props) => {
   const { feature, projection } = props;
   const { val } = feature.properties;
-  const center = projection(feature.geometry.coordinates);
+  const center = projection(feature.geometry.coordinates) || [0, 0];
   const size = Math.abs(sizeScale(val) * Math.min(Math.max(1, projection.scale() / 125000), 2.5));
 
-  return (
-    <rect
-      fill={colorScale(val)}
-      fillOpacity={0.6}
-      x={center[0] - size / 2}
-      y={center[1] - size / 2}
-      width={size}
-      height={size}
-      style={{ mixBlendMode: 'multiply' }}
-    />
-  );
+  return <rect fill={colorScale(val)} fillOpacity={0.6} x={center[0] - size / 2} y={center[1] - size / 2} width={size} height={size} />;
 };
 
 export default MeshRect;

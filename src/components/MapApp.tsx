@@ -10,8 +10,7 @@ import { geoMercator, geoPath, GeoProjection, GeoPath } from 'd3-geo';
 import TileSet, { Tile, TileWithURL } from '../utils/tileTree';
 import MeshFeature from '../components/MeshFeature';
 import GrayScaleFilter from '../components/GrayScaleFilter';
-import { MapState, MeshFeatureCollection } from '../utils/types';
-import { Mesh, Buffer } from '../types';
+import { Mesh, Buffer, MapState, radiuses } from '../types';
 
 import Place from '../image/place.svg';
 
@@ -34,7 +33,11 @@ const styles = (theme: Theme): StyleRules =>
       left: 0
     },
     points: {
-      mixBlendMode: 'multiply'
+      '@global': {
+        rect: {
+          mixBlendMode: 'multiply'
+        }
+      }
     }
   });
 
@@ -47,7 +50,6 @@ interface Props extends WithStyles<typeof styles> {
   width: number;
   height: number;
   mapState: MapState;
-  geojson?: MeshFeatureCollection;
   meshes: Mesh[];
   buffers: Buffer[];
 }
@@ -99,11 +101,13 @@ class Map extends React.Component<Props, State> {
   componentDidMount() {}
 
   public render() {
-    const { classes, buffers, geojson, mapState } = this.props;
+    const { classes, buffers, meshes, mapState } = this.props;
     const { popVisibility, bufferVisibility, zoomLevel, terrain } = mapState;
     const width = this.props.width || 400;
     const height = this.props.height || 400;
-    const projection = buffers ? geoMercator().fitExtent([[10, 40], [width - 10, height - 40]], buffers[zoomLevel]) : geoMercator();
+    const projection = buffers
+      ? geoMercator().fitExtent([[10, 40], [width - 10, height - 40]], buffers[radiuses.indexOf(zoomLevel)])
+      : geoMercator();
 
     const path: GeoPath = geoPath(projection);
     const tileSet = !terrain ? this._tileSet : this._terrain;
@@ -139,11 +143,9 @@ class Map extends React.Component<Props, State> {
           </g>
           {popVisibility ? (
             <g className={classes.points} style={{ opacity: this.state.fetchStatus !== 'yet' ? 1 : 0 }}>
-              {geojson
-                ? geojson.features.map((feature, index) =>
-                    feature.geometry.type === 'Point' ? <MeshFeature key={index} feature={feature} projection={projection} /> : null
-                  )
-                : null}
+              {meshes.map((feature, index) =>
+                feature.geometry.type === 'Point' ? <MeshFeature key={index} feature={feature} projection={projection} /> : null
+              )}
             </g>
           ) : null}
           {bufferVisibility ? (

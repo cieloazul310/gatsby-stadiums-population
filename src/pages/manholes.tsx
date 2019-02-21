@@ -14,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Pie from '../components/Pie';
 import Footer from '../components/Footer';
-import { LocationWithState, initialAppState, navigateWithState } from '../utils/types';
+import { LocationWithState, initialAppState, navigateWithState, EdgeWithBuffer } from '../types';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
@@ -56,7 +56,7 @@ const styles = (theme: Theme): StyleRules =>
 
 interface Data {
   allVenuesJson: {
-    edges: any[];
+    edges: EdgeWithBuffer[];
   };
 }
 
@@ -96,7 +96,7 @@ class Pies extends React.Component<Props, State> {
             <IconButton
               color="inherit"
               onClick={() => {
-                navigateWithState('./', state || initialAppState);
+                navigateWithState('./', state === null || state.appState === undefined ? initialAppState : state.appState);
               }}
             >
               <ArrowBack />

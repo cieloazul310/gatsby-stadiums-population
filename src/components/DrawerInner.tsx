@@ -20,18 +20,18 @@ import Clear from '@material-ui/icons/Clear';
 import Reply from '@material-ui/icons/Reply';
 
 import ValuesTable from '../components/ValuesTable';
-import { Summary, AppState, VenueEdge } from '../utils/types';
+import { Summary, AppState, Edge, Group, navigateWithState } from '../types';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
-    root: {},
     toolbar: theme.mixins.toolbar
   });
 
 interface Props extends WithStyles<typeof styles> {
   summary: Summary;
   appState: AppState;
-  edges: VenueEdge[];
+  edges: Edge[];
+  group: Group;
   handleDrawerToggle: () => any;
   handleZoomIn: () => any;
   handleZoomOut: () => any;
@@ -40,11 +40,19 @@ interface Props extends WithStyles<typeof styles> {
   handleBufferVisibility: () => any;
 }
 
-const DrawerInner: React.FunctionComponent<Props> = ({ classes, summary, appState, edges, handleDrawerToggle, ...mapHandler }: Props) => {
+const DrawerInner: React.FunctionComponent<Props> = ({
+  classes,
+  summary,
+  group,
+  appState,
+  edges,
+  handleDrawerToggle,
+  ...mapHandler
+}: Props) => {
   const { mapState } = appState;
 
   const DrawerToolBar = () => (
-    <div className={classes.toolbar}>
+    <div>
       <List>
         <Hidden mdUp implementation="css">
           <ListItem button onClick={handleDrawerToggle}>
@@ -57,7 +65,7 @@ const DrawerInner: React.FunctionComponent<Props> = ({ classes, summary, appStat
         <ListItem
           button
           onClick={() => {
-            navigate('/', { state: appState });
+            navigateWithState(`/${group}`, appState);
           }}
         >
           <ListItemIcon>

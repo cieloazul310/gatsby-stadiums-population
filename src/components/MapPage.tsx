@@ -1,9 +1,6 @@
-// TODO: graphql のクエリを実行し、maps コンポーネントに受け渡す役割に変更する
-// TODO: ts-error を潰していく
-
 import * as React from 'react';
-import { graphql, Link } from 'gatsby';
-import Helmet from 'react-helmet';
+import { Link } from 'gatsby';
+import { Helmet } from 'react-helmet';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
@@ -27,20 +24,19 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import { AutoSizer } from 'react-virtualized';
 import { feature as topofeature } from 'topojson-client';
 
-import MapApp from '../components/MapApp';
-import DrawerInner from '../components/DrawerInner';
-import MapLegends from '../components/MapLegends';
-import { sortData } from '../components/RCTable';
+import MapApp from './MapApp';
+import DrawerInner from './DrawerInner';
+import MapLegends from './MapLegends';
+import { sortData } from './RCTable';
 //import DirectionTable from '../components/DirectionTable';
-import ValuesTable from '../components/ValuesTable';
-import Pie from '../components/Pie';
-import Attribution from '../components/Attribution';
-import Container from '../components/Container';
-import { DataAttribution, MapAttribution } from '../components/MapAttribution';
-import AdBox from '../components/AdBox';
-import Footer from '../components/Footer';
-import { LocationWithState, MapState, initialAppState, navigateWithState, BufferProperties } from '../utils/types';
-import { Directions, directions, Radiuses, Data, Edge } from '../types';
+import ValuesTable from './ValuesTable';
+import Pie from './Pie';
+import Attribution from './Attribution';
+import Container from './Container';
+import { DataAttribution, MapAttribution } from './MapAttribution';
+import AdBox from './AdBox';
+import Footer from './Footer';
+import { Directions, directions, Radiuses, radiuses, Data, Edge, MapState, AppState, navigateWithState, BufferProps } from '../types';
 
 const drawerWidth = 280;
 
@@ -117,29 +113,21 @@ const styles = (theme: Theme): StyleRules =>
   });
 
 interface Props extends WithStyles<typeof styles> {
-  data: {
-    allVenuesJson: {
-      edges: Edge[];
-    };
-    venuesJson: Data;
-  };
-  location: LocationWithState;
+  datum: Data;
+  edges: Edge[];
+  appState: AppState;
+  group: 'venues' | 'arenas';
 }
 
 interface State extends MapState {
   readonly drawerOpen: boolean;
 }
 
-class MapPage extends React.Component<Props, State> {
-  readonly state = this.props.location.state
-    ? {
-        ...this.props.location.state.mapState,
-        drawerOpen: false
-      }
-    : {
-        ...initialAppState.mapState,
-        drawerOpen: false
-      };
+class MapInner extends React.Component<Props, State> {
+  readonly state = {
+    ...this.props.appState.mapState,
+    drawerOpen: false
+  };
   private handleDrawerToggle = () => {
     this.setState(prev => ({
       drawerOpen: !prev.drawerOpen
@@ -156,10 +144,14 @@ class MapPage extends React.Component<Props, State> {
     }));
   };
   private handleZoomIn = () => {
-    this.setState(prev => ({ zoomLevel: prev.zoomLevel !== 0 ? prev.zoomLevel - 1 : prev.zoomLevel }));
+    this.setState(prev => ({
+      zoomLevel: prev.zoomLevel !== Radiuses.radius1000 ? radiuses[radiuses.indexOf(prev.zoomLevel) - 1] : prev.zoomLevel
+    }));
   };
   private handleZoomOut = () => {
-    this.setState(prev => ({ zoomLevel: prev.zoomLevel !== 3 ? prev.zoomLevel + 1 : prev.zoomLevel }));
+    this.setState(prev => ({
+      zoomLevel: prev.zoomLevel !== Radiuses.radius10000 ? radiuses[radiuses.indexOf(prev.zoomLevel) + 1] : prev.zoomLevel
+    }));
   };
   private handleTerrain = () => {
     this.setState(prev => ({
@@ -168,22 +160,24 @@ class MapPage extends React.Component<Props, State> {
   };
 
   public render() {
-    console.log(this.props);
-    const { classes, data, location } = this.props;
+    const { classes, datum, edges, appState, group } = this.props;
     const { popVisibility, bufferVisibility, zoomLevel, terrain } = this.state;
-    const tableState = location.state ? location.state.tableState : initialAppState.tableState;
-    const { edges } = data.allVenuesJson;
-    const { summary, topojson } = data.venuesJson;
-    const geojson = topofeature(topojson, topojson.objects.points);
-    const meshes = geojson.features;
+    const { tableState } = appState;
+    const { summary, topojson } = datum;
+    const meshes = topofeature(topojson, topojson.objects.points).features;
     const buffers = topofeature(topojson, topojson.objects.buffers).features;
-    const others = sortData(edges, tableState.ascSort, tableState.sortKey, tableState.filterRule);
+    const others = sortData(edges, tableState);
     const { name, club, category, slug } = summary;
+    const newAppState: AppState = {
+      tableState,
+      mapState: { popVisibility, bufferVisibility, zoomLevel, terrain }
+    };
     const drawer = (
       <DrawerInner
         summary={summary}
         edges={others}
-        appState={{ tableState, mapState: { popVisibility, bufferVisibility, zoomLevel, terrain } }}
+        group={group}
+        appState={newAppState}
         handleDrawerToggle={this.handleDrawerToggle}
         handleZoomIn={this.handleZoomIn}
         handleZoomOut={this.handleZoomOut}
@@ -199,17 +193,6 @@ class MapPage extends React.Component<Props, State> {
         <Helmet>
           <html lang="ja" />
           <title>{name}周辺の人口 | サッカースタジアムと人口</title>
-          <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,minimal-ui" />
-          <meta name="description" content={createDescriptionString(name, club)} />
-          <meta property="og:type" content="article" />
-          <meta property="og:title" content={`${name}周辺の人口`} />
-          <meta property="og:image" content="https://cieloazul310.github.io/img/ogp2.png" />
-          <meta property="og:url" content={`https://cieloazul310.github.io/gatsby-stadiums-population/${slug}/`} />
-          <meta property="og:site_name" content="水戸地図" />
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:description" content={createDescriptionString(name, club)} />
-          <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         </Helmet>
         <AppBar className={classes.appBar} position="fixed">
           <ToolBar>
@@ -233,10 +216,7 @@ class MapPage extends React.Component<Props, State> {
               onClick={() => {
                 const currentIndex = others.map(edge => edge.node.summary.slug).indexOf(slug);
                 const next = currentIndex === others.length - 1 ? others[0] : others[currentIndex + 1];
-                navigateWithState(`/${next.node.summary.slug}/`, {
-                  tableState,
-                  mapState: { popVisibility, bufferVisibility, zoomLevel, terrain }
-                });
+                navigateWithState(next.node.fields.slug, newAppState);
               }}
               color="inherit"
             >
@@ -272,7 +252,6 @@ class MapPage extends React.Component<Props, State> {
                       width={width}
                       height={height}
                       meshes={meshes}
-                      geojson={geojson}
                       buffers={buffers}
                       mapState={{ popVisibility, bufferVisibility, zoomLevel, terrain }}
                     />
@@ -322,7 +301,7 @@ class MapPage extends React.Component<Props, State> {
                   <ValuesTable summary={summary} />
                 </Grid>
                 <Grid item xs={12} sm={4}>
-                  <Pie item={data.venuesJson.topojson.objects.buffers.geometries} />
+                  <Pie item={topojson.objects.buffers.geometries} />
                 </Grid>
               </Grid>
             </Container>
@@ -336,7 +315,12 @@ class MapPage extends React.Component<Props, State> {
             </Container>
             <Container>
               <MapAttribution />
-              <Link to="/" state={{ tableState, mapState: { popVisibility, bufferVisibility, zoomLevel } }}>
+              <Link
+                to="/"
+                state={{
+                  appState: newAppState
+                }}
+              >
                 トップに戻る
               </Link>
             </Container>
@@ -351,7 +335,7 @@ class MapPage extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(MapPage);
+export default withStyles(styles)(MapInner);
 
 // helper
 
@@ -368,7 +352,7 @@ type DirectionObj = {
   }>
 };
 
-function getItemsDiff(items: Array<{ properties: BufferProperties }>): DirectionObj {
+function getItemsDiff(items: Array<{ properties: BufferProps }>): DirectionObj {
   const obj: any = {};
   directions.forEach(direction => {
     obj[direction] = items.map((item, index, arr) => ({
@@ -379,84 +363,3 @@ function getItemsDiff(items: Array<{ properties: BufferProperties }>): Direction
   });
   return obj;
 }
-
-export const query = graphql`
-  query($slug: String) {
-    allVenuesJson {
-      edges {
-        node {
-          fields {
-            slug
-          }
-          summary {
-            slug
-            name
-            club
-            shortname
-            category
-            radius1000
-            radius3000
-            radius5000
-            radius10000
-          }
-        }
-      }
-    }
-    venuesJson(fields: { slug: { eq: $slug } }) {
-      fields {
-        slug
-      }
-      summary {
-        name
-        club
-        shortname
-        category
-        radius1000
-        radius3000
-        radius5000
-        radius10000
-        slug
-      }
-      topojson {
-        type
-        transform {
-          scale
-          translate
-        }
-        objects {
-          points {
-            type
-            geometries {
-              type
-              coordinates
-              properties {
-                id
-                val
-              }
-            }
-          }
-          buffers {
-            type
-            geometries {
-              type
-              arcs
-              properties {
-                radius
-                population
-                north
-                northeast
-                east
-                southeast
-                south
-                southwest
-                west
-                northwest
-              }
-            }
-          }
-        }
-        arcs
-      }
-    }
-  }
-`;

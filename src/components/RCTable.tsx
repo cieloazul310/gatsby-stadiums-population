@@ -24,7 +24,18 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 
-import { VenueEdge, AppState, TableState, navigateWithState } from '../utils/types';
+import {
+  Edge,
+  AppState,
+  TableState,
+  Radiuses,
+  radiusLabels,
+  Categories,
+  navigateWithState,
+  Group,
+  footballCategories,
+  basketballCategories
+} from '../types';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
@@ -156,16 +167,16 @@ const styles = (theme: Theme): StyleRules =>
   });
 
 interface Props extends WithStyles<typeof styles> {
-  data: VenueEdge[];
+  edges: Edge[];
   width: number;
   height: number;
   appState: AppState;
+  group: Group;
+  title: string;
 }
 
 interface State extends TableState {
   readonly menuOpen: boolean;
-  readonly sortKey: number;
-  readonly filterRule: string[];
 }
 
 class RCTable extends React.Component<Props, State> {
@@ -176,15 +187,15 @@ class RCTable extends React.Component<Props, State> {
       }
     : {
         ascSort: false,
-        sortKey: 3,
+        sortKey: Radiuses.radius10000,
         filterRule: [],
         menuOpen: false
       };
   private anchorEl: HTMLElement | null = null;
-  private _handleSort = (index: number) => {
+  private _handleSort = (radius: Radiuses) => {
     this.setState(prevState => ({
-      ascSort: prevState.sortKey === index ? !prevState.ascSort : false,
-      sortKey: index
+      ascSort: prevState.sortKey === radius ? !prevState.ascSort : false,
+      sortKey: radius
     }));
   };
   private _handleMenuOpen = () => {
@@ -192,16 +203,18 @@ class RCTable extends React.Component<Props, State> {
       menuOpen: !prev.menuOpen
     }));
   };
-  private _handleFilterRule = (str: string) => {
+  private _handleFilterRule = (category: Categories) => {
     this.setState(prevState => ({
       filterRule:
-        prevState.filterRule.indexOf(str) >= 0 ? prevState.filterRule.filter(filter => filter !== str) : [...prevState.filterRule, str]
+        prevState.filterRule.indexOf(category) >= 0
+          ? prevState.filterRule.filter(filter => filter !== category)
+          : [...prevState.filterRule, category]
     }));
   };
   public render() {
-    const { classes, data, width, height, appState } = this.props;
+    const { classes, edges, width, height, appState, group, title } = this.props;
     const { ascSort, sortKey, filterRule, menuOpen } = this.state;
-    const items = data;
+    const categories: Categories[] = group === 'venues' ? footballCategories : group === 'arenas' ? basketballCategories : [];
     return (
       <Paper
         className={classes.root}
@@ -246,17 +259,17 @@ class RCTable extends React.Component<Props, State> {
                       }}
                     >
                       <MenuList>
-                        {['J1', 'J2', 'J3', 'JFL', '地域', 'その他'].map((str, index) => (
+                        {categories.map((category, index) => (
                           <MenuItem
                             key={index}
                             onClick={() => {
-                              this._handleFilterRule(str);
+                              this._handleFilterRule(category);
                             }}
                           >
                             <ListItemIcon>
-                              {filterRule.indexOf(str) < 0 ? <CheckCircleIcon /> : <RemoveIcon color="disabled" />}
+                              {filterRule.indexOf(category) < 0 ? <CheckCircleIcon /> : <RemoveIcon color="disabled" />}
                             </ListItemIcon>
-                            <ListItemText inset primary={str} />
+                            <ListItemText inset primary={category} />
                           </MenuItem>
                         ))}
                       </MenuList>
@@ -266,7 +279,7 @@ class RCTable extends React.Component<Props, State> {
               )}
             </Popper>
             <Typography className={classes.title} variant="h6" color="inherit">
-              スタジアムと距離圏人口
+              {title}と距離圏人口
             </Typography>
             <Tooltip title="ダイジェスト">
               <IconButton
@@ -296,22 +309,22 @@ class RCTable extends React.Component<Props, State> {
                 <div className={classes.name}>name</div>
               </div>
               <div className={classes.headerRowBody}>
-                {['1km', '3km', '5km', '10km'].map((str, index) => (
+                {Object.entries(radiusLabels).map((d, index) => (
                   <div
                     key={index}
                     role="button"
-                    className={classNames(classes.val, classes.labelCell, { [`${classes.labelCellActive}`]: index === sortKey })}
+                    className={classNames(classes.val, classes.labelCell, { [`${classes.labelCellActive}`]: Radiuses[d[0]] === sortKey })}
                   >
                     <TableSortLabel
                       classes={{
                         root: classes.labelRoot,
                         active: classes.labelActive
                       }}
-                      active={index === sortKey}
+                      active={Radiuses[d[0]] === sortKey}
                       direction={ascSort ? 'asc' : 'desc'}
-                      onClick={() => this._handleSort(index)}
+                      onClick={() => this._handleSort(Radiuses[d[0]])}
                     >
-                      {str}
+                      {d[1]}
                     </TableSortLabel>
                   </div>
                 ))}
@@ -325,7 +338,7 @@ class RCTable extends React.Component<Props, State> {
             height: height - 140
           }}
         >
-          {sortData(items, ascSort, sortKey, filterRule).map((edge, index) => (
+          {sortData(edges, { ascSort, sortKey, filterRule }).map((edge, index) => (
             <div key={index} className={classes.row}>
               <div className={classes.rowHead}>
                 <div className={classes.index}>{index + 1}</div>
@@ -334,11 +347,13 @@ class RCTable extends React.Component<Props, State> {
                     to={edge.node.fields.slug}
                     className={classes.link}
                     state={{
-                      mapState: appState.mapState,
-                      tableState: {
-                        ascSort,
-                        sortKey,
-                        filterRule
+                      appState: {
+                        mapState: appState.mapState,
+                        tableState: {
+                          ascSort,
+                          sortKey,
+                          filterRule
+                        }
                       }
                     }}
                   >
@@ -364,13 +379,13 @@ class RCTable extends React.Component<Props, State> {
 export default withStyles(styles)(RCTable);
 
 // helpers
-export function sortData(data: VenueEdge[], ascSort: boolean, sortKey: number, filterRule: string[]): VenueEdge[] {
+export function sortData(edges: Edge[], { ascSort, sortKey, filterRule }: TableState): Edge[] {
   const isAsc = ascSort ? 1 : -1;
-  const prop = sortKey === 0 ? 'radius1000' : sortKey === 1 ? 'radius3000' : sortKey === 2 ? 'radius5000' : 'radius10000';
+  const prop: keyof typeof Radiuses = Radiuses[sortKey];
 
   return filterRule.length
-    ? data
+    ? edges
         .filter(edge => edge.node.summary.category.some(category => filterRule.indexOf(category) < 0))
         .sort((a, b) => isAsc * (a.node.summary[prop] - b.node.summary[prop]))
-    : data.sort((a, b) => isAsc * (a.node.summary[prop] - b.node.summary[prop]));
+    : edges.sort((a, b) => isAsc * (a.node.summary[prop] - b.node.summary[prop]));
 }

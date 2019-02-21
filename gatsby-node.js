@@ -43,14 +43,14 @@ exports.createPages = ({ graphql, actions }) => {
     result.data.allVenuesJson.edges.forEach(({ node }) => {
       createPage({
         path: node.fields.slug,
-        component: path.resolve(`./src/templates/maps.tsx`),
+        component: path.resolve(`./src/templates/venuesContainer.tsx`),
         context: { slug: node.fields.slug, group: 'venues' }
       });
     });
     result.data.allArenasJson.edges.forEach(({ node }) => {
       createPage({
         path: node.fields.slug,
-        component: path.resolve(`./src/templates/arenas.tsx`),
+        component: path.resolve(`./src/templates/arenasContainer.tsx`),
         context: { slug: node.fields.slug, group: 'arenas' }
       });
     });
