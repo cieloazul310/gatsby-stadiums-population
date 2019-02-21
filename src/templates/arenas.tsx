@@ -43,6 +43,7 @@ import {
   VenueEdge,
   MapState,
   initialAppState,
+  appHasState,
   navigateWithState,
   Directions,
   directions,

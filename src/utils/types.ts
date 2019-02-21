@@ -1,3 +1,5 @@
+// TODO: モジュールに分割する
+
 import { navigate } from 'gatsby';
 import { Feature, Polygon, FeatureCollection, Point } from '@turf/helpers';
 import { LocationProps } from '@reach/router';
@@ -34,10 +36,12 @@ export interface MapState {
   readonly terrain?: boolean;
 }
 
-export const appHasState = (state: AppState): boolean => state.hasOwnProperty('tableState') && state.hasOwnProperty('mapState');
+export const appHasState = (state: AppState): boolean =>
+  Object.prototype.hasOwnProperty.call(state, 'tableState') && Object.prototype.hasOwnProperty.call(state, 'mapState');
 
 export const createInitialState = (location: LocationWithState): AppState => {
-  return location.state !== null && appHasState(location.state) ? location.state : initialAppState;
+  if (location.state === null) return initialAppState;
+  return appHasState(location.state) ? location.state : initialAppState;
 };
 
 export interface AppState {
