@@ -5,6 +5,8 @@ module.exports = {
     title: 'スタジアム・アリーナと周辺人口',
     description: 'スタジアム・アリーナと周辺人口は、日本国内の主要スタジアム・アリーナの周辺の人口を地図で表示したサイトです。',
     siteUrl: 'https://cieloazul310.github.io/gatsby-stadiums-population/',
+    date: '2019-02-25',
+    lastmod: '2019-02-25',
     author: {
       name: 'cieloazul310',
       siteName: '水戸地図',

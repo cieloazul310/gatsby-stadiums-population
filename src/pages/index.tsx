@@ -123,6 +123,7 @@ class IndexPage extends React.PureComponent<Props> {
               <meta property="og:image" content="https://cieloazul310.github.io/img/ogp2.png" />
               <meta property="og:site_name" content="水戸地図" />
               <meta name="twitter:card" content="summary" />
+              <meta name="twitter:description" content={data.site.siteMetadata.description} />
               <meta name="apple-mobile-web-app-capable" content="yes" />
               <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
             </Helmet>

@@ -1,5 +1,9 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
+import FlexTable from '../components/FlexTable/FlexTable';
+import FlexRow from '../components/FlexTable/FlexRow';
+import FlexTh from '../components/FlexTable/FlexTh';
+import FlexTd from '../components/FlexTable/FlexTd';
 
 const DataAttribution: React.FC<{}> = () => (
   <section>
@@ -9,20 +13,34 @@ const DataAttribution: React.FC<{}> = () => (
     <Typography variant="body1" paragraph>
       人口データは総務省統計局の地域メッシュ統計を点データに変換したものを用いています。
     </Typography>
-    <Typography variant="body1" paragraph>
-      {'データ: '}
-      <a
-        href="https://www.e-stat.go.jp/gis/statmap-search?page=1&type=1&toukeiCode=00200521&toukeiYear=2015&aggregateUnit=Q&serveyId=Q002005112015&statsId=T000876"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {'国勢調査 2015年 5次メッシュ(250mメッシュ) その1 人口等基本集計に関する事項'}
-      </a>
-      <br />
-      公開日: 2018年1月4日
-      <br />
-      データ取得日: 2018年4月10日
-    </Typography>
+    <FlexTable>
+      <FlexRow>
+        <FlexTh>データ</FlexTh>
+        <FlexTd>
+          <a
+            href="https://www.e-stat.go.jp/gis/statmap-search?page=1&type=1&toukeiCode=00200521&toukeiYear=2015&aggregateUnit=Q&serveyId=Q002005112015&statsId=T000876"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            国勢調査 2015年 5次メッシュ(250mメッシュ)
+            <br />
+            その1 人口等基本集計に関する事項
+          </a>
+        </FlexTd>
+      </FlexRow>
+      <FlexRow>
+        <FlexTh>データ公開日</FlexTh>
+        <FlexTd>
+          <time>2018-01-04</time>
+        </FlexTd>
+      </FlexRow>
+      <FlexRow>
+        <FlexTh>データ取得日</FlexTh>
+        <FlexTd>
+          <time>2018-04-10</time>
+        </FlexTd>
+      </FlexRow>
+    </FlexTable>
     <blockquote>
       <Typography variant="subtitle1" gutterBottom>
         地域メッシュ統計とは
@@ -65,7 +83,7 @@ const DataAttribution: React.FC<{}> = () => (
 
 const MapAttribution: React.FC<{}> = () => (
   <section>
-    <Typography variant="h5" gutterBottom>
+    <Typography variant="h6" gutterBottom>
       地図について
     </Typography>
     <Typography variant="body1" paragraph>
