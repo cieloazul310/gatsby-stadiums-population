@@ -8,10 +8,13 @@ export interface AppState {
   tableState: TableState;
 }
 
-export type StateObject = {
-  key: string;
-  appState: AppState;
-} | null;
+export type StateObject =
+  | {
+      key: string;
+      appState: AppState;
+    }
+  | null
+  | undefined;
 
 export interface LocationWithState extends LocationProps {
   state: StateObject;
@@ -50,4 +53,10 @@ export const initialMapState: MapState = {
 export const initialAppState: AppState = {
   tableState: initialTableState,
   mapState: initialMapState
+};
+
+export const createInitialAppState = (location: LocationWithState): AppState => {
+  if (location.state === null || location.state === undefined) return initialAppState;
+  else if (location.state.appState === undefined) return initialAppState;
+  else return location.state.appState;
 };

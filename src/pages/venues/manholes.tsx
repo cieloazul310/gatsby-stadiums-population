@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
 
-import Manholes from '../../components/Manholes';
-import { EdgeWithBuffer, LocationWithState, initialAppState } from '../../types';
+import Manholes from '../../templates/Manholes';
+import { EdgeWithBuffer, LocationWithState, createInitialAppState } from '../../types';
 
 interface Props {
   data: {
@@ -17,7 +17,7 @@ class VenueManholes extends React.PureComponent<Props> {
   render() {
     console.log(this.props);
     const { data, location } = this.props;
-    const appState = location.state === null || location.state.appState === undefined ? initialAppState : location.state.appState;
+    const appState = createInitialAppState(location);
     return <Manholes edges={data.allVenuesJson.edges} group="venues" appState={appState} />;
   }
 }

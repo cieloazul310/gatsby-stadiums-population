@@ -2,8 +2,8 @@
 
 module.exports = {
   siteMetadata: {
-    title: 'サッカースタジアムと人口',
-    description: '日本国内の主要サッカースタジアムと周辺の人口を地図で表示したサイトです。',
+    title: 'スタジアム・アリーナと周辺人口',
+    description: 'スタジアム・アリーナと周辺人口は、日本国内の主要スタジアム・アリーナの周辺の人口を地図で表示したサイトです。',
     siteUrl: 'https://cieloazul310.github.io/gatsby-stadiums-population/',
     author: {
       name: 'cieloazul310',

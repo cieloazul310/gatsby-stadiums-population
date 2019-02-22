@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
-import TablePage from '../components/TablePage';
-import { Edge, LocationWithState, initialAppState } from '../types';
+import TablePage from '../templates/TablePage';
+import { Edge, LocationWithState, createInitialAppState } from '../types';
 
 interface Props {
   data: {
@@ -16,7 +16,7 @@ class Arenas extends React.PureComponent<Props> {
   render() {
     console.log(this.props);
     const { data, location } = this.props;
-    const appState = location.state === null || location.state.appState === undefined ? initialAppState : location.state.appState;
+    const appState = createInitialAppState(location);
 
     return <TablePage group="arenas" edges={data.allArenasJson.edges} appState={appState} />;
   }

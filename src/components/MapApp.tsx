@@ -32,6 +32,14 @@ const styles = (theme: Theme): StyleRules =>
       top: 0,
       left: 0
     },
+    tiles: {
+      '@global': {
+        image: {
+          imageRendering: '-webkit-optimize-contrast',
+          shapeRendering: 'auto'
+        }
+      }
+    },
     points: {
       '@global': {
         rect: {
@@ -125,7 +133,7 @@ class Map extends React.Component<Props, State> {
     return (
       <div className={classes.root}>
         <svg width={width} height={height}>
-          <g>
+          <g className={classes.tiles}>
             <GrayScaleFilter id="grayscale" />
             <g filter="url(#grayscale)" className={classes.tiles} style={{ opacity: this.state.fetchStatus !== 'fetching' ? 1 : 0 }}>
               {renderTiles.map((tile, index) => (
@@ -136,7 +144,6 @@ class Map extends React.Component<Props, State> {
                   y={((tile.y + tile.translate[1]) * tile.scale) / tile.mag}
                   width={tile.scale / tile.mag}
                   height={tile.scale / tile.mag}
-                  imageRendering="optimizeQuality"
                 />
               ))}
             </g>

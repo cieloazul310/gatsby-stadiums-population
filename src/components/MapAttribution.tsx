@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 
 const DataAttribution: React.FC<{}> = () => (
   <section>
-    <Typography variant="h5" gutterBottom>
+    <Typography variant="h6" gutterBottom>
       人口データについて
     </Typography>
     <Typography variant="body1" paragraph>
@@ -39,7 +39,7 @@ const DataAttribution: React.FC<{}> = () => (
         </a>
       </Typography>
     </blockquote>
-    <Typography variant="h5" gutterBottom>
+    <Typography variant="h6" gutterBottom>
       距離円と人口データの演算
     </Typography>
     <Typography variant="body1" paragraph>

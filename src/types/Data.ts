@@ -7,7 +7,8 @@ interface Fields {
   slug: string;
 }
 
-export interface Data extends Fields {
+export interface Data {
+  fields: Fields;
   summary: Summary;
   topojson: Topology<{
     buffers: BuffersObject;

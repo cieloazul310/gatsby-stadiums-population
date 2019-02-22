@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { graphql } from 'gatsby';
-import MapPage from '../components/MapPage';
-import { LocationWithState, Edge, Data, initialAppState } from '../types';
+import MapPage from './MapPage';
+import { LocationWithState, Edge, Data, createInitialAppState } from '../types';
 
 interface Props {
   data: {
@@ -21,7 +21,7 @@ class MapContainer extends React.PureComponent<Props> {
   public render() {
     console.log(this.props);
     const { data, location, pageContext } = this.props;
-    const appState = location.state === null || location.state.appState === undefined ? initialAppState : location.state.appState;
+    const appState = createInitialAppState(location);
 
     return <MapPage datum={data.arenasJson} edges={data.allArenasJson.edges} appState={appState} group={pageContext.group} />;
   }

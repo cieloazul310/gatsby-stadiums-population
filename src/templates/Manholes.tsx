@@ -12,8 +12,10 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import Pie from './Pie';
-import Footer from './Footer';
+import Pie from '../components/Pie';
+import Container from '../components/Container';
+import Sharer from '../components/Sharer';
+import Footer from '../components/Footer';
 import { AppState, navigateWithState, EdgeWithBuffer, Group, Categories, footballCategories, basketballCategories } from '../types';
 
 const styles = (theme: Theme): StyleRules =>
@@ -67,12 +69,13 @@ class Pies extends React.Component<Props, State> {
     const { classes, edges, appState, group } = this.props;
     const categories: Categories[] = group === 'venues' ? footballCategories : group === 'arenas' ? basketballCategories : [];
     const groupTitle = group === 'venues' ? 'スタジアム' : group === 'arenas' ? 'アリーナ' : '';
+    const url = `https://cieloazul310.github.io/gatsby-stadiums-population/${group}/manholes/`;
     return (
       <div className={classes.root}>
+        <CssBaseline />
         <Helmet>
-          <CssBaseline />
           <html lang="ja" />
-          <title>{groupTitle}と距離圏人口</title>
+          <title>{groupTitle}と距離圏人口 | 水戸地図</title>
           <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,minimal-ui" />
           <meta
             name="description"
@@ -80,7 +83,7 @@ class Pies extends React.Component<Props, State> {
           />
           <meta property="og:type" content="website" />
           <meta property="og:title" content={`${groupTitle}と人口`} />
-          <meta property="og:url" content={`https://cieloazul310.github.io/gatsby-stadiums-population/${group}/manholes/`} />
+          <meta property="og:url" content={url} />
           <meta property="og:image" content="https://cieloazul310.github.io/img/ogp2.png" />
           <meta property="og:site_name" content="水戸地図" />
           <meta name="twitter:card" content="summary" />
@@ -106,7 +109,7 @@ class Pies extends React.Component<Props, State> {
           {categories.map(category => (
             <Paper key={category} className={classes.paper}>
               <Typography className={classes.paperTitle} variant="h5" gutterBottom>
-                {category !== '地域' ? category : '地域リーグ'}のスタジアム
+                {category !== '地域' ? category : '地域リーグ'}の{groupTitle}
               </Typography>
               <Grid container className={classes.container} spacing={0}>
                 {edges
@@ -128,6 +131,9 @@ class Pies extends React.Component<Props, State> {
             </Paper>
           ))}
         </div>
+        <Container>
+          <Sharer title={`${groupTitle}と人口`} url={url} />
+        </Container>
         <Footer />
       </div>
     );

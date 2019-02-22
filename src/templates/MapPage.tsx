@@ -24,19 +24,32 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import { AutoSizer } from 'react-virtualized';
 import { feature as topofeature } from 'topojson-client';
 
-import MapApp from './MapApp';
-import DrawerInner from './DrawerInner';
-import MapLegends from './MapLegends';
-import { sortData } from './RCTable';
+import MapApp from '../components/MapApp';
+import DrawerInner from '../components/DrawerInner';
+import MapLegends from '../components/MapLegends';
+import { sortData } from '../components/RCTable';
 //import DirectionTable from '../components/DirectionTable';
-import ValuesTable from './ValuesTable';
-import Pie from './Pie';
-import Attribution from './Attribution';
-import Container from './Container';
-import { DataAttribution, MapAttribution } from './MapAttribution';
-import AdBox from './AdBox';
-import Footer from './Footer';
-import { Directions, directions, Radiuses, radiuses, Data, Edge, MapState, AppState, navigateWithState, BufferProps } from '../types';
+import ValuesTable from '../components/ValuesTable';
+import Pie from '../components/Pie';
+import Attribution from '../components/Attribution';
+import Container from '../components/Container';
+import { DataAttribution, MapAttribution } from '../components/MapAttribution';
+import Sharer from '../components/Sharer';
+import AdBox from '../components/AdBox';
+import Footer from '../components/Footer';
+import {
+  //Directions,
+  //directions,
+  Radiuses,
+  radiuses,
+  Data,
+  Edge,
+  MapState,
+  AppState,
+  navigateWithState,
+  //BufferProps,
+  Group
+} from '../types';
 
 const drawerWidth = 280;
 
@@ -116,7 +129,7 @@ interface Props extends WithStyles<typeof styles> {
   datum: Data;
   edges: Edge[];
   appState: AppState;
-  group: 'venues' | 'arenas';
+  group: Group;
 }
 
 interface State extends MapState {
@@ -168,6 +181,7 @@ class MapInner extends React.Component<Props, State> {
     const buffers = topofeature(topojson, topojson.objects.buffers).features;
     const others = sortData(edges, tableState);
     const { name, club, category, slug } = summary;
+    const url = `https://cieloazul310.github.io/gatsby-stadiums-population${datum.fields.slug}`;
     const newAppState: AppState = {
       tableState,
       mapState: { popVisibility, bufferVisibility, zoomLevel, terrain }
@@ -192,7 +206,19 @@ class MapInner extends React.Component<Props, State> {
         <CssBaseline />
         <Helmet>
           <html lang="ja" />
-          <title>{name}周辺の人口 | サッカースタジアムと人口</title>
+          <title>
+            {name}周辺の人口 | {group === 'venues' ? 'スタジアム' : 'アリーナ'}と人口 | 水戸地図
+          </title>
+          <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,minimal-ui" />
+          <meta name="description" content={createDescriptionString(name, club, group)} />
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content={`${name}周辺の人口`} />
+          <meta property="og:url" content={url} />
+          <meta property="og:image" content="https://cieloazul310.github.io/img/ogp2.png" />
+          <meta property="og:site_name" content="水戸地図" />
+          <meta name="twitter:card" content="summary" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         </Helmet>
         <AppBar className={classes.appBar} position="fixed">
           <ToolBar>
@@ -259,7 +285,7 @@ class MapInner extends React.Component<Props, State> {
                       <Fab
                         className={classes.fabZoomIn}
                         color="primary"
-                        disabled={zoomLevel === 0}
+                        disabled={zoomLevel === Radiuses.radius1000}
                         onClick={this.handleZoomIn}
                         role="button"
                       >
@@ -268,7 +294,7 @@ class MapInner extends React.Component<Props, State> {
                       <Fab
                         className={classes.fabZoomOut}
                         color="primary"
-                        disabled={zoomLevel === 3}
+                        disabled={zoomLevel === Radiuses.radius10000}
                         onClick={this.handleZoomOut}
                         role="button"
                       >
@@ -315,14 +341,29 @@ class MapInner extends React.Component<Props, State> {
             </Container>
             <Container>
               <MapAttribution />
-              <Link
-                to="/"
-                state={{
-                  appState: newAppState
-                }}
-              >
-                トップに戻る
-              </Link>
+              <Typography variant="body1" paragraph>
+                <Link
+                  to={`/${group}`}
+                  state={{
+                    appState: newAppState
+                  }}
+                >
+                  表に戻る
+                </Link>
+              </Typography>
+              <Typography variant="body1" paragraph>
+                <Link
+                  to="/"
+                  state={{
+                    appState: newAppState
+                  }}
+                >
+                  トップに戻る
+                </Link>
+              </Typography>
+            </Container>
+            <Container>
+              <Sharer title={`${name}周辺の人口`} url={url} />
             </Container>
             <Container>
               <AdBox />
@@ -339,11 +380,13 @@ export default withStyles(styles)(MapInner);
 
 // helper
 
-function createDescriptionString(name: string, club: string[]): string {
-  const intro = club[0] !== 'その他' ? `${club.join(',')} のホームスタジアム・` : '';
+function createDescriptionString(name: string, club: string[], group: Group): string {
+  const type = group === 'venues' ? 'スタジアム' : 'アリーナ';
+  const intro = club[0] !== 'その他' ? `${club.join(',')} のホーム${type}・` : '';
   return `${intro}${name}周辺の人口を総務省統計局の国勢調査に関する地域メッシュ統計(平成27年度)から算出し、地図に表示しました。`;
 }
 
+/*
 type DirectionObj = {
   [key in keyof typeof Directions]: Array<{
     radius: keyof typeof Radiuses;
@@ -363,3 +406,4 @@ function getItemsDiff(items: Array<{ properties: BufferProps }>): DirectionObj {
   });
   return obj;
 }
+*/

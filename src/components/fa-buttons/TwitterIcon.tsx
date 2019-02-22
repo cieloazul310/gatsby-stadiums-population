@@ -1,21 +1,18 @@
 import * as React from 'react';
-import Icon from '@material-ui/core/Icon';
+import Icon, { IconProps } from '@material-ui/core/Icon';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
 
-interface Props {
-  color?: 'primary' | 'secondary' | 'action' | 'error' | 'disabled';
-}
+type Props = IconProps;
 
 class TwitterIcon extends React.PureComponent<Props> {
   componentWillMount() {
     library.add(faTwitter);
   }
   public render() {
-    const { color } = this.props;
     return (
-      <Icon color={color}>
+      <Icon {...this.props}>
         <FontAwesomeIcon style={{ verticalAlign: '0.125em' }} icon={['fab', 'twitter']} />
       </Icon>
     );

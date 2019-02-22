@@ -2,21 +2,21 @@ import * as React from 'react';
 import Icon, { IconProps } from '@material-ui/core/Icon';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
+import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub';
 
 type Props = IconProps;
 
-class FacebookIcon extends React.PureComponent<Props> {
+class TwitterIcon extends React.PureComponent<Props> {
   componentWillMount() {
-    library.add(faFacebook);
+    library.add(faGithub);
   }
   public render() {
     return (
       <Icon {...this.props}>
-        <FontAwesomeIcon style={{ verticalAlign: '0.125em' }} icon={['fab', 'facebook']} />
+        <FontAwesomeIcon style={{ verticalAlign: '0.125em' }} icon={['fab', 'github']} />
       </Icon>
     );
   }
 }
 
-export default FacebookIcon;
+export default TwitterIcon;

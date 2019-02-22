@@ -1,50 +1,15 @@
-# gatsby-starter-typescript-plus
+# スタジアム・アリーナと周辺人口
 
-> A starter kit for TypeScript-based Gatsby projects with sensible defaults.
+> スタジアム・アリーナと周辺人口は、日本国内の主要スタジアム・アリーナの周辺の人口を地図で表示したサイト
 
-This is a starter kit for [Gatsby.js](https://www.gatsbyjs.org/) websites written in TypeScript. It includes the bare essentials for you to get started (styling, Markdown parsing, minimal toolset).
-
-## Features
-
-- TypeScript
-- TSLint (with custom TSLint rules)
-- Markdown rendering with Remark
-- Basic component structure
-- Styling with [emotion](https://emotion.sh/)
-
-## Geting started
-
-Install this starter (assuming you have `gatsby-cli` installed) by running the following command:
-
-```bash
-gatsby new project-name https://github.com/resir014/gatsby-starter-typescript-plus
-```
-
-## Developing
-
-A nodejs >= 6.0.0 setup with [yarn](https://yarnpkg.com/) is recommended.
-
-```bash
-# install dependencies
-yarn
-
-# ...or, for npm
-npm install
-
-# serve with hot reload at localhost:8000
-npm start
-
-# build for production
-npm run build
-
-# build for production and push to gh-pages branch
-npm run deploy
-```
+このサイトは、[Gatsby JS][gatsby] と [TypeScript] で作成されました。
 
 ## Credits
 
-Built with [Gatsby](https://www.gatsbyjs.org/) - the blazing-fast static site generator for [React](https://facebook.github.io/react/).
+Built with [Gatsby] - the blazing-fast static site generator for [React].
 
-## Deploy
+<!-- Referrences -->
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/resir014/gatsby-starter-typescript-plus)
+[gatsby]: https://www.gatsbyjs.org
+[typescript]: https://www.typescriptlang.org/
+[react]: https://facebook.github.io/react/

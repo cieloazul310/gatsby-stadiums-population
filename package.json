@@ -25,13 +25,10 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "@emotion/core": "^10.0.5",
-    "@emotion/styled": "^10.0.5",
     "@fortawesome/fontawesome-svg-core": "^1.2.14",
     "@fortawesome/free-brands-svg-icons": "^5.7.1",
     "@fortawesome/free-solid-svg-icons": "^5.7.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "@mapbox/tile-cover": "^3.0.2",
     "@material-ui/core": "3.7.1",
     "@material-ui/icons": "^3.0.1",
     "@turf/turf": "^5.1.6",
@@ -46,16 +43,13 @@
     "classnames": "^2.2.6",
     "d3": "^5.7.0",
     "d3-tile": "^0.0.4",
-    "fg-loadcss": "^2.1.0",
     "gatsby": "^2.0.85",
     "gatsby-image": "^2.0.5",
     "gatsby-plugin-canonical-urls": "^2.0.5",
-    "gatsby-plugin-emotion": "^4.0.1",
     "gatsby-plugin-google-analytics": "^2.0.13",
     "gatsby-plugin-react-helmet": "^3.0.0",
     "gatsby-plugin-sharp": "^2.0.5",
     "gatsby-plugin-typescript": "^2.0.0",
-    "gatsby-plugin-typography": "^2.2.5",
     "gatsby-remark-copy-linked-files": "^2.0.5",
     "gatsby-remark-images": "^2.0.1",
     "gatsby-remark-prismjs": "^3.0.0",
@@ -78,8 +72,7 @@
     "react-typography": "^0.16.18",
     "react-virtualized": "^9.21.0",
     "topojson-client": "^3.0.0",
-    "typescript": "^3.0.3",
-    "typography": "^0.16.18"
+    "typescript": "^3.0.3"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.6",
