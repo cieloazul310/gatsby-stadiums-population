@@ -91,6 +91,16 @@ class TablePage extends React.PureComponent<Props> {
             <Container>
               <Typography variant="body1" paragraph>
                 <Link
+                  to={group === 'venues' ? '/arenas' : '/venues'}
+                  state={{
+                    appState: appState
+                  }}
+                >
+                  {group === 'venues' ? 'バスケットボール' : 'サッカー'}版へ
+                </Link>
+              </Typography>
+              <Typography variant="body1" paragraph>
+                <Link
                   to="/"
                   state={{
                     appState: appState

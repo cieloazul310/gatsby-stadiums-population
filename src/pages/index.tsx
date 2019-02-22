@@ -34,6 +34,10 @@ const styles = (theme: Theme): StyleRules =>
       justifyContent: 'center',
       alignContent: 'center'
     },
+    button: {
+      fontWeight: 'bold',
+      margin: `0 ${theme.spacing.unit}px`
+    },
     buttonIcon: {
       marginRight: theme.spacing.unit
     }
@@ -111,6 +115,16 @@ class IndexPage extends React.PureComponent<Props> {
             <Helmet>
               <html lang="ja" />
               <title>{data.site.siteMetadata.title} | 水戸地図</title>
+              <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,minimal-ui" />
+              <meta name="description" content={data.site.siteMetadata.description} />
+              <meta property="og:type" content="website" />
+              <meta property="og:title" content={data.site.siteMetadata.title} />
+              <meta property="og:url" content={data.site.siteMetadata.siteUrl} />
+              <meta property="og:image" content="https://cieloazul310.github.io/img/ogp2.png" />
+              <meta property="og:site_name" content="水戸地図" />
+              <meta name="twitter:card" content="summary" />
+              <meta name="apple-mobile-web-app-capable" content="yes" />
+              <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
             </Helmet>
             <div className={classes.content}>
               <Typography variant="h4" component="h1" gutterBottom align="center" className={classes.title}>
@@ -128,6 +142,8 @@ class IndexPage extends React.PureComponent<Props> {
                 </Typography>
                 <div className={classes.buttons}>
                   <Button
+                    className={classes.button}
+                    aria-label="表を見る"
                     variant="contained"
                     color="primary"
                     onClick={() => {
@@ -138,6 +154,8 @@ class IndexPage extends React.PureComponent<Props> {
                     表を見る
                   </Button>
                   <Button
+                    className={classes.button}
+                    aria-label="ランダムジャンプ"
                     color="primary"
                     onClick={() => {
                       navigateWithState(
@@ -160,6 +178,8 @@ class IndexPage extends React.PureComponent<Props> {
                 </Typography>
                 <div className={classes.buttons}>
                   <Button
+                    className={classes.button}
+                    aria-label="表を見る"
                     variant="contained"
                     color="secondary"
                     onClick={() => {
@@ -170,6 +190,8 @@ class IndexPage extends React.PureComponent<Props> {
                     表を見る
                   </Button>
                   <Button
+                    className={classes.button}
+                    aria-label="ランダムジャンプ"
                     color="secondary"
                     onClick={() => {
                       navigateWithState(

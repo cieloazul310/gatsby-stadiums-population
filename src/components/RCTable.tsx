@@ -229,6 +229,7 @@ class RCTable extends React.Component<Props, State> {
             <Tooltip title="フィルター">
               <IconButton
                 color="inherit"
+                aria-label="フィルター"
                 aria-owns={menuOpen ? 'menu-list' : undefined}
                 aria-haspopup="true"
                 buttonRef={node => {
@@ -283,6 +284,7 @@ class RCTable extends React.Component<Props, State> {
             </Typography>
             <Tooltip title="ダイジェスト">
               <IconButton
+                aria-label="ダイジェストへ"
                 aria-owns="next"
                 role="button"
                 aria-haspopup="true"

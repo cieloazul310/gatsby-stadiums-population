@@ -22,16 +22,27 @@ interface Props extends WithStyles<typeof styles> {
 const Sharer: React.FC<Props> = ({ classes, title, url }: Props) => (
   <div className={classes.root}>
     <IconButton
+      aria-label="Share on Twitter"
       href={`https://twitter.com/intent/tweet?text=${encodeURI(title)}&url=${encodeURIComponent(url)}`}
       target="_blank"
       rel="noopener noreferrer"
     >
       <TwitterIcon fontSize="large" />
     </IconButton>
-    <IconButton href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`} target="_blank" rel="noopener noreferrer">
+    <IconButton
+      aria-label="Share on Facebook"
+      href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <FacebookIcon fontSize="large" />
     </IconButton>
-    <IconButton href="https://github.com/cieloazul310/gatsby-stadiums-population" target="_blank" rel="noopener noreferrer">
+    <IconButton
+      aria-label="View on GitHub"
+      href="https://github.com/cieloazul310/gatsby-stadiums-population"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <GithubIcon fontSize="large" />
     </IconButton>
   </div>
