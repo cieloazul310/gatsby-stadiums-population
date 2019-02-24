@@ -40,7 +40,7 @@ import {
 const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {
-      fontSize: '80%',
+      fontSize: theme.typography.body2.fontSize,
       fontFamily: theme.typography.fontFamily
     },
     table: {
@@ -68,6 +68,9 @@ const styles = (theme: Theme): StyleRules =>
     },
     filterMenuWrapper: {
       zIndex: 100
+    },
+    filter: {
+      paddingLeft: theme.spacing.unit * 8
     },
     headerRowHead: {
       flex: 1,
@@ -304,6 +307,7 @@ class RCTable extends React.Component<Props, State> {
               </IconButton>
             </Tooltip>
           </Toolbar>
+          <div className={classes.filter}>表示中: {categories.filter(category => filterRule.indexOf(category) < 0).join(', ')}</div>
           <div className={classes.thead}>
             <div className={classes.row}>
               <div className={classes.headerRowHead}>

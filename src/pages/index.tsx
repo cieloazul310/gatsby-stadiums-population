@@ -13,6 +13,7 @@ import Container from '../components/Container';
 import Sharer from '../components/Sharer';
 import Footer from '../components/Footer';
 import { LocationWithState, createInitialAppState, navigateWithState } from '../types';
+import AdBox from '../components/AdBox';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
@@ -208,6 +209,9 @@ class IndexPage extends React.PureComponent<Props> {
               </div>
               <Container>
                 <Sharer title={data.site.siteMetadata.title} url={data.site.siteMetadata.siteUrl} />
+              </Container>
+              <Container>
+                <AdBox />
               </Container>
             </div>
             <Footer />

@@ -17,6 +17,7 @@ import Container from '../components/Container';
 import Sharer from '../components/Sharer';
 import Footer from '../components/Footer';
 import { AppState, navigateWithState, EdgeWithBuffer, Group, Categories, footballCategories, basketballCategories } from '../types';
+import AdBox from '../components/AdBox';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
@@ -137,6 +138,9 @@ class Pies extends React.Component<Props, State> {
         </div>
         <Container>
           <Sharer title={`${groupTitle}と人口`} url={url} />
+        </Container>
+        <Container>
+          <AdBox />
         </Container>
         <Footer />
       </div>

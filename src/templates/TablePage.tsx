@@ -14,6 +14,7 @@ import Sharer from '../components/Sharer';
 import Footer from '../components/Footer';
 import { AutoSizer } from 'react-virtualized';
 import { Group, Edge, AppState } from '../types';
+import AdBox from '../components/AdBox';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
@@ -116,6 +117,9 @@ class TablePage extends React.PureComponent<Props> {
             </Container>
             <Container>
               <Sharer title={`${groupTitle}と人口`} url={url} />
+            </Container>
+            <Container>
+              <AdBox />
             </Container>
           </div>
         </aside>
