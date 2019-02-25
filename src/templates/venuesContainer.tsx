@@ -19,7 +19,7 @@ interface Props {
 
 class MapContainer extends React.PureComponent<Props> {
   public render() {
-    console.log(this.props);
+    //console.log(this.props);
     const { data, location, pageContext } = this.props;
     const appState = createInitialAppState(location);
 

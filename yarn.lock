@@ -2476,13 +2476,6 @@
   resolved "https://registry.yarnpkg.com/@types/typography/-/typography-0.16.2.tgz#dfe68caf692185e1b84d9e583b44953b03b7d135"
   integrity sha512-/lHKjwY0SekteqdOtGsYiXtT5T9RdF50kQGzp8wDRx8DtrJIXK6VVrJ+aAWYii51dZdXTGriXgCDtup6T+zz1Q==
 
-"@wapps/gatsby-plugin-material-ui@^1.2.0":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@wapps/gatsby-plugin-material-ui/-/gatsby-plugin-material-ui-1.2.1.tgz#331fcefbf533ce10b1f4d9d9d2a638ede159b3d1"
-  integrity sha512-OB5b6X3ianNlpswu+L5Q17Eu4wmb+e8kRRroiuLYsYGzgDmfufrVhWDoG5xCStiEYC32vjWh7vgyizGcbIlb+g==
-  dependencies:
-    react-jss "^8.6.1"
-
 "@webassemblyjs/ast@1.7.11":
   version "1.7.11"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.7.11.tgz#b988582cafbb2b095e8b556526f30c90d057cace"
@@ -6042,6 +6035,13 @@ gatsby-plugin-google-analytics@^2.0.13:
   integrity sha512-sFD73d9isJQknnDAAkDidaybHJx6VIaLfy3nO3DwbFaitvZ08RimbynYOkcWAeA0zwwix2RgAvbq/9pAmtTb/A==
   dependencies:
     "@babel/runtime" "^7.0.0"
+
+gatsby-plugin-material-ui@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-material-ui/-/gatsby-plugin-material-ui-1.2.4.tgz#04f34399b27a2569d98888d0592187ba2cad82ef"
+  integrity sha512-/IJKd/NWIiwSK4MYxyvW+motRXsYcR1dQFTXOUlt2NrueIEywUDVVXHlk7uatbpLgOkL9B7Qw/l9bRQ8E4h2NA==
+  dependencies:
+    react-jss "^8.6.1"
 
 gatsby-plugin-page-creator@^2.0.8:
   version "2.0.8"

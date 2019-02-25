@@ -55,14 +55,14 @@ class TablePage extends React.PureComponent<Props> {
         <CssBaseline />
         <Helmet>
           <html lang="ja" />
-          <title>{groupTitle}と人口 | 水戸地図</title>
+          <title>{groupTitle}周辺人口一覧 | スタジアム・アリーナと人口</title>
           <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,minimal-ui" />
           <meta
             name="description"
             content={`日本国内の主要な${groupTitle}の周辺人口を総務省統計局の地域メッシュ統計から算出し、地図に表示しました。`}
           />
           <meta property="og:type" content="website" />
-          <meta property="og:title" content={`${groupTitle}と人口`} />
+          <meta property="og:title" content={`${groupTitle}周辺人口一覧 | スタジアム・アリーナと人口`} />
           <meta property="og:url" content={url} />
           <meta property="og:image" content="https://cieloazul310.github.io/img/ogp2.png" />
           <meta property="og:site_name" content="水戸地図" />
@@ -116,7 +116,7 @@ class TablePage extends React.PureComponent<Props> {
               </Typography>
             </Container>
             <Container>
-              <Sharer title={`${groupTitle}と人口`} url={url} />
+              <Sharer title={`${groupTitle}周辺人口一覧 | スタジアム・アリーナと人口`} url={url} />
             </Container>
             <Container>
               <AdBox />

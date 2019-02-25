@@ -35,7 +35,7 @@ export default SharesList;
 function createTwiterShareUrl(datum: Data): string {
   return (
     `https://twitter.com/intent/tweet?text=` +
-    encodeURI(`${datum.summary.name}周辺の人口`) +
+    encodeURI(`${datum.summary.name}周辺の人口 | スタジアム・アリーナと人口`) +
     `&url=` +
     encodeURIComponent(`https://cieloazul310.github.io/gatsby-stadiums-population${datum.fields.slug}`)
   );

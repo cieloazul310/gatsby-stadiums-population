@@ -1,4 +1,4 @@
-import { LocationProps } from '@reach/router';
+import { WindowLocation } from '@reach/router';
 import { navigate } from 'gatsby';
 import { Radiuses } from './Radiuses';
 import { Categories } from './Categories';
@@ -16,7 +16,7 @@ export type StateObject =
   | null
   | undefined;
 
-export interface LocationWithState extends LocationProps {
+export interface LocationWithState extends WindowLocation {
   state: StateObject;
 }
 

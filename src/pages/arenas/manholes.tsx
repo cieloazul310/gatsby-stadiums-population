@@ -15,7 +15,7 @@ interface Props {
 
 class ArenaManholes extends React.PureComponent<Props> {
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     const { data, location } = this.props;
     const appState = createInitialAppState(location);
     return <Manholes edges={data.allArenasJson.edges} group="arenas" appState={appState} />;

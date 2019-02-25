@@ -14,7 +14,7 @@ interface Props {
 
 class Venues extends React.PureComponent<Props> {
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     const { data, location } = this.props;
     const appState = createInitialAppState(location);
 

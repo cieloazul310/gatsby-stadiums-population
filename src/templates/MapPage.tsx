@@ -206,13 +206,11 @@ class MapInner extends React.Component<Props, State> {
         <CssBaseline />
         <Helmet>
           <html lang="ja" />
-          <title>
-            {name}周辺の人口 | {group === 'venues' ? 'スタジアム' : 'アリーナ'}と人口 | 水戸地図
-          </title>
+          <title>{name}周辺の人口 | スタジアム・アリーナと人口</title>
           <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,minimal-ui" />
           <meta name="description" content={createDescriptionString(name, club, group)} />
           <meta property="og:type" content="website" />
-          <meta property="og:title" content={`${name}周辺の人口`} />
+          <meta property="og:title" content={`${name}周辺の人口 | スタジアム・アリーナと人口`} />
           <meta property="og:url" content={url} />
           <meta property="og:image" content="https://cieloazul310.github.io/img/ogp2.png" />
           <meta property="og:site_name" content="水戸地図" />
@@ -364,7 +362,7 @@ class MapInner extends React.Component<Props, State> {
               </Typography>
             </Container>
             <Container>
-              <Sharer title={`${name}周辺の人口`} url={url} />
+              <Sharer title={`${name}周辺の人口 | スタジアム・アリーナと人口`} url={url} />
             </Container>
             <Container>
               <AdBox />

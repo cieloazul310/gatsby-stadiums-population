@@ -1,6 +1,6 @@
 {
   "name": "gatsby-stadiums-population",
-  "description": "スタジアム・アリーナと周辺人口は、日本国内の主要スタジアム・アリーナの周辺の人口を地図で表示したサイトです。",
+  "description": "スタジアム・アリーナと人口は、日本国内の主要スタジアム・アリーナの周辺の人口を地図で表示したサイトです。",
   "version": "1.0.0",
   "private": true,
   "author": "cieloazul310",
@@ -38,7 +38,6 @@
     "@types/react-virtualized": "^9.18.12",
     "@types/topojson-client": "^3.0.0",
     "@types/typography": "^0.16.1",
-    "@wapps/gatsby-plugin-material-ui": "^1.2.0",
     "babel-plugin-styled-components": "^1.7.1",
     "classnames": "^2.2.6",
     "d3": "^5.7.0",
@@ -47,6 +46,7 @@
     "gatsby-image": "^2.0.5",
     "gatsby-plugin-canonical-urls": "^2.0.5",
     "gatsby-plugin-google-analytics": "^2.0.13",
+    "gatsby-plugin-material-ui": "^1.2.4",
     "gatsby-plugin-react-helmet": "^3.0.0",
     "gatsby-plugin-typescript": "^2.0.0",
     "gatsby-source-filesystem": "^2.0.1",

@@ -74,7 +74,7 @@ interface QueryData {
 
 class IndexPage extends React.PureComponent<Props> {
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     const { classes, location } = this.props;
     const appState = createInitialAppState(location);
     return (
