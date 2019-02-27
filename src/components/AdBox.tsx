@@ -7,7 +7,8 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = createStyles({
   root: {
-    width: '100%'
+    width: '100%',
+    minHeight: 60
   },
   ad: {
     display: 'block'
@@ -18,7 +19,7 @@ type Props = WithStyles<typeof styles>;
 
 class AdBox extends React.PureComponent<Props> {
   componentDidMount() {
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
+    if (window) (window.adsbygoogle = window.adsbygoogle || []).push({});
   }
 
   render() {

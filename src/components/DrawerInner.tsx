@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { navigate } from 'gatsby';
+//import { navigate } from 'gatsby';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
@@ -24,6 +24,9 @@ import { Data, AppState, Edge, Group, navigateWithState } from '../types';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
+    root: {
+      height: '100%'
+    },
     toolbar: theme.mixins.toolbar
   });
 

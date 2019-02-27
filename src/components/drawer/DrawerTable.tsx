@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { navigateWithState, Edge, AppState, TableState, Radiuses, radiusLabels } from '../../types';
 
 const styles: StyleRules = createStyles({
+  root: {},
   itemTitle: {
     fontSize: '80%',
     fontWeight: 'bold'
@@ -28,7 +29,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const DrawerTable: React.FC<Props> = ({ classes, slug, edges, appState }: Props) => (
-  <List subheader={<ListSubheader>{`一覧 ${createSortString(appState.tableState)}`}</ListSubheader>}>
+  <List className={classes.root} subheader={<ListSubheader>{`一覧 ${createSortString(appState.tableState)}`}</ListSubheader>}>
     {edges.map(edge => (
       <ListItem
         key={edge.node.summary.slug}

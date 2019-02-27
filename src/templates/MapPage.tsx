@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Link } from 'gatsby';
 import { Helmet } from 'react-helmet';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
 import Drawer from '@material-ui/core/Drawer';
@@ -28,7 +27,7 @@ import MapApp from '../components/MapApp';
 import DrawerInner from '../components/DrawerInner';
 import MapLegends from '../components/MapLegends';
 import { sortData } from '../components/RCTable';
-//import DirectionTable from '../components/DirectionTable';
+import DirectionTable from '../components/DirectionTable';
 import ValuesTable from '../components/ValuesTable';
 import Pie from '../components/Pie';
 import Attribution from '../components/Attribution';
@@ -37,26 +36,16 @@ import { DataAttribution, MapAttribution } from '../components/MapAttribution';
 import Sharer from '../components/Sharer';
 import AdBox from '../components/AdBox';
 import Footer from '../components/Footer';
-import {
-  //Directions,
-  //directions,
-  Radiuses,
-  radiuses,
-  Data,
-  Edge,
-  MapState,
-  AppState,
-  navigateWithState,
-  //BufferProps,
-  Group
-} from '../types';
+import { getItemsDiff, Radiuses, radiuses, Data, Edge, MapState, AppState, navigateWithState, Group } from '../types';
 
 const drawerWidth = 280;
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {
-      display: 'flex'
+      display: 'flex',
+      width: '100%',
+      height: '100%'
     },
     drawer: {
       [theme.breakpoints.up('md')]: {
@@ -77,10 +66,12 @@ const styles = (theme: Theme): StyleRules =>
       }
     },
     drawerPaper: {
-      width: drawerWidth
+      width: drawerWidth,
+      height: '100%'
     },
     content: {
-      flexGrow: 1,
+      width: '100%',
+      height: '100%',
       paddingTop: 56,
       '@media (min-width: 600px)': {
         paddingTop: 64
@@ -100,10 +91,7 @@ const styles = (theme: Theme): StyleRules =>
       paddingBottom: theme.spacing.unit * 2
     },
     autoSizerWrapper: {
-      height: 'calc(100vh - 122px)',
-      '@media (min-width: 600px)': {
-        height: 'calc(100vh - 64px)'
-      }
+      height: '100%'
     },
     fabZoomIn: {
       position: 'absolute',
@@ -173,6 +161,8 @@ class MapInner extends React.Component<Props, State> {
   };
 
   public render() {
+    //    console.log(this.props.appState.mapState.zoomLevel);
+    //    console.log(this.state.zoomLevel);
     const { classes, datum, edges, appState, group } = this.props;
     const { popVisibility, bufferVisibility, zoomLevel, terrain } = this.state;
     const { tableState } = appState;
@@ -203,7 +193,6 @@ class MapInner extends React.Component<Props, State> {
 
     return (
       <div className={classes.root}>
-        <CssBaseline />
         <Helmet>
           <html lang="ja" />
           <title>{name}周辺の人口 | スタジアム・アリーナと人口</title>
@@ -268,42 +257,42 @@ class MapInner extends React.Component<Props, State> {
           </Hidden>
         </nav>
         <div className={classes.content}>
-          <main>
-            <div className={classes.autoSizerWrapper}>
-              <AutoSizer>
-                {({ width, height }) => (
-                  <div>
-                    <MapApp
-                      width={width}
-                      height={height}
-                      meshes={meshes}
-                      buffers={buffers}
-                      mapState={{ popVisibility, bufferVisibility, zoomLevel, terrain }}
-                    />
-                    <Hidden implementation="css" mdUp>
-                      <Fab
-                        className={classes.fabZoomIn}
-                        color="primary"
-                        disabled={zoomLevel === Radiuses.radius1000}
-                        onClick={this.handleZoomIn}
-                        role="button"
-                      >
-                        <AddIcon />
-                      </Fab>
-                      <Fab
-                        className={classes.fabZoomOut}
-                        color="primary"
-                        disabled={zoomLevel === Radiuses.radius10000}
-                        onClick={this.handleZoomOut}
-                        role="button"
-                      >
-                        <RemoveIcon />
-                      </Fab>
-                    </Hidden>
-                  </div>
-                )}
-              </AutoSizer>
-            </div>
+          <div className={classes.autoSizerWrapper}>
+            <AutoSizer>
+              {({ width, height }) => (
+                <div>
+                  <MapApp
+                    width={width}
+                    height={height}
+                    meshes={meshes}
+                    buffers={buffers}
+                    mapState={{ popVisibility, bufferVisibility, zoomLevel, terrain }}
+                  />
+                  <Hidden implementation="css" mdUp>
+                    <Fab
+                      className={classes.fabZoomIn}
+                      color="primary"
+                      disabled={zoomLevel === Radiuses.radius1000}
+                      onClick={this.handleZoomIn}
+                      role="button"
+                    >
+                      <AddIcon />
+                    </Fab>
+                    <Fab
+                      className={classes.fabZoomOut}
+                      color="primary"
+                      disabled={zoomLevel === Radiuses.radius10000}
+                      onClick={this.handleZoomOut}
+                      role="button"
+                    >
+                      <RemoveIcon />
+                    </Fab>
+                  </Hidden>
+                </div>
+              )}
+            </AutoSizer>
+          </div>
+          <div className={classes.main}>
             <Container>
               <MapLegends />
             </Container>
@@ -329,8 +318,11 @@ class MapInner extends React.Component<Props, State> {
                   <Pie item={topojson.objects.buffers.geometries} />
                 </Grid>
               </Grid>
+              <Grid item sm={12}>
+                <DirectionTable directionObject={getItemsDiff(topojson.objects.buffers.geometries)} />
+              </Grid>
             </Container>
-          </main>
+          </div>
           <aside>
             <Container>
               <Attribution />
@@ -384,25 +376,3 @@ function createDescriptionString(name: string, club: string[], group: Group): st
   const intro = club[0] !== 'その他' ? `${club.join(',')} のホーム${type}・` : '';
   return `${intro}${name}周辺の人口を総務省統計局の国勢調査に関する地域メッシュ統計(平成27年度)から算出し、地図に表示しました。`;
 }
-
-/*
-type DirectionObj = {
-  [key in keyof typeof Directions]: Array<{
-    radius: keyof typeof Radiuses;
-    population: number;
-    diff: number;
-  }>
-};
-
-function getItemsDiff(items: Array<{ properties: BufferProps }>): DirectionObj {
-  const obj: any = {};
-  directions.forEach(direction => {
-    obj[direction] = items.map((item, index, arr) => ({
-      radius: item.properties.radius,
-      population: item.properties[direction],
-      diff: index === 0 ? item.properties[direction] : item.properties[direction] - arr[index - 1].properties[direction]
-    }));
-  });
-  return obj;
-}
-*/

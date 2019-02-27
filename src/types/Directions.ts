@@ -1,3 +1,7 @@
+import { GeometryObject } from 'topojson-specification';
+import { Radiuses } from './Radiuses';
+import { BufferProps } from './Buffer';
+
 export enum Directions {
   north,
   northeast,
@@ -40,4 +44,24 @@ export function directionToKanji(direction: keyof typeof Directions): string {
     : direction === 'northwest'
     ? '北西'
     : '';
+}
+
+export type DirectionObj = {
+  [key in keyof typeof Directions]: Array<{
+    radius: keyof typeof Radiuses;
+    population: number;
+    diff: number;
+  }>
+};
+
+export function getItemsDiff(items: GeometryObject<BufferProps>[]): DirectionObj {
+  const obj: any = {};
+  directions.forEach(direction => {
+    obj[direction] = items.map((item, index, arr) => ({
+      radius: item.properties.radius,
+      population: item.properties[direction],
+      diff: index === 0 ? item.properties[direction] : item.properties[direction] - arr[index - 1].properties[direction]
+    }));
+  });
+  return obj;
 }

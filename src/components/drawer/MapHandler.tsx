@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Hidden from '@material-ui/core/Hidden';
 import Switch from '@material-ui/core/Switch';
-import { MapState } from '../../utils/types';
+import { MapState, Radiuses } from '../../types';
 
 // Icons
 import ZoomIn from '@material-ui/icons/ZoomIn';
@@ -35,13 +35,13 @@ const MapHandler: React.FunctionComponent<Props> = ({
 }: Props) => (
   <List subheader={<ListSubheader>地図</ListSubheader>}>
     <Hidden smDown implementation="css">
-      <ListItem button selected={mapState.zoomLevel === 0} onClick={handleZoomIn}>
+      <ListItem button selected={mapState.zoomLevel === Radiuses.radius1000} onClick={handleZoomIn}>
         <ListItemIcon>
           <ZoomIn />
         </ListItemIcon>
         <ListItemText>地図を拡大</ListItemText>
       </ListItem>
-      <ListItem button selected={mapState.zoomLevel === 3} onClick={handleZoomOut}>
+      <ListItem button selected={mapState.zoomLevel === Radiuses.radius10000} onClick={handleZoomOut}>
         <ListItemIcon>
           <ZoomOut />
         </ListItemIcon>
