@@ -19,18 +19,22 @@ import AdBox from '../components/AdBox';
 const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {
-      width: '100%'
+      width: '100%',
+      height: '100%'
+    },
+    main: {
+      width: '100%',
+      height: '100%'
     },
     content: {
+      width: '100%',
+      height: '100%',
       margin: 'auto',
       maxWidth: 1000
     },
     table: {
       width: '100%',
-      height: '100vh',
-      [theme.breakpoints.down('xs')]: {
-        height: 'calc(100vh - 66px)'
-      }
+      height: '100%'
     },
     aside: {
       paddingTop: theme.spacing.unit * 4,
@@ -74,10 +78,10 @@ class TablePage extends React.PureComponent<Props> {
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         </Helmet>
-        <main>
+        <main className={classes.main}>
           <div className={classes.content}>
             <div className={classes.table}>
-              <AutoSizer>
+              <AutoSizer defaultWidth={300} defaultHeight={300}>
                 {({ width, height }) => (
                   <RCTable width={width} height={height} edges={edges} group={group} appState={appState} title={groupTitle} />
                 )}

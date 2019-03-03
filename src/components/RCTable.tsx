@@ -47,7 +47,8 @@ const styles = (theme: Theme): StyleRules =>
       overflowY: 'scroll',
       overflowScrolling: 'touch',
       WebkitOverflowScrolling: 'touch',
-      zIndex: 0
+      zIndex: 0,
+      height: 'calc(100% - 150px)'
     },
     header: {
       backgroundColor: theme.palette.primary.main,
@@ -55,6 +56,7 @@ const styles = (theme: Theme): StyleRules =>
       position: 'sticky',
       display: 'flex',
       flexDirection: 'column',
+      height: 140,
       boxShadow: theme.shadows[1],
       zIndex: 99
     },
@@ -70,7 +72,8 @@ const styles = (theme: Theme): StyleRules =>
       zIndex: 100
     },
     filter: {
-      paddingLeft: theme.spacing.unit * 8
+      paddingLeft: theme.spacing.unit * 8,
+      flex: 1
     },
     headerRowHead: {
       flex: 1,
@@ -340,9 +343,11 @@ class RCTable extends React.Component<Props, State> {
         </div>
         <div
           className={classes.table}
-          style={{
-            height: height - 140
-          }}
+          style={
+            {
+              /*height: height - 140*/
+            }
+          }
         >
           {sortData(edges, { ascSort, sortKey, filterRule }).map((edge, index) => (
             <div key={index} className={classes.row}>
