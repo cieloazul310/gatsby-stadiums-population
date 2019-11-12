@@ -13,10 +13,12 @@ interface Props {
   id: string;
 }
 
-const GrayScaleFilter: React.FunctionComponent<Props> = (props: Props) => (
-  <filter id={props.id}>
-    <feColorMatrix type="matrix" values={filterMatrix.join(' ')} />
-  </filter>
-);
+function GrayScaleFilter(props: Props) {
+  return (
+    <filter id={props.id}>
+      <feColorMatrix type="matrix" values={filterMatrix.join(' ')} />
+    </filter>
+  );
+}
 
 export default GrayScaleFilter;

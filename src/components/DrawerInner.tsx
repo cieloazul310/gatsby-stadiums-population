@@ -1,8 +1,6 @@
 import * as React from 'react';
-//import { navigate } from 'gatsby';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import createStyles from '@material-ui/core/styles/createStyles';
-import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -22,15 +20,16 @@ import Reply from '@material-ui/icons/Reply';
 import ValuesTable from '../components/ValuesTable';
 import { Data, AppState, Edge, Group, navigateWithState } from '../types';
 
-const styles = (theme: Theme): StyleRules =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: '100%'
     },
     toolbar: theme.mixins.toolbar
-  });
+  })
+);
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   datum: Data;
   appState: AppState;
   edges: Edge[];
@@ -43,15 +42,8 @@ interface Props extends WithStyles<typeof styles> {
   handleBufferVisibility: () => any;
 }
 
-const DrawerInner: React.FunctionComponent<Props> = ({
-  classes,
-  group,
-  appState,
-  datum,
-  edges,
-  handleDrawerToggle,
-  ...mapHandler
-}: Props) => {
+function DrawerInner({ group, appState, datum, edges, handleDrawerToggle, ...mapHandler }: Props) {
+  const classes = useStyles({});
   const { mapState } = appState;
 
   const DrawerToolBar = () => (
@@ -91,6 +83,6 @@ const DrawerInner: React.FunctionComponent<Props> = ({
       <DrawerTable slug={datum.summary.slug} edges={edges} appState={appState} />
     </div>
   );
-};
+}
 
-export default withStyles(styles)(DrawerInner);
+export default DrawerInner;

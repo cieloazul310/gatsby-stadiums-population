@@ -44,8 +44,7 @@ const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {
       display: 'flex',
-      width: '100%',
-      height: '100%'
+      width: '100%'
     },
     drawer: {
       [theme.breakpoints.up('md')]: {
@@ -71,7 +70,6 @@ const styles = (theme: Theme): StyleRules =>
     },
     content: {
       width: '100%',
-      height: '100%',
       paddingTop: 56,
       '@media (min-width: 600px)': {
         paddingTop: 64
@@ -87,29 +85,32 @@ const styles = (theme: Theme): StyleRules =>
     fullWidthContainer: {
       width: '100%',
       margin: 'auto',
-      paddingTop: theme.spacing.unit * 2,
-      paddingBottom: theme.spacing.unit * 2
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2)
     },
     autoSizerWrapper: {
-      height: '100%'
+      height: 'calc(100vh - 56px)',
+      '@media (min-width: 600px)': {
+        height: 'calc(100vh - 64px)'
+      }
     },
     fabZoomIn: {
       position: 'absolute',
-      bottom: theme.spacing.unit * 10,
-      right: theme.spacing.unit * 2
+      bottom: theme.spacing(10),
+      right: theme.spacing(2)
     },
     fabZoomOut: {
       position: 'absolute',
-      bottom: theme.spacing.unit * 2,
-      right: theme.spacing.unit * 2
+      bottom: theme.spacing(2),
+      right: theme.spacing(2)
     },
     description: {
       maxWidth: 800,
       margin: 'auto'
     },
     descParagraph: {
-      paddingLeft: theme.spacing.unit * 2,
-      paddingRight: theme.spacing.unit * 2
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2)
     }
   });
 

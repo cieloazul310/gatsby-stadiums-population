@@ -1,30 +1,29 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import createStyles from '@material-ui/core/styles/createStyles';
-import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-const styles = (theme: Theme): StyleRules =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      paddingBottom: theme.spacing.unit / 2,
+      paddingBottom: theme.spacing(1),
       [theme.breakpoints.down('xs')]: {
         flexDirection: 'column',
         alignItems: 'start'
       }
     }
-  });
+  })
+);
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   className?: string;
   children: JSX.Element | JSX.Element[];
 }
 
-const FlexRow: React.FC<Props> = ({ classes, className, children }: Props) => (
-  <div className={classNames(classes.root, className)}>{children}</div>
-);
-
-export default withStyles(styles)(FlexRow);
+function FlexRow({ className, children }: Props) {
+  const classes = useStyles({});
+  return <div className={classNames(classes.root, className)}>{children}</div>;
+}
+export default FlexRow;

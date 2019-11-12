@@ -1,14 +1,12 @@
 import * as React from 'react';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
-import createStyles from '@material-ui/core/styles/createStyles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { arc as d3arc } from 'd3-shape';
 import { scaleSequential } from 'd3-scale';
 import { interpolateSpectral } from 'd3-scale-chromatic';
 
-import { Buffer } from '../utils/types';
+import { Buffer } from '../types';
 
-const styles = (theme: Theme): StyleRules =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       fontFamily: theme.typography.fontFamily,
@@ -21,17 +19,18 @@ const styles = (theme: Theme): StyleRules =>
         strokeWidth: 3
       }
     }
-  });
+  })
+);
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   width: number;
   buffers: Buffer[];
 }
 
 const color = scaleSequential(interpolateSpectral).domain([10000, 0]);
 
-const BufferArcs: React.FunctionComponent<Props> = (props: Props) => {
-  const { classes, buffers, width } = props;
+function BufferArcs({ buffers, width }: Props) {
+  const classes = useStyles({});
   const size = Math.min(width, 320);
   const dirs = buffersToDirection(buffers);
 
@@ -76,9 +75,9 @@ const BufferArcs: React.FunctionComponent<Props> = (props: Props) => {
       </g>
     </svg>
   );
-};
+}
 
-export default withStyles(styles)(BufferArcs);
+export default BufferArcs;
 
 // utils
 

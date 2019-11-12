@@ -3,9 +3,7 @@ import { graphql, StaticQuery } from 'gatsby';
 import { Helmet } from 'react-helmet';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import createStyles from '@material-ui/core/styles/createStyles';
-import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FormatListNumbered from '@material-ui/icons/FormatListNumbered';
 import PinDrop from '@material-ui/icons/PinDrop';
@@ -15,36 +13,37 @@ import Footer from '../components/Footer';
 import { LocationWithState, createInitialAppState, navigateWithState } from '../types';
 import AdBox from '../components/AdBox';
 
-const styles = (theme: Theme): StyleRules =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     content: {
-      padding: `${theme.spacing.unit * 4}px ${theme.spacing.unit * 2}px`,
+      padding: `${theme.spacing(4)}px ${theme.spacing(2)}px`,
       maxWidth: 800,
       margin: 'auto'
     },
     title: {
-      padding: `${theme.spacing.unit * 6}px 0`
+      padding: `${theme.spacing(6)}px 0`
     },
     group: {
-      padding: `${theme.spacing.unit * 4}px 0`
+      padding: `${theme.spacing(4)}px 0`
     },
     buttons: {
-      paddingTop: theme.spacing.unit,
+      paddingTop: theme.spacing(1),
       display: 'flex',
       justifyContent: 'center',
       alignContent: 'center'
     },
     button: {
       fontWeight: 'bold',
-      margin: `0 ${theme.spacing.unit}px`
+      margin: `0 ${theme.spacing(1)}px`
     },
     buttonIcon: {
-      marginRight: theme.spacing.unit
+      marginRight: theme.spacing(1)
     }
-  });
+  })
+);
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   location: LocationWithState;
 }
 interface SlugEdge {
@@ -72,45 +71,44 @@ interface QueryData {
   };
 }
 
-class IndexPage extends React.PureComponent<Props> {
-  render() {
-    //console.log(this.props);
-    const { classes, location } = this.props;
-    const appState = createInitialAppState(location);
-    return (
-      <StaticQuery
-        query={graphql`
-          query {
-            site {
-              siteMetadata {
-                title
-                description
-                siteUrl
-              }
+function IndexPage({ location }: Props) {
+  const classes = useStyles({});
+  const appState = createInitialAppState(location);
+  return (
+    <StaticQuery
+      query={graphql`
+        query {
+          site {
+            siteMetadata {
+              title
+              description
+              siteUrl
             }
-            allVenuesJson {
-              totalCount
-              edges {
-                node {
-                  fields {
-                    slug
-                  }
-                }
-              }
-            }
-            allArenasJson {
-              totalCount
-              edges {
-                node {
-                  fields {
-                    slug
-                  }
+          }
+          allVenuesJson {
+            totalCount
+            edges {
+              node {
+                fields {
+                  slug
                 }
               }
             }
           }
-        `}
-        render={(data: QueryData) => (
+          allArenasJson {
+            totalCount
+            edges {
+              node {
+                fields {
+                  slug
+                }
+              }
+            }
+          }
+        }
+      `}
+      render={(data: QueryData) => {
+        return (
           <div className={classes.root}>
             <CssBaseline />
             <Helmet>
@@ -216,10 +214,10 @@ class IndexPage extends React.PureComponent<Props> {
             </div>
             <Footer />
           </div>
-        )}
-      />
-    );
-  }
+        );
+      }}
+    />
+  );
 }
 
-export default withStyles(styles)(IndexPage);
+export default IndexPage;

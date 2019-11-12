@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
-import createStyles from '@material-ui/core/styles/createStyles';
-import Pie from '../components/Pie';
-import DirectionTable from '../components/DirectionTable';
-import { BufferProperties, Radiuses, directions, Directions } from '../utils/types';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Pie from './Pie';
+import DirectionTable from './DirectionTable';
+import { BufferProps, Radiuses, directions, Directions } from '../types';
 
-const styles = (theme: Theme): StyleRules =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
@@ -17,7 +15,7 @@ const styles = (theme: Theme): StyleRules =>
     },
     pieContainer: {
       border: '1px solid #ccc',
-      padding: theme.spacing.unit,
+      padding: theme.spacing(1),
       display: 'flex',
       alignContent: 'center',
       [theme.breakpoints.down('xs')]: {
@@ -31,32 +29,29 @@ const styles = (theme: Theme): StyleRules =>
         width: '100%'
       }
     }
-  });
+  })
+);
 
-interface Props extends WithStyles<typeof styles> {
-  data: Array<{ properties: BufferProperties }>;
+interface Props {
+  data: Array<{ properties: BufferProps }>;
 }
 
-interface State {}
+function DirectionApp({ data }: Props) {
+  const classes = useStyles({});
 
-class DirectionApp extends React.Component<Props, State> {
-  public render() {
-    const { classes, data } = this.props;
-    //console.log(getItemsDiff(data));
-    return (
-      <div className={classes.root}>
-        <div className={classes.pieContainer}>
-          <Pie item={data} width={320} />
-        </div>
-        <div className={classes.tableContainer}>
-          <DirectionTable direction={getItemsDiff(data)} />
-        </div>
+  return (
+    <div className={classes.root}>
+      <div className={classes.pieContainer}>
+        <Pie item={data} width={320} />
       </div>
-    );
-  }
+      <div className={classes.tableContainer}>
+        <DirectionTable direction={getItemsDiff(data)} />
+      </div>
+    </div>
+  );
 }
 
-export default withStyles(styles)(DirectionApp);
+export default DirectionApp;
 
 // helpers
 type DirectionObj = {

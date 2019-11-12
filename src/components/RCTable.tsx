@@ -44,7 +44,7 @@ const styles = (theme: Theme): StyleRules =>
       fontFamily: theme.typography.fontFamily
     },
     table: {
-      overflowY: 'scroll',
+      overflowY: 'auto',
       overflowScrolling: 'touch',
       WebkitOverflowScrolling: 'touch',
       zIndex: 0,
@@ -72,7 +72,7 @@ const styles = (theme: Theme): StyleRules =>
       zIndex: 100
     },
     filter: {
-      paddingLeft: theme.spacing.unit * 8,
+      paddingLeft: theme.spacing(8),
       flex: 1
     },
     headerRowHead: {
@@ -113,6 +113,9 @@ const styles = (theme: Theme): StyleRules =>
       '&:focus': {
         color: theme.palette.primary.contrastText
       }
+    },
+    labelIcon: {
+      color: theme.palette.primary.contrastText
     },
     thead: {},
     row: {
@@ -327,7 +330,8 @@ class RCTable extends React.Component<Props, State> {
                     <TableSortLabel
                       classes={{
                         root: classes.labelRoot,
-                        active: classes.labelActive
+                        active: classes.labelActive,
+                        icon: classes.labelIcon
                       }}
                       active={Radiuses[d[0]] === sortKey}
                       direction={ascSort ? 'asc' : 'desc'}
