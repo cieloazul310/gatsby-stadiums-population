@@ -1,24 +1,24 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import createStyles from '@material-ui/core/styles/createStyles';
-import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-const styles = (theme: Theme): StyleRules =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       fontSize: theme.typography.body2.fontSize,
-      padding: `${theme.spacing.unit}px 0`
+      padding: `${theme.spacing(1)}px 0`
     }
-  });
+  })
+);
 
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   className?: string;
   children: JSX.Element | JSX.Element[];
 }
 
-const FlexTable: React.FC<Props> = ({ classes, className, children }: Props) => (
-  <div className={classNames(classes.root, className)}>{children}</div>
-);
+function FlexTable({ className, children }: Props) {
+  const classes = useStyles({});
+  return <div className={classNames(classes.root, className)}>{children}</div>;
+}
 
-export default withStyles(styles)(FlexTable);
+export default FlexTable;

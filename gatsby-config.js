@@ -18,6 +18,11 @@ module.exports = {
   },
   pathPrefix: '/gatsby-stadiums-population',
   plugins: [
+    'gatsby-plugin-top-layout',
+    {
+      resolve: `gatsby-plugin-material-ui`,
+      options: {}
+    },
     'gatsby-transformer-json',
     {
       resolve: `gatsby-source-filesystem`,
@@ -38,18 +43,6 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: 'UA-74683419-3'
-      }
-    },
-    {
-      resolve: `gatsby-plugin-material-ui`,
-      options: {
-        // Add any options here
-        theme: {
-          typography: {
-            useNextVariants: true
-          }
-        },
-        productionPrefix: 'c'
       }
     }
   ]
