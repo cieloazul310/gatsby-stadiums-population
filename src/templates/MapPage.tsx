@@ -207,7 +207,7 @@ class MapInner extends React.Component<Props, State> {
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:description" content={createDescriptionString(name, club, group)} />
           <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         </Helmet>
         <AppBar className={classes.appBar} position="fixed">
           <ToolBar>

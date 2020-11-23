@@ -93,7 +93,7 @@ class Pies extends React.Component<Props, State> {
             content={`日本国内の主要な${groupTitle}の周辺人口を総務省統計局の地域メッシュ統計から算出し、地図に表示しました。`}
           />
           <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         </Helmet>
         <AppBar>
           <Toolbar>

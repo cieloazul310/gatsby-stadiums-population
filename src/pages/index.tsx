@@ -124,7 +124,7 @@ function IndexPage({ location }: Props) {
               <meta name="twitter:card" content="summary" />
               <meta name="twitter:description" content={data.site.siteMetadata.description} />
               <meta name="apple-mobile-web-app-capable" content="yes" />
-              <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+              <meta name="apple-mobile-web-app-status-bar-style" content="black" />
             </Helmet>
             <div className={classes.content}>
               <Typography variant="h4" component="h1" gutterBottom align="center" className={classes.title}>
