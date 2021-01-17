@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'row',
       [theme.breakpoints.down('xs')]: {
-        flexDirection: 'column'
-      }
+        flexDirection: 'column',
+      },
     },
     pieContainer: {
       border: '1px solid #ccc',
@@ -19,16 +19,16 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignContent: 'center',
       [theme.breakpoints.down('xs')]: {
-        width: '100%'
-      }
+        width: '100%',
+      },
     },
     tableContainer: {
       border: '1px solid #ccc',
       flex: 1,
       [theme.breakpoints.down('xs')]: {
-        width: '100%'
-      }
-    }
+        width: '100%',
+      },
+    },
   })
 );
 
@@ -59,16 +59,16 @@ type DirectionObj = {
     radius: keyof typeof Radiuses;
     population: number;
     diff: number;
-  }>
+  }>;
 };
 
 function getItemsDiff(items: Array<{ properties: BufferProperties }>): DirectionObj {
   const obj: any = {};
-  directions.forEach(direction => {
+  directions.forEach((direction) => {
     obj[direction] = items.map((item, index, arr) => ({
       radius: item.properties.radius,
       population: item.properties[direction],
-      diff: index === 0 ? item.properties[direction] : item.properties[direction] - arr[index - 1].properties[direction]
+      diff: index === 0 ? item.properties[direction] : item.properties[direction] - arr[index - 1].properties[direction],
     }));
   });
   return obj;

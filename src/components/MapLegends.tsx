@@ -8,20 +8,20 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     legends: {
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'flex-end'
+      alignItems: 'flex-end',
     },
     legendItem: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       fontSize: '80%',
-      padding: theme.spacing(1)
-    }
+      padding: theme.spacing(1),
+    },
   })
 );
 
@@ -30,7 +30,7 @@ function MapLegends() {
   return (
     <div className={classes.root}>
       <div className={classes.legends}>
-        {[100, 250, 500, 750, 1000, 1500, 2000].map(val => {
+        {[100, 250, 500, 750, 1000, 1500, 2000].map((val) => {
           const size = sizeScale(val) * 2;
           const color = colorScale(val);
           return (

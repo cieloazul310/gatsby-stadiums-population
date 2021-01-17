@@ -34,21 +34,21 @@ import {
   navigateWithState,
   Group,
   footballCategories,
-  basketballCategories
+  basketballCategories,
 } from '../types';
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {
       fontSize: theme.typography.body2.fontSize,
-      fontFamily: theme.typography.fontFamily
+      fontFamily: theme.typography.fontFamily,
     },
     table: {
       overflowY: 'auto',
       overflowScrolling: 'touch',
       WebkitOverflowScrolling: 'touch',
       zIndex: 0,
-      height: 'calc(100% - 150px)'
+      height: 'calc(100% - 150px)',
     },
     header: {
       backgroundColor: theme.palette.primary.main,
@@ -58,64 +58,64 @@ const styles = (theme: Theme): StyleRules =>
       flexDirection: 'column',
       height: 140,
       boxShadow: theme.shadows[1],
-      zIndex: 99
+      zIndex: 99,
     },
     toolbar: {
       display: 'flex',
       flexDirection: 'row',
-      height: 56
+      height: 56,
     },
     title: {
-      flex: 1
+      flex: 1,
     },
     filterMenuWrapper: {
-      zIndex: 100
+      zIndex: 100,
     },
     filter: {
       paddingLeft: theme.spacing(8),
-      flex: 1
+      flex: 1,
     },
     headerRowHead: {
       flex: 1,
       display: 'flex',
       '@media (max-width: 720px)': {
-        display: 'none'
-      }
+        display: 'none',
+      },
     },
     headerRowBody: {
       display: 'flex',
-      justifyContent: 'space-evenly'
+      justifyContent: 'space-evenly',
     },
     labelCell: {
       borderBottom: '2px solid rgba(255, 255, 255, 0)',
       transition: 'border .25s',
       '&:hover': {
-        borderBottom: '2px solid white'
-      }
+        borderBottom: '2px solid white',
+      },
     },
     labelCellActive: {
-      borderBottom: '2px solid white'
+      borderBottom: '2px solid white',
     },
     labelRoot: {
       color: '#ddd',
       '&:hover': {
-        color: theme.palette.primary.contrastText
+        color: theme.palette.primary.contrastText,
       },
       '&:focus': {
-        color: theme.palette.primary.contrastText
-      }
+        color: theme.palette.primary.contrastText,
+      },
     },
     labelActive: {
       color: theme.palette.primary.contrastText,
       '&:hover': {
-        color: theme.palette.primary.contrastText
+        color: theme.palette.primary.contrastText,
       },
       '&:focus': {
-        color: theme.palette.primary.contrastText
-      }
+        color: theme.palette.primary.contrastText,
+      },
     },
     labelIcon: {
-      color: theme.palette.primary.contrastText
+      color: theme.palette.primary.contrastText,
     },
     thead: {},
     row: {
@@ -123,8 +123,8 @@ const styles = (theme: Theme): StyleRules =>
       flexDirection: 'row',
       '@media (max-width: 720px)': {
         flexDirection: 'column',
-        borderBottom: '1px solid #ddd'
-      }
+        borderBottom: '1px solid #ddd',
+      },
     },
     rowHead: {
       flex: 1,
@@ -133,46 +133,46 @@ const styles = (theme: Theme): StyleRules =>
       borderRight: '1px solid #eee',
       '@media (max-width: 720px)': {
         borderRight: 'none',
-        borderBottom: '1px solid #eee'
-      }
+        borderBottom: '1px solid #eee',
+      },
     },
     index: {
       width: '4em',
       padding: '1rem .5rem',
       boxSizing: 'border-box',
-      textAlign: 'right'
+      textAlign: 'right',
     },
     name: {
       padding: '1rem',
       boxSizing: 'border-box',
       flex: 1,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     },
     category: {
       color: '#333',
       padding: '1rem',
-      boxSizing: 'border-box'
+      boxSizing: 'border-box',
     },
     rowBody: {
       display: 'flex',
-      justifyContent: 'space-evenly'
+      justifyContent: 'space-evenly',
     },
     val: {
       width: '9em',
       padding: '1rem',
       boxSizing: 'border-box',
       display: 'flex',
-      flexDirection: 'row-reverse'
+      flexDirection: 'row-reverse',
     },
     link: {
       color: theme.palette.primary.main,
       '&:visited': {
-        color: lightBlue[900]
+        color: lightBlue[900],
       },
       '&:hover': {
-        color: lightBlue[500]
-      }
-    }
+        color: lightBlue[500],
+      },
+    },
   });
 
 interface Props extends WithStyles<typeof styles> {
@@ -192,32 +192,32 @@ class RCTable extends React.Component<Props, State> {
   readonly state: State = this.props.appState
     ? {
         ...this.props.appState.tableState,
-        menuOpen: false
+        menuOpen: false,
       }
     : {
         ascSort: false,
         sortKey: Radiuses.radius10000,
         filterRule: [],
-        menuOpen: false
+        menuOpen: false,
       };
   private anchorEl: HTMLElement | null = null;
   private _handleSort = (radius: Radiuses) => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       ascSort: prevState.sortKey === radius ? !prevState.ascSort : false,
-      sortKey: radius
+      sortKey: radius,
     }));
   };
   private _handleMenuOpen = () => {
-    this.setState(prev => ({
-      menuOpen: !prev.menuOpen
+    this.setState((prev) => ({
+      menuOpen: !prev.menuOpen,
     }));
   };
   private _handleFilterRule = (category: Categories) => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       filterRule:
         prevState.filterRule.indexOf(category) >= 0
-          ? prevState.filterRule.filter(filter => filter !== category)
-          : [...prevState.filterRule, category]
+          ? prevState.filterRule.filter((filter) => filter !== category)
+          : [...prevState.filterRule, category],
     }));
   };
   public render() {
@@ -229,7 +229,7 @@ class RCTable extends React.Component<Props, State> {
         className={classes.root}
         style={{
           width: width,
-          height: height
+          height: height,
         }}
       >
         <div className={classes.header}>
@@ -241,7 +241,7 @@ class RCTable extends React.Component<Props, State> {
                 aria-label="フィルター"
                 aria-owns={menuOpen ? 'menu-list' : undefined}
                 aria-haspopup="true"
-                buttonRef={node => {
+                buttonRef={(node) => {
                   this.anchorEl = node;
                 }}
                 onClick={this._handleMenuOpen}
@@ -261,7 +261,7 @@ class RCTable extends React.Component<Props, State> {
                 <Grow {...TransitionProps} style={{ transformOrigin: 'left top' }}>
                   <Paper>
                     <ClickAwayListener
-                      onClickAway={event => {
+                      onClickAway={(event) => {
                         if (this.anchorEl === null || this.anchorEl.contains(event.target)) {
                           return;
                         }
@@ -304,8 +304,8 @@ class RCTable extends React.Component<Props, State> {
                     tableState: {
                       ascSort,
                       sortKey,
-                      filterRule
-                    }
+                      filterRule,
+                    },
                   });
                 }}
               >
@@ -313,7 +313,7 @@ class RCTable extends React.Component<Props, State> {
               </IconButton>
             </Tooltip>
           </Toolbar>
-          <div className={classes.filter}>表示中: {categories.filter(category => filterRule.indexOf(category) < 0).join(', ')}</div>
+          <div className={classes.filter}>表示中: {categories.filter((category) => filterRule.indexOf(category) < 0).join(', ')}</div>
           <div className={classes.thead}>
             <div className={classes.row}>
               <div className={classes.headerRowHead}>
@@ -331,7 +331,7 @@ class RCTable extends React.Component<Props, State> {
                       classes={{
                         root: classes.labelRoot,
                         active: classes.labelActive,
-                        icon: classes.labelIcon
+                        icon: classes.labelIcon,
                       }}
                       active={Radiuses[d[0]] === sortKey}
                       direction={ascSort ? 'asc' : 'desc'}
@@ -367,9 +367,9 @@ class RCTable extends React.Component<Props, State> {
                         tableState: {
                           ascSort,
                           sortKey,
-                          filterRule
-                        }
-                      }
+                          filterRule,
+                        },
+                      },
                     }}
                   >
                     {edge.node.summary.name}
@@ -400,7 +400,7 @@ export function sortData(edges: Edge[], { ascSort, sortKey, filterRule }: TableS
 
   return filterRule.length
     ? edges
-        .filter(edge => edge.node.summary.category.some(category => filterRule.indexOf(category) < 0))
+        .filter((edge) => edge.node.summary.category.some((category) => filterRule.indexOf(category) < 0))
         .sort((a, b) => isAsc * (a.node.summary[prop] - b.node.summary[prop]))
     : edges.sort((a, b) => isAsc * (a.node.summary[prop] - b.node.summary[prop]));
 }

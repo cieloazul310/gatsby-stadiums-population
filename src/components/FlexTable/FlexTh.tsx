@@ -10,9 +10,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 'bold',
       [theme.breakpoints.down('xs')]: {
         width: '100%',
-        textAlign: 'left'
-      }
-    }
+        textAlign: 'left',
+      },
+    },
   })
 );
 

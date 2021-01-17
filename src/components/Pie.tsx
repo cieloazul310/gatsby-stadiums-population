@@ -12,9 +12,7 @@ interface Props {
 const color = colorScale.copy();
 const newDomain: [number, number] = [colorScale.domain()[0] * 8, 0];
 color.domain(newDomain);
-const opacity = scaleLinear()
-  .domain([250, 0])
-  .range([1, 0]);
+const opacity = scaleLinear().domain([250, 0]).range([1, 0]);
 
 const Pie: React.FC<Props> = ({ item }: Props) => {
   const size = 300;
@@ -23,7 +21,7 @@ const Pie: React.FC<Props> = ({ item }: Props) => {
     <svg viewBox={`0 0 ${size} ${size}`}>
       {item.map((d, i, arr) => (
         <g key={i} transform={`translate(${size / 2}, ${size / 2})`}>
-          {directions.map(key => {
+          {directions.map((key) => {
             const val = i === 0 ? d.properties[key] : d.properties[key] - arr[i - 1].properties[key];
             const density = calcDensity(val, d.properties.radius);
             const { startAngle, endAngle } = directionToAngle(Directions[key]);
@@ -32,7 +30,7 @@ const Pie: React.FC<Props> = ({ item }: Props) => {
               endAngle,
               innerRadius: ((size - 8) * (i + 1)) / 10 + 2,
               outerRadius: ((size - 8) * (i + 2)) / 10,
-              padAngle: 0.05
+              padAngle: 0.05,
             });
             return (
               <g key={key}>
@@ -53,7 +51,7 @@ function directionToAngle(direction: Directions) {
   const angle = (Math.PI * 2) / (Object.keys(Directions).length / 2);
   return {
     startAngle: direction * angle - angle / 2,
-    endAngle: direction * angle + angle / 2
+    endAngle: direction * angle + angle / 2,
   };
 }
 

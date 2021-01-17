@@ -40,19 +40,19 @@ export const navigateWithState = (to: string, appState: AppState) => {
 export const initialTableState: TableState = {
   ascSort: false,
   sortKey: Radiuses.radius10000,
-  filterRule: []
+  filterRule: [],
 };
 
 export const initialMapState: MapState = {
   popVisibility: true,
   bufferVisibility: true,
   zoomLevel: Radiuses.radius10000,
-  terrain: false
+  terrain: false,
 };
 
 export const initialAppState: AppState = {
   tableState: initialTableState,
-  mapState: initialMapState
+  mapState: initialMapState,
 };
 
 export const createInitialAppState = (location: LocationWithState): AppState => {

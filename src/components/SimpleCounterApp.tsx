@@ -9,28 +9,28 @@ const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {
       width: 300,
-      margin: '0 auto'
+      margin: '0 auto',
     },
     header: {
       backgroundColor: theme.palette.primary.main,
       padding: '1.5em',
-      boxShadow: theme.shadows[2]
+      boxShadow: theme.shadows[2],
     },
     container: {
       width: '100%',
-      padding: '3em'
+      padding: '3em',
     },
     counter: {
       fontSize: 72,
-      margin: '0 auto'
+      margin: '0 auto',
     },
     buttonContainer: {
-      padding: '1em'
+      padding: '1em',
     },
     button: {
       width: 120,
-      margin: '0 .2em'
-    }
+      margin: '0 .2em',
+    },
   });
 
 interface Props extends WithStyles<typeof styles> {
@@ -45,18 +45,18 @@ interface State {
 class CounterApp extends React.Component<Props, State> {
   readonly state: State = {
     counter: 0,
-    increment: true
+    increment: true,
   };
 
   private _onClicked = () => {
-    this.setState(prevState => ({
-      counter: prevState.increment ? prevState.counter + 1 : prevState.counter - 1
+    this.setState((prevState) => ({
+      counter: prevState.increment ? prevState.counter + 1 : prevState.counter - 1,
     }));
   };
 
   private _toggleIncrement = () => {
-    this.setState(prevState => ({
-      increment: !prevState.increment
+    this.setState((prevState) => ({
+      increment: !prevState.increment,
     }));
   };
 

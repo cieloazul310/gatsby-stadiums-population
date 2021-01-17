@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   siteMetadata: {
     title: 'スタジアム・アリーナと人口',
@@ -13,37 +11,43 @@ module.exports = {
       url: 'https://cieloazul310.github.io',
       twitter: 'cieloazul310',
       github: 'cieloazul310',
-      email: 'cieloazul310@gmail.com'
-    }
+      email: 'cieloazul310@gmail.com',
+    },
   },
   pathPrefix: '/gatsby-stadiums-population',
   plugins: [
-    'gatsby-plugin-top-layout',
     {
-      resolve: `gatsby-plugin-material-ui`,
-      options: {}
+      resolve: `gatsby-theme-aoi`,
+      options: {
+        siteId: `gatsby-starter-aoi-theme`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-eslint`,
+      options: {
+        test: /\.js$|\.jsx$|\.ts$|\.tsx$/,
+      },
     },
     'gatsby-transformer-json',
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `./src/data/`
-      }
+        path: `./src/data/`,
+      },
     },
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        siteUrl: 'https://cieloazul310.github.io'
-      }
+        siteUrl: 'https://cieloazul310.github.io',
+      },
     },
     `gatsby-plugin-sitemap`,
-    'gatsby-plugin-typescript',
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: 'UA-74683419-3'
-      }
-    }
-  ]
+        trackingId: 'UA-74683419-3',
+      },
+    },
+  ],
 };

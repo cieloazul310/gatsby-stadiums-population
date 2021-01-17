@@ -44,74 +44,74 @@ const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {
       display: 'flex',
-      width: '100%'
+      width: '100%',
     },
     drawer: {
       [theme.breakpoints.up('md')]: {
         width: drawerWidth,
-        flexShrink: 0
-      }
+        flexShrink: 0,
+      },
     },
     appBar: {
       marginLeft: drawerWidth,
       [theme.breakpoints.up('md')]: {
-        width: `calc(100% - ${drawerWidth}px)`
-      }
+        width: `calc(100% - ${drawerWidth}px)`,
+      },
     },
     menuButton: {
       marginRight: 10,
       [theme.breakpoints.up('md')]: {
-        display: 'none'
-      }
+        display: 'none',
+      },
     },
     drawerPaper: {
       width: drawerWidth,
-      height: '100%'
+      height: '100%',
     },
     content: {
       width: '100%',
       paddingTop: 56,
       '@media (min-width: 600px)': {
-        paddingTop: 64
-      }
+        paddingTop: 64,
+      },
     },
     apptitle: {
       flexGrow: 1,
       lineHeight: 1.2,
       [theme.breakpoints.down('sm')]: {
-        fontSize: '90%'
-      }
+        fontSize: '90%',
+      },
     },
     fullWidthContainer: {
       width: '100%',
       margin: 'auto',
       paddingTop: theme.spacing(2),
-      paddingBottom: theme.spacing(2)
+      paddingBottom: theme.spacing(2),
     },
     autoSizerWrapper: {
       height: 'calc(100vh - 56px)',
       '@media (min-width: 600px)': {
-        height: 'calc(100vh - 64px)'
-      }
+        height: 'calc(100vh - 64px)',
+      },
     },
     fabZoomIn: {
       position: 'absolute',
       bottom: theme.spacing(10),
-      right: theme.spacing(2)
+      right: theme.spacing(2),
     },
     fabZoomOut: {
       position: 'absolute',
       bottom: theme.spacing(2),
-      right: theme.spacing(2)
+      right: theme.spacing(2),
     },
     description: {
       maxWidth: 800,
-      margin: 'auto'
+      margin: 'auto',
     },
     descParagraph: {
       paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2)
-    }
+      paddingRight: theme.spacing(2),
+    },
   });
 
 interface Props extends WithStyles<typeof styles> {
@@ -128,36 +128,36 @@ interface State extends MapState {
 class MapInner extends React.Component<Props, State> {
   readonly state = {
     ...this.props.appState.mapState,
-    drawerOpen: false
+    drawerOpen: false,
   };
   private handleDrawerToggle = () => {
-    this.setState(prev => ({
-      drawerOpen: !prev.drawerOpen
+    this.setState((prev) => ({
+      drawerOpen: !prev.drawerOpen,
     }));
   };
   private handlePopVisibility = () => {
-    this.setState(prev => ({
-      popVisibility: !prev.popVisibility
+    this.setState((prev) => ({
+      popVisibility: !prev.popVisibility,
     }));
   };
   private handleBufferVisibility = () => {
-    this.setState(prev => ({
-      bufferVisibility: !prev.bufferVisibility
+    this.setState((prev) => ({
+      bufferVisibility: !prev.bufferVisibility,
     }));
   };
   private handleZoomIn = () => {
-    this.setState(prev => ({
-      zoomLevel: prev.zoomLevel !== Radiuses.radius1000 ? radiuses[radiuses.indexOf(prev.zoomLevel) - 1] : prev.zoomLevel
+    this.setState((prev) => ({
+      zoomLevel: prev.zoomLevel !== Radiuses.radius1000 ? radiuses[radiuses.indexOf(prev.zoomLevel) - 1] : prev.zoomLevel,
     }));
   };
   private handleZoomOut = () => {
-    this.setState(prev => ({
-      zoomLevel: prev.zoomLevel !== Radiuses.radius10000 ? radiuses[radiuses.indexOf(prev.zoomLevel) + 1] : prev.zoomLevel
+    this.setState((prev) => ({
+      zoomLevel: prev.zoomLevel !== Radiuses.radius10000 ? radiuses[radiuses.indexOf(prev.zoomLevel) + 1] : prev.zoomLevel,
     }));
   };
   private handleTerrain = () => {
-    this.setState(prev => ({
-      terrain: !prev.terrain
+    this.setState((prev) => ({
+      terrain: !prev.terrain,
     }));
   };
 
@@ -175,7 +175,7 @@ class MapInner extends React.Component<Props, State> {
     const url = `https://cieloazul310.github.io/gatsby-stadiums-population${datum.fields.slug}`;
     const newAppState: AppState = {
       tableState,
-      mapState: { popVisibility, bufferVisibility, zoomLevel, terrain }
+      mapState: { popVisibility, bufferVisibility, zoomLevel, terrain },
     };
     const drawer = (
       <DrawerInner
@@ -229,7 +229,7 @@ class MapInner extends React.Component<Props, State> {
               role="button"
               aria-haspopup="true"
               onClick={() => {
-                const currentIndex = others.map(edge => edge.node.summary.slug).indexOf(slug);
+                const currentIndex = others.map((edge) => edge.node.summary.slug).indexOf(slug);
                 const next = currentIndex === others.length - 1 ? others[0] : others[currentIndex + 1];
                 navigateWithState(next.node.fields.slug, newAppState);
               }}
@@ -337,7 +337,7 @@ class MapInner extends React.Component<Props, State> {
                 <Link
                   to={`/${group}`}
                   state={{
-                    appState: newAppState
+                    appState: newAppState,
                   }}
                 >
                   表に戻る
@@ -347,7 +347,7 @@ class MapInner extends React.Component<Props, State> {
                 <Link
                   to="/"
                   state={{
-                    appState: newAppState
+                    appState: newAppState,
                   }}
                 >
                   トップに戻る

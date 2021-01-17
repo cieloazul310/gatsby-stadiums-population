@@ -11,14 +11,14 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       fontFamily: theme.typography.fontFamily,
       margin: 'auto',
-      display: 'block'
+      display: 'block',
     },
     arc: {
       strokeWidth: 0,
       '&:hover': {
-        strokeWidth: 3
-      }
-    }
+        strokeWidth: 3,
+      },
+    },
   })
 );
 
@@ -83,14 +83,14 @@ export default BufferArcs;
 
 function buffersToDirection(buffers: Buffer[]) {
   const directions = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
-  const dirObjs = directions.map(str => ({
+  const dirObjs = directions.map((str) => ({
     direction: str,
     items: buffers.map((feature, index, arr) => ({
       ...directionToAngle(str),
       from: index > 0 ? arr[index - 1].properties.radius : 0,
       to: feature.properties.radius,
-      val: index > 0 ? feature.properties[str] - arr[index - 1].properties[str] : feature.properties[str]
-    }))
+      val: index > 0 ? feature.properties[str] - arr[index - 1].properties[str] : feature.properties[str],
+    })),
   }));
   return dirObjs;
 }
@@ -100,7 +100,7 @@ function directionToAngle(key: string) {
   const angle = (Math.PI * 2) / directions.length;
   return {
     startAngle: directions.indexOf(key) * angle - angle / 2,
-    endAngle: directions.indexOf(key) * angle + angle / 2
+    endAngle: directions.indexOf(key) * angle + angle / 2,
   };
 }
 

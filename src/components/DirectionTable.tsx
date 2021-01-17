@@ -11,15 +11,15 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      maxWidth: '100%'
+      maxWidth: '100%',
     },
     tableWrapper: {
       width: '100%',
       overflowX: 'auto',
       whiteSpace: 'nowrap',
       overflowScrolling: 'touch',
-      WebkitOverflowScrolling: 'touch'
-    }
+      WebkitOverflowScrolling: 'touch',
+    },
   })
 );
 

@@ -10,7 +10,7 @@ export enum Directions {
   south,
   southwest,
   west,
-  northwest
+  northwest,
 }
 
 export const directions: Array<keyof typeof Directions> = [
@@ -21,7 +21,7 @@ export const directions: Array<keyof typeof Directions> = [
   'south',
   'southwest',
   'west',
-  'northwest'
+  'northwest',
 ];
 
 export type DirectionProps = { [key in keyof typeof Directions]: number };
@@ -51,16 +51,16 @@ export type DirectionObj = {
     radius: keyof typeof Radiuses;
     population: number;
     diff: number;
-  }>
+  }>;
 };
 
 export function getItemsDiff(items: GeometryObject<BufferProps>[]): DirectionObj {
   const obj: any = {};
-  directions.forEach(direction => {
+  directions.forEach((direction) => {
     obj[direction] = items.map((item, index, arr) => ({
       radius: item.properties.radius,
       population: item.properties[direction],
-      diff: index === 0 ? item.properties[direction] : item.properties[direction] - arr[index - 1].properties[direction]
+      diff: index === 0 ? item.properties[direction] : item.properties[direction] - arr[index - 1].properties[direction],
     }));
   });
   return obj;

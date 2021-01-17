@@ -58,12 +58,12 @@ class TileSet {
     if (!this.tileTree.hasOwnProperty(z.toString())) {
       this.tileTree[z.toString()] = {
         [x.toString()]: {
-          [y.toString()]: url
-        }
+          [y.toString()]: url,
+        },
       };
     } else if (!this.tileTree[z.toString()].hasOwnProperty(x.toString())) {
       this.tileTree[z.toString()][x.toString()] = {
-        [y.toString()]: url
+        [y.toString()]: url,
       };
     } else {
       this.tileTree[z.toString()][x.toString()][y.toString()] = url;
@@ -71,8 +71,8 @@ class TileSet {
   }
   // fetch new tiles
   private fetchTiles(tiles: Tile[]): Promise<TileWithURL[]> {
-    return new Promise(resolve => {
-      const tasks = tiles.map(tile => this.fetchTile(tile, this.tileUrl));
+    return new Promise((resolve) => {
+      const tasks = tiles.map((tile) => this.fetchTile(tile, this.tileUrl));
       Promise.all(tasks).then((data: TileWithURL[]) => {
         resolve(data);
       });
@@ -83,14 +83,14 @@ class TileSet {
     const fetchUrl = url.replace('{z}/{x}/{y}', `${z}/${x}/${y}`);
 
     return fetch(fetchUrl)
-      .then(res => {
+      .then((res) => {
         if (!res.ok) throw new Error();
         return res.blob();
       })
-      .then(blob => {
+      .then((blob) => {
         const tileWithURL: TileWithURL = {
           ...tile,
-          url: URL.createObjectURL(blob)
+          url: URL.createObjectURL(blob),
         };
         this.tile2tree(tileWithURL);
         return tileWithURL;
@@ -98,7 +98,7 @@ class TileSet {
       .catch(() => {
         const tileWithURL: TileWithURL = {
           ...tile,
-          url: undefined
+          url: undefined,
         };
         this.tile2tree(tileWithURL);
         return tileWithURL;
@@ -108,22 +108,22 @@ class TileSet {
   // helpers
 
   public isRequireFetch(tiles: Tile[]): boolean {
-    return !tiles.every(tile => this.treeIncludesTile(tile));
+    return !tiles.every((tile) => this.treeIncludesTile(tile));
   }
 
   public setTileUrlFromTree(tiles: Tile[]): TileWithURL[] {
     return tiles
-      .filter(tile => this.treeIncludesTile(tile))
-      .map(tile => ({
+      .filter((tile) => this.treeIncludesTile(tile))
+      .map((tile) => ({
         ...tile,
-        url: this.tileTree[tile.z][tile.x][tile.y]
+        url: this.tileTree[tile.z][tile.x][tile.y],
       }));
   }
 
   public async updateTiles(newTiles: Tile[]) {
-    const tilesInTree = this.setTileUrlFromTree(newTiles.filter(tile => this.treeIncludesTile(tile)));
+    const tilesInTree = this.setTileUrlFromTree(newTiles.filter((tile) => this.treeIncludesTile(tile)));
 
-    const tilesShouldFetch = newTiles.filter(tile => !this.treeIncludesTile(tile));
+    const tilesShouldFetch = newTiles.filter((tile) => !this.treeIncludesTile(tile));
 
     const fetchedTiles: TileWithURL[] = await this.fetchTiles(tilesShouldFetch);
 

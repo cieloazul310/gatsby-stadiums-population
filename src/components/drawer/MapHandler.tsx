@@ -31,7 +31,7 @@ const MapHandler: React.FunctionComponent<Props> = ({
   handleZoomOut,
   handleTerrain,
   handlePopVisibility,
-  handleBufferVisibility
+  handleBufferVisibility,
 }: Props) => (
   <List subheader={<ListSubheader>地図</ListSubheader>}>
     <Hidden smDown implementation="css">

@@ -19,27 +19,27 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       padding: `${theme.spacing(4)}px ${theme.spacing(2)}px`,
       maxWidth: 800,
-      margin: 'auto'
+      margin: 'auto',
     },
     title: {
-      padding: `${theme.spacing(6)}px 0`
+      padding: `${theme.spacing(6)}px 0`,
     },
     group: {
-      padding: `${theme.spacing(4)}px 0`
+      padding: `${theme.spacing(4)}px 0`,
     },
     buttons: {
       paddingTop: theme.spacing(1),
       display: 'flex',
       justifyContent: 'center',
-      alignContent: 'center'
+      alignContent: 'center',
     },
     button: {
       fontWeight: 'bold',
-      margin: `0 ${theme.spacing(1)}px`
+      margin: `0 ${theme.spacing(1)}px`,
     },
     buttonIcon: {
-      marginRight: theme.spacing(1)
-    }
+      marginRight: theme.spacing(1),
+    },
   })
 );
 

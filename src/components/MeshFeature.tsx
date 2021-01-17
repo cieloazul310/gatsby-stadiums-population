@@ -12,10 +12,7 @@ interface Props {
 
 export const colorScale = scaleSequential(interpolateSpectral).domain([1250, 0]);
 
-export const sizeScale = scalePow()
-  .domain([0, 1000])
-  .range([0, 8])
-  .exponent(0.5);
+export const sizeScale = scalePow().domain([0, 1000]).range([0, 8]).exponent(0.5);
 
 const MeshRect: React.FunctionComponent<Props> = (props: Props) => {
   const { feature, projection } = props;

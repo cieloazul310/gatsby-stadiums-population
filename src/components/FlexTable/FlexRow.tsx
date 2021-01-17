@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(1),
       [theme.breakpoints.down('xs')]: {
         flexDirection: 'column',
-        alignItems: 'start'
-      }
-    }
+        alignItems: 'start',
+      },
+    },
   })
 );
 

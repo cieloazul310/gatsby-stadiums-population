@@ -9,9 +9,9 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(1),
       textAlign: 'left',
       [theme.breakpoints.down('xs')]: {
-        paddingLeft: theme.spacing(2)
-      }
-    }
+        paddingLeft: theme.spacing(2),
+      },
+    },
   })
 );
 

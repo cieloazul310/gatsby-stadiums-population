@@ -8,11 +8,11 @@ import Typography from '@material-ui/core/Typography';
 const styles = createStyles({
   root: {
     width: '100%',
-    minHeight: 60
+    minHeight: 60,
   },
   ad: {
-    display: 'block'
-  }
+    display: 'block',
+  },
 });
 
 type Props = WithStyles<typeof styles>;

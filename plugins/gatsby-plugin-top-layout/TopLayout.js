@@ -22,5 +22,5 @@ export default function TopLayout(props) {
 }
 
 TopLayout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };

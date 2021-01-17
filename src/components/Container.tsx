@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme: Theme) =>
           margin: `${theme.spacing(2)}px auto`,
           padding: theme.spacing(2),
           borderLeft: 'solid 4px #ddd',
-          borderRadius: '8px'
-        }
-      }
-    }
+          borderRadius: '8px',
+        },
+      },
+    },
   })
 );
 

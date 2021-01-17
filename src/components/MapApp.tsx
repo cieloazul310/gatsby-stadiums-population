@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import withStyles, { WithStyles, StyleRules } from '@material-ui/core/styles/withStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
-const d3tile = require('d3-tile').tile;
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import bbox from '@turf/bbox';
@@ -13,40 +12,41 @@ import GrayScaleFilter from '../components/GrayScaleFilter';
 import { Mesh, Buffer, MapState, radiuses } from '../types';
 
 import Place from '../image/place.svg';
+const d3tile = require('d3-tile').tile;
 
 const styles = (theme: Theme): StyleRules =>
   createStyles({
     root: {
-      fontFamily: theme.typography.fontFamily
+      fontFamily: theme.typography.fontFamily,
     },
     buffer: {
       opacity: 0.2,
       '&:hover': {
-        opacity: 1
-      }
+        opacity: 1,
+      },
     },
     bufferText: { fontSize: '80%', fontWeight: 'bold' },
     progress: {
       position: 'absolute',
       width: '100%',
       top: 0,
-      left: 0
+      left: 0,
     },
     tiles: {
       '@global': {
         image: {
           imageRendering: '-webkit-optimize-contrast',
-          shapeRendering: 'auto'
-        }
-      }
+          shapeRendering: 'auto',
+        },
+      },
     },
     points: {
       '@global': {
         rect: {
-          mixBlendMode: 'multiply'
-        }
-      }
-    }
+          mixBlendMode: 'multiply',
+        },
+      },
+    },
   });
 
 interface D3TileArray<T> extends Array<T> {
@@ -68,18 +68,18 @@ interface State {
 
 class Map extends React.Component<Props, State> {
   readonly state: State = {
-    fetchStatus: 'yet'
+    fetchStatus: 'yet',
   };
   private _tileSet = new TileSet();
   private _terrain = new TileSet({
-    url: '//cyberjapandata.gsi.go.jp/xyz/slopemap/{z}/{x}/{y}.png'
+    url: '//cyberjapandata.gsi.go.jp/xyz/slopemap/{z}/{x}/{y}.png',
   });
   // Tile Maps
   // slope: //cyberjapandata.gsi.go.jp/xyz/slopemap/{z}/{x}/{y}.png
 
-  private _getTileCoordinates = (projection: GeoProjection, maxZoom: number = 20): Tile[] => {
+  private _getTileCoordinates = (projection: GeoProjection, maxZoom = 20): Tile[] => {
     const { width, height } = this.props;
-    let mag: number = 1.5;
+    let mag = 1.5;
 
     const zoomer = Math.log2((projection.scale() * 2 * mag * Math.PI) / 256);
     // required zoom level > maxZoom
@@ -90,13 +90,13 @@ class Map extends React.Component<Props, State> {
     const tiles: Tile[] = d3tile()
       .size([width * mag, height * mag])
       .scale(projection.scale() * 2 * Math.PI * mag)
-      .translate(projection([0, 0]).map(v => v * mag))()
+      .translate(projection([0, 0]).map((v) => v * mag))()
       .map((tile: { x: number; y: number; z: number }, index: number, array: D3TileArray<Tile>) => ({
         ...tile,
         mag,
         id: `${tile.z}/${tile.x}/${tile.y}`,
         scale: array.scale,
-        translate: array.translate
+        translate: array.translate,
       }));
 
     return tiles;
@@ -114,14 +114,20 @@ class Map extends React.Component<Props, State> {
     const width = this.props.width || 400;
     const height = this.props.height || 400;
     const projection = buffers
-      ? geoMercator().fitExtent([[10, 40], [width - 10, height - 40]], buffers[radiuses.indexOf(zoomLevel)])
+      ? geoMercator().fitExtent(
+          [
+            [10, 40],
+            [width - 10, height - 40],
+          ],
+          buffers[radiuses.indexOf(zoomLevel)]
+        )
       : geoMercator();
 
     const path: GeoPath = geoPath(projection);
     const tileSet = !terrain ? this._tileSet : this._terrain;
     const tileCoords = !terrain ? this._getTileCoordinates(projection) : this._getTileCoordinates(projection, 15);
 
-    let renderTiles: TileWithURL[] = tileSet.setTileUrlFromTree(tileCoords);
+    const renderTiles: TileWithURL[] = tileSet.setTileUrlFromTree(tileCoords);
     let hoge = null;
     if (tileSet.isRequireFetch(tileCoords)) {
       hoge = <LinearProgress className={classes.progress} color="secondary" />;

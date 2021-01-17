@@ -21,24 +21,24 @@ import AdBox from '../components/AdBox';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: '100%'
+      width: '100%',
     },
     main: {
-      width: '100%'
+      width: '100%',
     },
     content: {
       width: '100%',
       margin: 'auto',
-      maxWidth: 1000
+      maxWidth: 1000,
     },
     table: {
       width: '100%',
-      height: '100vh'
+      height: '100vh',
     },
     aside: {
       paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4)
-    }
+      paddingBottom: theme.spacing(4),
+    },
   })
 );
 
@@ -100,7 +100,7 @@ function TablePage({ group, edges, appState }: Props) {
               <Link
                 to={group === 'venues' ? '/arenas' : '/venues'}
                 state={{
-                  appState: appState
+                  appState: appState,
                 }}
               >
                 {group === 'venues' ? 'バスケットボール' : 'サッカー'}版へ
@@ -110,7 +110,7 @@ function TablePage({ group, edges, appState }: Props) {
               <Link
                 to="/"
                 state={{
-                  appState: appState
+                  appState: appState,
                 }}
               >
                 トップに戻る

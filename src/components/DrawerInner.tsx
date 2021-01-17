@@ -23,9 +23,9 @@ import { Data, AppState, Edge, Group, navigateWithState } from '../types';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      height: '100%'
+      height: '100%',
     },
-    toolbar: theme.mixins.toolbar
+    toolbar: theme.mixins.toolbar,
   })
 );
 

@@ -6,14 +6,14 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       backgroundColor: theme.palette.primary.dark,
-      color: 'white'
+      color: 'white',
     },
     inner: {
       display: 'flex',
       padding: `${theme.spacing(4)}px ${theme.spacing(1)}px`,
       justifyContent: 'center',
-      justifyItems: 'center'
-    }
+      justifyItems: 'center',
+    },
   })
 );
 

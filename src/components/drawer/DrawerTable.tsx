@@ -15,11 +15,11 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {},
     itemTitle: {
       fontSize: '80%',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     },
     itemNumber: {
-      textAlign: 'right'
-    }
+      textAlign: 'right',
+    },
   })
 );
 
@@ -33,7 +33,7 @@ function DrawerTable({ slug, edges, appState }: Props) {
   const classes = useStyles({});
   return (
     <List className={classes.root} subheader={<ListSubheader>{`一覧 ${createSortString(appState.tableState)}`}</ListSubheader>}>
-      {edges.map(edge => (
+      {edges.map((edge) => (
         <ListItem
           key={edge.node.summary.slug}
           button
