@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Link } from 'gatsby';
+import Layout from 'gatsby-theme-aoi/src/layout';
 
 const NotFoundPage = () => (
-  <div>
-    <h1>404</h1>
-  </div>
+  <Layout>
+    <p>404</p>
+  </Layout>
 );
 
 export default NotFoundPage;

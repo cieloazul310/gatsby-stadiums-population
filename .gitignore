@@ -113,3 +113,9 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+raw
+data
+src/data
+graphql-type.ts
+*/graphql-type.ts

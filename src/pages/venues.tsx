@@ -1,29 +1,16 @@
 import * as React from 'react';
-import { graphql } from 'gatsby';
-import TablePage from '../templates/TablePage';
-import { Edge, LocationWithState, createInitialAppState } from '../types';
+import Layout from 'gatsby-theme-aoi/src/layout';
 
-interface Props {
-  data: {
-    allVenuesJson: {
-      edges: Edge[];
-    };
-  };
-  location: LocationWithState;
+function Stadiums() {
+  return (
+    <Layout>
+      <p>Stadiums</p>
+    </Layout>
+  );
 }
 
-class Venues extends React.PureComponent<Props> {
-  render() {
-    //console.log(this.props);
-    const { data, location } = this.props;
-    const appState = createInitialAppState(location);
-
-    return <TablePage group="venues" edges={data.allVenuesJson.edges} appState={appState} />;
-  }
-}
-
-export default Venues;
-
+export default Stadiums;
+/*
 export const query = graphql`
   {
     allVenuesJson {
@@ -48,3 +35,4 @@ export const query = graphql`
     }
   }
 `;
+*/

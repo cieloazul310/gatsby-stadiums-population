@@ -1,20 +1,51 @@
 // @ts-check
 
 const path = require('path');
-const { createFilePath } = require(`gatsby-source-filesystem`);
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
-  if (node.internal.type === 'VenuesJson' || node.internal.type === 'ArenasJson') {
-    const { createNodeField } = actions;
-    const slug = createFilePath({
-      node,
-      getNode,
-      basePath: `pages`,
-    });
-    createNodeField({ node, name: `slug`, value: slug });
-  }
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+  createTypes(`
+    type venues implements Node {
+      clubs: [jclubYaml] @link(by: "short_name", from: "clubs")
+    },
+  `);
 };
 
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  const { createPage } = actions;
+  const result = await graphql(`
+    query CreatePages {
+      allVenues(sort: { fields: population___val_10, order: DESC }) {
+        edges {
+          node {
+            slug
+          }
+          next {
+            slug
+            name
+          }
+          previous {
+            slug
+            name
+          }
+        }
+      }
+    }
+  `);
+  if (result.errors) {
+    reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query');
+  }
+  const { allVenues } = result.data;
+  allVenues.edges.forEach(({ node }) => {
+    createPage({
+      path: node.slug,
+      component: path.resolve('./src/templates/venues.tsx'),
+      context: { slug: node.slug, relativeDirectory: `stadiums/${node.slug}` },
+    });
+  });
+};
+
+/*
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
   const result = await graphql(`
@@ -59,3 +90,4 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     });
   });
 };
+*/

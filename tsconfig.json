@@ -1,14 +1,10 @@
 {
-  "include": [
-    "./src/**/*"
-  ],
+  "include": ["./src/**/*"],
+  "exclude": ["*/graphql-types.ts"],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "allowJs": true,
     "checkJs": true,
     "jsx": "react",
@@ -19,5 +15,12 @@
     "emitDecoratorMetadata": true,
     "noEmit": true,
     "skipLibCheck": true
+  },
+  "ts-node": {
+    // these options are overrides used only by ts-node
+    // same as our --compilerOptions flag and our TS_NODE_COMPILER_OPTIONS environment variable
+    "compilerOptions": {
+      "module": "commonjs"
+    }
   }
 }
