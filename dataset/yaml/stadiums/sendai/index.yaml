@@ -1,0 +1,14 @@
+id: sendai
+type: stadium
+slug: sendai
+name: ユアテックスタジアム仙台
+coordinates:
+  - 140.881807
+  - 38.319128
+clubs:
+  - 仙台
+population:
+  val_1: 22329
+  val_3: 139333
+  val_5: 337933
+  val_10: 916529

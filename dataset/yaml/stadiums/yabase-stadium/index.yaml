@@ -1,0 +1,14 @@
+id: yabase-stadium
+type: stadium
+slug: yabase-stadium
+name: あきぎんスタジアム
+coordinates:
+  - 140.099758
+  - 39.721528
+clubs:
+  - 秋田
+population:
+  val_1: 14238
+  val_3: 104545
+  val_5: 215623
+  val_10: 292678

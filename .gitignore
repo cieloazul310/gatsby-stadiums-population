@@ -117,5 +117,5 @@ $RECYCLE.BIN/
 raw
 data
 src/data
-graphql-type.ts
-*/graphql-type.ts
+graphql-types.ts
+*/graphql-types.ts

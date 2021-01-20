@@ -1,0 +1,14 @@
+id: kitakami
+type: stadium
+slug: kitakami
+name: 北上総合運動公園陸上競技場
+coordinates:
+  - 141.096018
+  - 39.258085
+clubs:
+  - いわて
+population:
+  val_1: 3788
+  val_3: 14795
+  val_5: 48394
+  val_10: 108343

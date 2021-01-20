@@ -1,0 +1,14 @@
+id: morioka-minami
+type: stadium
+slug: morioka-minami
+name: いわぎんスタジアム
+coordinates:
+  - 141.137852
+  - 39.647978
+clubs:
+  - いわて
+population:
+  val_1: 3067
+  val_3: 38813
+  val_5: 107266
+  val_10: 286845

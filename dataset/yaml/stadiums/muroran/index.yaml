@@ -1,0 +1,14 @@
+id: muroran
+type: stadium
+slug: muroran
+name: 入江運動公園陸上競技場
+coordinates:
+  - 140.977304
+  - 42.321471
+clubs:
+  - その他
+population:
+  val_1: 3326
+  val_3: 20132
+  val_5: 41122
+  val_10: 107711

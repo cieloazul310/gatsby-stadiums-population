@@ -1,0 +1,468 @@
+- id: hachinohe
+  type: arenas
+  slug: hachinohe
+  name: 八戸市東体育館
+  coordinates:
+    - 141.544644
+    - 40.501867
+  clubs:
+    - 青森
+- id: hokkaido
+  type: arenas
+  slug: hokkaido
+  name: 北海きたえーる
+  coordinates:
+    - 141.376564
+    - 43.044124
+  clubs:
+    - 北海道
+- id: iwate
+  type: arenas
+  slug: iwate
+  name: 岩手県営体育館
+  coordinates:
+    - 141.115325
+    - 39.724789
+  clubs:
+    - 岩手
+- id: sendai
+  type: arenas
+  slug: sendai
+  name: カメイアリーナ仙台
+  coordinates:
+    - 140.869159
+    - 38.217875
+  clubs:
+    - 仙台
+- id: aomori
+  type: arenas
+  slug: aomori
+  name: マエダアリーナ
+  coordinates:
+    - 140.840435
+    - 40.84286
+  clubs:
+    - 青森
+- id: aoyagi
+  type: arenas
+  slug: aoyagi
+  name: 青柳公園市民体育館
+  coordinates:
+    - 140.482571
+    - 36.38041
+  clubs:
+    - 茨城
+- id: azumacho
+  type: arenas
+  slug: azumacho
+  name: アダストリア水戸アリーナ (建設中)
+  coordinates:
+    - 140.449284
+    - 36.380745
+  clubs:
+    - 茨城
+- id: yamagata
+  type: arenas
+  slug: yamagata
+  name: 山形県総合運動公園体育館
+  coordinates:
+    - 140.375509
+    - 38.336264
+  clubs:
+    - 山形
+- id: koriyama
+  type: arenas
+  slug: koriyama
+  name: 宝来屋郡山総合体育館
+  coordinates:
+    - 140.363813
+    - 37.39735
+  clubs:
+    - 福島
+- id: akita
+  type: arenas
+  slug: akita
+  name: CNAアリーナ☆あきた
+  coordinates:
+    - 140.08771
+    - 39.725644
+  clubs:
+    - 秋田
+- id: chiba
+  type: arenas
+  slug: chiba
+  name: 船橋アリーナ
+  coordinates:
+    - 140.051872
+    - 35.729661
+  clubs:
+    - 千葉
+- id: tochigi
+  type: arenas
+  slug: tochigi
+  name: ブレックスアリーナ宇都宮
+  coordinates:
+    - 139.910771
+    - 36.561129
+  clubs:
+    - 栃木
+- id: koshigaya
+  type: arenas
+  slug: koshigaya
+  name: 越谷市総合体育館
+  coordinates:
+    - 139.813191
+    - 35.902927
+  clubs:
+    - 越谷
+- id: ota
+  type: arenas
+  slug: ota
+  name: 大田区総合体育館
+  coordinates:
+    - 139.727879
+    - 35.564471
+  clubs:
+    - 東京Z
+- id: aoyama
+  type: arenas
+  slug: aoyama
+  name: 青山学院記念館
+  coordinates:
+    - 139.710521
+    - 35.662172
+  clubs:
+    - SR渋谷
+- id: yoyogi
+  type: arenas
+  slug: yoyogi
+  name: 国立代々木競技場第二体育館
+  coordinates:
+    - 139.698537
+    - 35.666459
+  clubs:
+    - A東京
+- id: azusawa
+  type: arenas
+  slug: azusawa
+  name: 板橋区立小豆沢体育館
+  coordinates:
+    - 139.698298
+    - 35.778443
+  clubs:
+    - 東京EX
+- id: kawasaki
+  type: arenas
+  slug: kawasaki
+  name: 川崎市とどろきアリーナ
+  coordinates:
+    - 139.647341
+    - 35.587603
+  clubs:
+    - 川崎
+- id: shakujii
+  type: arenas
+  slug: shakujii
+  name: 東京海上日動石神井体育館
+  coordinates:
+    - 139.595691
+    - 35.740085
+  clubs:
+    - 東京海上日動
+- id: yokohama
+  type: arenas
+  slug: yokohama
+  name: 横浜国際プール
+  coordinates:
+    - 139.594448
+    - 35.564152
+  clubs:
+    - 横浜
+- id: inagi
+  type: arenas
+  slug: inagi
+  name: 稲城市総合体育館
+  coordinates:
+    - 139.486077
+    - 35.631692
+  clubs:
+    - 東京CR
+- id: tokorozawa
+  type: arenas
+  slug: tokorozawa
+  name: 所沢市民体育館
+  coordinates:
+    - 139.463362
+    - 35.809975
+  clubs:
+    - 埼玉
+- id: tachihi
+  type: arenas
+  slug: tachihi
+  name: アリーナ立川立飛
+  coordinates:
+    - 139.416421
+    - 35.71546
+  clubs:
+    - A東京
+- id: hachioji
+  type: arenas
+  slug: hachioji
+  name: エスフォルタアリーナ八王子
+  coordinates:
+    - 139.292664
+    - 35.640123
+  clubs:
+    - 八王子
+- id: maebashi
+  type: arenas
+  slug: maebashi
+  name: ヤマト市民体育館前橋
+  coordinates:
+    - 139.079715
+    - 36.365009
+  clubs:
+    - 群馬
+- id: nagaoka
+  type: arenas
+  slug: nagaoka
+  name: シティホールプラザアオーレ長岡
+  coordinates:
+    - 138.851193
+    - 37.446569
+  clubs:
+    - 新潟
+- id: chikuma
+  type: arenas
+  slug: chikuma
+  name: ことぶきアリーナ千曲
+  coordinates:
+    - 138.153379
+    - 36.478044
+  clubs:
+    - 信州
+- id: toyohashi
+  type: arenas
+  slug: toyohashi
+  name: 豊橋市総合体育館
+  coordinates:
+    - 137.324891
+    - 34.758134
+  clubs:
+    - 三遠
+- id: toyama
+  type: arenas
+  slug: toyama
+  name: 富山市総合体育館
+  coordinates:
+    - 137.214006
+    - 36.706786
+  clubs:
+    - 富山
+- id: anjo
+  type: arenas
+  slug: anjo
+  name: 安城市体育館
+  coordinates:
+    - 137.090064
+    - 34.971881
+  clubs:
+    - アイシンAW
+- id: kariya
+  type: arenas
+  slug: kariya
+  name: ウィングアリーナ刈谷
+  coordinates:
+    - 137.010439
+    - 35.019401
+  clubs:
+    - 三河
+- id: komaki
+  type: arenas
+  slug: komaki
+  name: パークアリーナ小牧
+  coordinates:
+    - 136.921801
+    - 35.306291
+  clubs:
+    - 豊田合成
+- id: nagoyad
+  type: arenas
+  slug: nagoyad
+  name: ドルフィンズアリーナ
+  coordinates:
+    - 136.902559
+    - 35.183068
+  clubs:
+    - 名古屋D
+- id: biwajima
+  type: arenas
+  slug: biwajima
+  name: 名古屋市枇杷島スポーツセンター
+  coordinates:
+    - 136.874983
+    - 35.188789
+  clubs:
+    - FE名古屋
+- id: gifu
+  type: arenas
+  slug: gifu
+  name: OKBぎふ清流アリーナ
+  coordinates:
+    - 136.725614
+    - 35.391335
+  clubs:
+    - 岐阜
+- id: kanazawa
+  type: arenas
+  slug: kanazawa
+  name: 金沢市総合体育館
+  coordinates:
+    - 136.650173
+    - 36.539991
+  clubs:
+    - 金沢
+- id: shiga
+  type: arenas
+  slug: shiga
+  name: ウカルちゃんアリーナ
+  coordinates:
+    - 135.887432
+    - 35.005024
+  clubs:
+    - 滋賀
+- id: nara
+  type: arenas
+  slug: nara
+  name: ならでんアリーナ
+  coordinates:
+    - 135.828024
+    - 34.695192
+  clubs:
+    - 奈良
+- id: kyoto
+  type: arenas
+  slug: kyoto
+  name: ハンナリーズアリーナ
+  coordinates:
+    - 135.715027
+    - 34.99549
+  clubs:
+    - 京都
+- id: osaka
+  type: arenas
+  slug: osaka
+  name: おおきにアリーナ舞洲
+  coordinates:
+    - 135.397617
+    - 34.665601
+  clubs:
+    - 大阪
+- id: nishinomiya
+  type: arenas
+  slug: nishinomiya
+  name: 西宮市立中央体育館
+  coordinates:
+    - 135.344886
+    - 34.747803
+  clubs:
+    - 西宮
+- id: wakayama
+  type: arenas
+  slug: wakayama
+  name: ノーリツアリーナ和歌山
+  coordinates:
+    - 135.142891
+    - 34.271548
+  clubs:
+    - 和歌山
+- id: kagawa
+  type: arenas
+  slug: kagawa
+  name: 高松市総合体育館
+  coordinates:
+    - 134.074219
+    - 34.342163
+  clubs:
+    - 香川
+- id: okayama
+  type: arenas
+  slug: okayama
+  name: ジップアリーナ岡山
+  coordinates:
+    - 133.919871
+    - 34.677504
+  clubs:
+    - 岡山
+- id: matsue
+  type: arenas
+  slug: matsue
+  name: 松江市総合体育館
+  coordinates:
+    - 133.065507
+    - 35.472367
+  clubs:
+    - 島根
+- id: ehime
+  type: arenas
+  slug: ehime
+  name: 松山市総合コミュニティセンター
+  coordinates:
+    - 132.796041
+    - 33.768808
+  clubs:
+    - 愛媛
+- id: hiroshima
+  type: arenas
+  slug: hiroshima
+  name: 広島サンプラザホール
+  coordinates:
+    - 132.394559
+    - 34.370593
+  clubs:
+    - 広島
+- id: kumamoto
+  type: arenas
+  slug: kumamoto
+  name: 熊本県立総合体育館
+  coordinates:
+    - 130.701799
+    - 32.81405
+  clubs:
+    - 熊本
+- id: kagoshima
+  type: arenas
+  slug: kagoshima
+  name: 鹿児島アリーナ
+  coordinates:
+    - 130.536068
+    - 31.601735
+  clubs:
+    - 鹿児島
+- id: fukuoka
+  type: arenas
+  slug: fukuoka
+  name: 照葉積水ハウスアリーナ
+  coordinates:
+    - 130.417391
+    - 33.66728
+  clubs:
+    - 福岡
+- id: saga
+  type: arenas
+  slug: saga
+  name: SAGAアリーナ (計画)
+  coordinates:
+    - 130.293034
+    - 33.274905
+  clubs:
+    - 佐賀
+- id: ryukyu
+  type: arenas
+  slug: ryukyu
+  name: 沖縄市体育館
+  coordinates:
+    - 127.786844
+    - 26.332712
+  clubs:
+    - 琉球

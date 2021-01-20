@@ -1,0 +1,1404 @@
+# 北海道
+- id: sapporo-dome
+  type: stadium
+  slug: sapporo-dome
+  name: 札幌ドーム
+  coordinates:
+    - 141.409652
+    - 43.015161
+  clubs:
+    - 札幌
+- id: atsubetsu
+  type: stadium
+  slug: atsubetsu
+  name: 札幌厚別公園競技場
+  coordinates:
+    - 141.464145
+    - 43.019009
+  clubs:
+    - 札幌
+- id: muroran
+  type: stadium
+  slug: muroran
+  name: 入江運動公園陸上競技場
+  coordinates:
+    - 140.977304
+    - 42.321471
+  clubs:
+    - その他
+- id: asahikawa
+  type: stadium
+  slug: asahikawa
+  name: 東光スポーツ公園球技場
+  coordinates:
+    - 142.414134
+    - 43.732164
+  clubs:
+    - 旭川
+- id: hakodate
+  type: stadium
+  slug: hakodate
+  name: 千代台公園陸上競技場
+  coordinates:
+    - 140.745117
+    - 41.786282
+  clubs:
+    - その他
+
+# 東北
+- id: hachonohe-taga
+  type: stadium
+  slug: hachonohe-taga
+  name: プライフーズスタジアム
+  coordinates:
+    - 141.456191
+    - 40.590534
+  clubs:
+    - 八戸
+- id: new-aomori-athletic
+  type: stadium
+  slug: new-aomori-athletic
+  name: カクヒログループ アスレチックスタジアム
+  coordinates:
+    - 140.841116
+    - 40.838879
+  clubs:
+    - その他
+- id: aomori-athletic
+  type: stadium
+  slug: aomori-athletic
+  name: 青森県総合運動公園陸上競技場
+  coordinates:
+    - 140.70789
+    - 40.806434
+  clubs:
+    - 青森
+- id: hirosaki
+  type: stadium
+  slug: hirosaki
+  name: 弘前市運動公園球技場
+  coordinates:
+    - 140.503158
+    - 40.590468
+  clubs:
+    - 弘前
+
+- id: morioka-minami
+  type: stadium
+  slug: morioka-minami
+  name: いわぎんスタジアム
+  coordinates:
+    - 141.137852
+    - 39.647978
+  clubs:
+    - いわて
+- id: kitakami
+  type: stadium
+  slug: kitakami
+  name: 北上総合運動公園陸上競技場
+  coordinates:
+    - 141.096018
+    - 39.258085
+  clubs:
+    - いわて
+
+- id: yabase-athletic
+  type: stadium
+  slug: yabase-athletic
+  name: ソユースタジアム
+  coordinates:
+    - 140.095758
+    - 39.721561
+  clubs:
+    - 秋田
+- id: yabase-stadium
+  type: stadium
+  slug: yabase-stadium
+  name: あきぎんスタジアム
+  coordinates:
+    - 140.099758
+    - 39.721528
+  clubs:
+    - 秋田
+
+- id: sendai
+  type: stadium
+  slug: sendai
+  name: ユアテックスタジアム仙台
+  coordinates:
+    - 140.881807
+    - 38.319128
+  clubs:
+    - 仙台
+- id: grande-21
+  type: stadium
+  slug: grande-21
+  name: ひとめぼれスタジアム宮城
+  coordinates:
+    - 140.950518
+    - 38.335431
+  clubs:
+    - その他
+- id: miyagi-soccer
+  type: stadium
+  slug: miyagi-soccer
+  name: みやぎ生協めぐみのサッカー場
+  coordinates:
+    - 140.973298
+    - 38.343272
+  clubs:
+    - ソニー
+- id: shichigahama
+  type: stadium
+  slug: shichigahama
+  name: 七ヶ浜サッカースタジアム
+  coordinates:
+    - 141.063571
+    - 38.3007
+  clubs:
+    - その他
+- id: onagawa
+  type: stadium
+  slug: onagawa
+  name: 女川サッカー場 (計画)
+  coordinates:
+    - 141.445242
+    - 38.454225
+  clubs:
+    - 女川
+- id: ishinomaki
+  type: stadium
+  slug: ishinomaki
+  name: 石巻フットボール場
+  coordinates:
+    - 141.309469
+    - 38.457645
+  clubs:
+    - 女川
+
+- id: bespa
+  type: stadium
+  slug: bespa
+  name: NDソフトスタジアム山形
+  coordinates:
+    - 140.378442
+    - 38.335592
+  clubs:
+    - 山形
+
+- id: azuma
+  type: stadium
+  slug: azuma
+  name: とうほう・みんなのスタジアム
+  coordinates:
+    - 140.361275
+    - 37.723309
+  clubs:
+    - 福島
+- id: j-village
+  type: stadium
+  slug: j-village
+  name: Jヴィレッジスタジアム
+  coordinates:
+    - 141.00324
+    - 37.238821
+  clubs:
+    - その他
+- id: iwakifc-park
+  type: stadium
+  slug: iwakifc-park
+  name: いわきFCパーク
+  coordinates:
+    - 140.828302
+    - 37.000033
+  clubs:
+    - いわき
+
+# 関東
+- id: kashima
+  type: stadium
+  slug: kashima
+  name: 県立カシマサッカースタジアム
+  coordinates:
+    - 140.640384
+    - 35.992019
+  clubs:
+    - 鹿島
+- id: kobuki
+  type: stadium
+  slug: kobuki
+  name: ケーズデンキスタジアム水戸
+  coordinates:
+    - 140.412219
+    - 36.345384
+  clubs:
+    - 水戸
+- id: kasamatsu
+  type: stadium
+  slug: kasamatsu
+  name: 笠松運動公園陸上競技場
+  coordinates:
+    - 140.538243
+    - 36.457262
+  clubs:
+    - その他
+- id: hitachinaka
+  type: stadium
+  slug: hitachinaka
+  name: ひたちなか市総合運動公園陸上競技場
+  coordinates:
+    - 140.586479
+    - 36.391751
+  clubs:
+    - その他
+- id: ikenokawa
+  type: stadium
+  slug: ikenokawa
+  name: 日立市民運動公園陸上競技場
+  coordinates:
+    - 140.648666
+    - 36.575803
+  clubs:
+    - その他
+- id: tatsunoko
+  type: stadium
+  slug: tatsunoko
+  name: 龍ケ崎市陸上競技場たつのこフィールド
+  coordinates:
+    - 140.204646
+    - 35.927953
+  clubs:
+    - 流経大
+- id: tsukuba
+  type: stadium
+  slug: tsukuba
+  name: セキショウチャレンジスタジアム
+  coordinates:
+    - 140.071106
+    - 36.160516
+  clubs:
+    - つくば
+- id: miraidaira
+  type: stadium
+  slug: miraidaira
+  name: アイデンティみらい・みらい平グランド
+  coordinates:
+    - 140.051079
+    - 35.999026
+  clubs:
+    - みらい
+- id: koga
+  type: stadium
+  slug: koga
+  name: 古河市営サッカー場
+  coordinates:
+    - 139.703011
+    - 36.172157
+  clubs:
+    - その他
+
+- id: grista
+  type: stadium
+  slug: grista
+  name: 栃木県グリーンスタジアム
+  coordinates:
+    - 139.986558
+    - 36.556707
+  clubs:
+    - 栃木
+- id: nishikawada
+  type: stadium
+  slug: nishikawada
+  name: カンセキスタジアムとちぎ
+  coordinates:
+    - 139.857293
+    - 36.514572
+  clubs:
+    - 栃木
+- id: tochigi-city
+  type: stadium
+  slug: tochigi-city
+  name: 栃木市総合運動公園陸上競技場
+  coordinates:
+    - 139.7251
+    - 36.402722
+  clubs:
+    - 栃木C
+- id: ashikaga
+  type: stadium
+  slug: ashikaga
+  name: 足利市総合運動場陸上競技場
+  coordinates:
+    - 139.460888
+    - 36.344865
+  clubs:
+    - その他
+- id: tochigi-football-center
+  type: stadium
+  slug: tochigi-football-center
+  name: とちぎフットボールセンター (仮称)
+  coordinates:
+    - 139.937457
+    - 36.803514
+  clubs:
+    - 矢板
+- id: yaita
+  type: stadium
+  slug: yaita
+  name: 矢板運動公園陸上競技場
+  coordinates:
+    - 139.90052
+    - 36.804863
+  clubs:
+    - 矢板
+
+- id: shikishima
+  type: stadium
+  slug: shikishima
+  name: 正田醤油スタジアム群馬
+  coordinates:
+    - 139.053278
+    - 36.41156
+  clubs:
+    - 群馬
+- id: maebashi
+  type: stadium
+  slug: maebashi
+  name: 前橋総合運動公園陸上競技・サッカー場
+  coordinates:
+    - 139.161876
+    - 36.378389
+  clubs:
+    - tonan
+
+- id: saitama-stadium
+  type: stadium
+  slug: saitama-stadium
+  name: 埼玉スタジアム2002
+  coordinates:
+    - 139.717597
+    - 35.903065
+  clubs:
+    - 浦和
+- id: komaba
+  type: stadium
+  slug: komaba
+  name: 浦和駒場スタジアム
+  coordinates:
+    - 139.66596
+    - 35.871501
+  clubs:
+    - 浦和
+- id: omiya
+  type: stadium
+  slug: omiya
+  name: NACK5スタジアム大宮
+  coordinates:
+    - 139.633509
+    - 35.916257
+  clubs:
+    - 大宮
+- id: kumagaya
+  type: stadium
+  slug: kumagaya
+  name: 熊谷スポーツ文化公園陸上競技場
+  coordinates:
+    - 139.411044
+    - 36.163806
+  clubs:
+    - その他
+
+- id: fukuari
+  type: stadium
+  slug: fukuari
+  name: フクダ電子アリーナ
+  coordinates:
+    - 140.122807
+    - 35.577541
+  clubs:
+    - 千葉
+- id: ichihara-rinkai
+  type: stadium
+  slug: ichihara-rinkai
+  name: ゼットエーオリプリスタジアム
+  coordinates:
+    - 140.071552
+    - 35.527953
+  clubs:
+    - V市原
+- id: hitachidai
+  type: stadium
+  slug: hitachidai
+  name: 三協フロンテアスタジアム柏
+  coordinates:
+    - 139.975108
+    - 35.848445
+  clubs:
+    - 柏
+- id: happa
+  type: stadium
+  slug: happa
+  name: 柏の葉公園総合競技場
+  coordinates:
+    - 139.936196
+    - 35.897682
+  clubs:
+    - その他
+- id: urariku
+  type: stadium
+  slug: urariku
+  name: 浦安市運動公園陸上競技場
+  coordinates:
+    - 139.892536
+    - 35.6274
+  clubs:
+    - 浦安
+
+- id: ajista
+  type: stadium
+  slug: ajista
+  name: 味の素スタジアム
+  coordinates:
+    - 139.527144
+    - 35.664311
+  clubs:
+    - F東京
+    - 東京V
+- id: nozuta
+  type: stadium
+  slug: nozuta
+  name: 町田GIONスタジアム
+  coordinates:
+    - 139.438961
+    - 35.592529
+  clubs:
+    - 町田
+- id: musariku
+  type: stadium
+  slug: musariku
+  name: 武蔵野市立武蔵野陸上競技場
+  coordinates:
+    - 139.568351
+    - 35.717417
+  clubs:
+    - 武蔵野
+- id: edoriku
+  type: stadium
+  slug: edoriku
+  name: 江戸川区陸上競技場
+  coordinates:
+    - 139.852567
+    - 35.655174
+  clubs:
+    - 東京23
+- id: nishigaoka
+  type: stadium
+  slug: nishigaoka
+  name: 味の素フィールド西が丘
+  coordinates:
+    - 139.707964
+    - 35.769152
+  clubs:
+    - その他
+- id: komazawa
+  type: stadium
+  slug: komazawa
+  name: 駒沢オリンピック公園総合運動場陸上競技場
+  coordinates:
+    - 139.663641
+    - 35.625553
+  clubs:
+    - その他
+- id: yumenoshima
+  type: stadium
+  slug: yumenoshima
+  name: 江東区夢の島陸上競技場
+  coordinates:
+    - 139.823575
+    - 35.648553
+  clubs:
+    - その他
+- id: tamariku
+  type: stadium
+  slug: tamariku
+  name: 多摩市立陸上競技場
+  coordinates:
+    - 139.460349
+    - 35.624985
+  clubs:
+    - その他
+- id: tobuki
+  type: stadium
+  slug: tobuki
+  name: 戸吹スポーツ公園
+  coordinates:
+    - 139.291612
+    - 35.7009
+  clubs:
+    - 八王子
+- id: the-national-stadium
+  type: stadium
+  slug: the-national-stadium
+  name: 新国立競技場
+  coordinates:
+    - 139.714926
+    - 35.678092
+  clubs:
+    - その他
+- id: yoyogi-park
+  type: stadium
+  slug: yoyogi-park
+  name: 渋谷スクランブルスタジアム (構想)
+  coordinates:
+    - 139.694943
+    - 35.667205
+  clubs:
+    - その他
+
+- id: todoroki
+  type: stadium
+  slug: todoroki
+  name: 等々力陸上競技場
+  coordinates:
+    - 139.652698
+    - 35.585748
+  clubs:
+    - 川崎
+- id: nissan
+  type: stadium
+  slug: nissan
+  name: 日産スタジアム
+  coordinates:
+    - 139.606382
+    - 35.509945
+  clubs:
+    - 横浜FM
+- id: mitsuzawa
+  type: stadium
+  slug: mitsuzawa
+  name: ニッパツ三ツ沢球技場
+  coordinates:
+    - 139.603761
+    - 35.469112
+  clubs:
+    - 横浜FC
+    - YS横浜
+- id: sagamihara
+  type: stadium
+  slug: sagamihara
+  name: 相模原ギオンスタジアム
+  coordinates:
+    - 139.386331
+    - 35.526971
+  clubs:
+    - 相模原
+- id: hiratsuka
+  type: stadium
+  slug: hiratsuka
+  name: Shonan BMWスタジアム平塚
+  coordinates:
+    - 139.341197
+    - 35.343542
+  clubs:
+    - 湘南
+- id: hodogaya
+  type: stadium
+  slug: hodogaya
+  name: 保土ケ谷公園サッカー場
+  coordinates:
+    - 139.584796
+    - 35.454936
+  clubs:
+    - その他
+- id: kamome-park
+  type: stadium
+  slug: kamome-park
+  name: かもめパーク
+  coordinates:
+    - 139.485969
+    - 35.427813
+  clubs:
+    - その他
+
+- id: kose
+  type: stadium
+  slug: kose
+  name: 山梨中銀スタジアム
+  coordinates:
+    - 138.589827
+    - 35.622352
+  clubs:
+    - 甲府
+
+- id: bigswan
+  type: stadium
+  slug: bigswan
+  name: デンカビッグスワンスタジアム
+  coordinates:
+    - 139.059112
+    - 37.882492
+  clubs:
+    - 新潟
+- id: niigata-shiruku
+  type: stadium
+  slug: niigata-shiruku
+  name: 新潟市陸上競技場
+  coordinates:
+    - 139.037004
+    - 37.913085
+  clubs:
+    - その他
+
+- id: nihondaira
+  type: stadium
+  slug: nihondaira
+  name: IAIスタジアム日本平
+  coordinates:
+    - 138.481265
+    - 34.984725
+  clubs:
+    - 清水
+- id: yamaha
+  type: stadium
+  slug: yamaha
+  name: ヤマハスタジアム
+  coordinates:
+    - 137.875087
+    - 34.725201
+  clubs:
+    - 磐田
+- id: fujieda
+  type: stadium
+  slug: fujieda
+  name: 藤枝総合運動公園サッカー場
+  coordinates:
+    - 138.232986
+    - 34.881578
+  clubs:
+    - 藤枝
+- id: ashitaka
+  type: stadium
+  slug: ashitaka
+  name: 静岡県愛鷹広域公園多目的競技場
+  coordinates:
+    - 138.853634
+    - 35.155899
+  clubs:
+    - 沼津
+- id: miyakoda
+  type: stadium
+  slug: miyakoda
+  name: 都田サッカー場
+  coordinates:
+    - 137.722395
+    - 34.810599
+  clubs:
+    - Honda
+- id: ecopa
+  type: stadium
+  slug: ecopa
+  name: エコパスタジアム
+  coordinates:
+    - 137.970743
+    - 34.743454
+  clubs:
+    - その他
+- id: toyota-ground
+  type: stadium
+  slug: toyota-ground
+  name: 豊田市運動公園球技場
+  coordinates:
+    - 137.186483
+    - 35.136704
+  clubs:
+    - マルヤス
+- id: toyota-stadium
+  type: stadium
+  slug: toyota-stadium
+  name: 豊田スタジアム
+  coordinates:
+    - 137.17093
+    - 35.084576
+  clubs:
+    - 名古屋
+- id: mizuho
+  type: stadium
+  slug: mizuho
+  name: パロマ瑞穂スタジアム
+  coordinates:
+    - 136.944283
+    - 35.122692
+  clubs:
+    - 名古屋
+- id: wave-kariya
+  type: stadium
+  slug: wave-kariya
+  name: ウェーブスタジアム刈谷
+  coordinates:
+    - 137.012659
+    - 35.019058
+  clubs:
+    - 刈谷
+- id: nagoya-minato
+  type: stadium
+  slug: nagoya-minato
+  name: 名古屋市港サッカー場
+  coordinates:
+    - 136.850766
+    - 35.075829
+  clubs:
+    - その他
+
+- id: nagaragawa
+  type: stadium
+  slug: nagaragawa
+  name: 岐阜メモリアルセンター長良川競技場
+  coordinates:
+    - 136.766131
+    - 35.441356
+  clubs:
+    - 岐阜
+
+- id: toincho
+  type: stadium
+  slug: toincho
+  name: 朝日ガスエナジー東員スタジアム
+  coordinates:
+    - 136.578312
+    - 35.071393
+  clubs:
+    - 三重
+- id: agf-suzuka
+  type: stadium
+  slug: agf-suzuka
+  name: AGF鈴鹿陸上競技場
+  coordinates:
+    - 136.569233
+    - 34.857449
+  clubs:
+    - 鈴鹿
+- id: ise-shima
+  type: stadium
+  slug: ise-shima
+  name: 伊勢フットボールヴィレッジ
+  coordinates:
+    - 136.770081
+    - 34.491149
+  clubs:
+    - 伊勢志摩
+- id: yokkaichi
+  type: stadium
+  slug: yokkaichi
+  name: 四日市中央緑地競技場
+  coordinates:
+    - 136.612224
+    - 34.950875
+  clubs:
+    - 三重
+- id: suzuka-stadium
+  type: stadium
+  slug: suzuka-stadium
+  name: 三重交通G スポーツの杜 鈴鹿
+  coordinates:
+    - 136.513733
+    - 34.834379
+  clubs:
+    - その他
+
+# 北信越
+- id: alwin
+  type: stadium
+  slug: alwin
+  name: サンプロ アルウィン
+  coordinates:
+    - 137.917093
+    - 36.179733
+  clubs:
+    - 松本
+- id: minami-nagano
+  type: stadium
+  slug: minami-nagano
+  name: 長野Uスタジアム
+  coordinates:
+    - 138.169868
+    - 36.579995
+  clubs:
+    - 長野
+- id: saku
+  type: stadium
+  slug: saku
+  name: 佐久総合運動公園陸上競技場
+  coordinates:
+    - 138.493679
+    - 36.238258
+  clubs:
+    - 東御
+
+- id: toyama-kenso
+  type: stadium
+  slug: toyama-kenso
+  name: 富山県総合運動公園陸上競技場
+  coordinates:
+    - 137.195693
+    - 36.62502
+  clubs:
+    - 富山
+- id: iwase-football
+  type: stadium
+  slug: iwase-football
+  name: 岩瀬スポーツ公園サッカー・ラグビー場
+  coordinates:
+    - 137.237776
+    - 36.74423
+  clubs:
+    - その他
+
+- id: seibu-ryokuchi
+  type: stadium
+  slug: seibu-ryokuchi
+  name: 石川県西部緑地公園陸上競技場
+  coordinates:
+    - 136.605197
+    - 36.575828
+  clubs:
+    - 金沢
+- id: kanazawa-stadium
+  type: stadium
+  slug: kanazawa-stadium
+  name: 金沢市民サッカー場 (改修計画)
+  coordinates:
+    - 136.658389
+    - 36.597502
+  clubs:
+    - 金沢
+
+- id: technoport
+  type: stadium
+  slug: technoport
+  name: テクノポート福井
+  coordinates:
+    - 136.131747
+    - 36.187891
+  clubs:
+    - 福井
+
+# 関西
+- id: nunobiki-green
+  type: stadium
+  slug: nunobiki-green
+  name: 東近江市布引運動公園陸上競技場
+  coordinates:
+    - 136.197006
+    - 35.084391
+  clubs:
+    - 滋賀
+- id: big-lake
+  type: stadium
+  slug: big-lake
+  name: ビッグレイク Bコート
+  coordinates:
+    - 135.99195
+    - 35.109503
+  clubs:
+    - レイジェンド
+- id: ojiyama
+  type: stadium
+  slug: ojiyama
+  name: 皇子山陸上競技場
+  coordinates:
+    - 135.856853
+    - 35.017094
+  clubs:
+    - その他
+
+- id: kyoto-stadium
+  type: stadium
+  slug: kyoto-stadium
+  name: サンガスタジアム by KYOCERA
+  coordinates:
+    - 135.583507
+    - 35.017415
+  clubs:
+    - 京都
+- id: nishikyogoku
+  type: stadium
+  slug: nishikyogoku
+  name: 京都市西京極総合運動公園陸上競技場兼球技場
+  coordinates:
+    - 135.713976
+    - 34.993517
+  clubs:
+    - 京都
+- id: taiyogaoka
+  type: stadium
+  slug: taiyogaoka
+  name: 太陽が丘陸上競技場
+  coordinates:
+    - 135.806294
+    - 34.871449
+  clubs:
+    - その他
+
+- id: suita
+  type: stadium
+  slug: suita
+  name: パナソニックスタジアム吹田
+  coordinates:
+    - 135.538102
+    - 34.802746
+  clubs:
+    - G大阪
+- id: nagai
+  type: stadium
+  slug: nagai
+  name: ヤンマースタジアム長居
+  coordinates:
+    - 135.51846
+    - 34.614145
+  clubs:
+    - C大阪
+- id: kincho-stadium
+  type: stadium
+  slug: kincho-stadium
+  name: ヨドコウ桜スタジアム
+  coordinates:
+    - 135.516438
+    - 34.615374
+  clubs:
+    - その他
+- id: hirakata
+  type: stadium
+  slug: hirakata
+  name: 枚方陸上競技場
+  coordinates:
+    - 135.683667
+    - 34.818972
+  clubs:
+    - 枚方
+- id: banpaku
+  type: stadium
+  slug: banpaku
+  name: 万博記念競技場
+  coordinates:
+    - 135.54273
+    - 34.810352
+  clubs:
+    - その他
+- id: hanazono-second
+  type: stadium
+  slug: hanazono-second
+  name: 東大阪市花園ラグビー場第2グラウンド
+  coordinates:
+    - 135.626778
+    - 34.670293
+  clubs:
+    - F.C.大阪
+- id: hattori-ryokuchi
+  type: stadium
+  slug: hattori-ryokuchi
+  name: 服部緑地陸上競技場
+  coordinates:
+    - 135.48482
+    - 34.779202
+  clubs:
+    - F.C.大阪
+- id: j-green
+  type: stadium
+  slug: j-green
+  name: J-GREEN堺メインフィールド
+  coordinates:
+    - 135.443391
+    - 34.604089
+  clubs:
+    - その他
+
+- id: kobe-wing
+  type: stadium
+  slug: kobe-wing
+  name: ノエビアスタジアム神戸
+  coordinates:
+    - 135.168962
+    - 34.65672
+  clubs:
+    - 神戸
+- id: kobe-universiade
+  type: stadium
+  slug: kobe-universiade
+  name: 神戸総合運動公園ユニバー記念競技場
+  coordinates:
+    - 135.080375
+    - 34.682358
+  clubs:
+    - 神戸
+- id: kakogawa
+  type: stadium
+  slug: kakogawa
+  name: 加古川運動公園陸上競技場
+  coordinates:
+    - 134.826136
+    - 34.808041
+  clubs:
+    - その他
+- id: miki-bousai
+  type: stadium
+  slug: miki-bousai
+  name: 兵庫県立三木総合防災公園陸上競技場
+  coordinates:
+    - 135.053867
+    - 34.78284
+  clubs:
+    - その他
+- id: takasago
+  type: stadium
+  slug: takasago
+  name: 高砂市陸上競技場
+  coordinates:
+    - 134.800231
+    - 34.782006
+  clubs:
+    - 高砂
+
+- id: konoike
+  type: stadium
+  slug: konoike
+  name: 奈良市鴻ノ池陸上競技場
+  coordinates:
+    - 135.829196
+    - 34.697585
+  clubs:
+    - 奈良
+
+- id: kimiidera
+  type: stadium
+  slug: kimiidera
+  name: 紀三井寺公園陸上競技場
+  coordinates:
+    - 135.191779
+    - 34.166753
+  clubs:
+    - 和歌山
+
+# 中国
+- id: momotaro
+  type: stadium
+  slug: momotaro
+  name: シティライトスタジアム
+  coordinates:
+    - 133.919584
+    - 34.680577
+  clubs:
+    - 岡山
+- id: tsuyama
+  type: stadium
+  slug: tsuyama
+  name: 岡山県津山陸上競技場
+  coordinates:
+    - 134.018189
+    - 35.082352
+  clubs:
+    - その他
+
+- id: hiroshima-new-stadium
+  type: stadium
+  slug: hiroshima-new-stadium
+  name: 広島中央公園スタジアム (計画)
+  coordinates:
+    - 132.455947
+    - 34.401027
+  clubs:
+    - 広島
+- id: bigarch
+  type: stadium
+  slug: bigarch
+  name: エディオンスタジアム広島
+  coordinates:
+    - 132.394279
+    - 34.440776
+  clubs:
+    - 広島
+- id: hiroshima-coca
+  type: stadium
+  slug: hiroshima-coca
+  name: コカ・コーラボトラーズジャパン広島スタジアム
+  coordinates:
+    - 132.422921
+    - 34.37568
+  clubs:
+    - その他
+
+- id: ishin
+  type: stadium
+  slug: ishin
+  name: 維新みらいふスタジアム
+  coordinates:
+    - 131.43742
+    - 34.15443
+  clubs:
+    - 山口
+- id: nogihama
+  type: stadium
+  slug: nogihama
+  name: 下関乃木浜総合公園多目的グラウンド
+  coordinates:
+    - 131.026846
+    - 34.042535
+  clubs:
+    - 下関
+- id: shimonoseki
+  type: stadium
+  slug: shimonoseki
+  name: 下関市営下関陸上競技場
+  coordinates:
+    - 130.933305
+    - 33.966265
+  clubs:
+    - その他
+
+- id: tottori-bird
+  type: stadium
+  slug: tottori-bird
+  name: Axisバードスタジアム
+  coordinates:
+    - 134.221755
+    - 35.458214
+  clubs:
+    - 鳥取
+- id: yajin
+  type: stadium
+  slug: yajin
+  name: チュウブYAJINスタジアム
+  coordinates:
+    - 133.307492
+    - 35.448225
+  clubs:
+    - 鳥取
+- id: matsue
+  type: stadium
+  slug: matsue
+  name: 松江市営陸上競技場
+  coordinates:
+    - 133.06598
+    - 35.436956
+  clubs:
+    - 松江
+
+# 四国
+- id: naruto
+  type: stadium
+  slug: naruto
+  name: 鳴門・大塚スポーツパークポカリスウェットスタジアム
+  coordinates:
+    - 134.617827
+    - 34.16829
+  clubs:
+    - 徳島
+
+- id: marugame
+  type: stadium
+  slug: marugame
+  name: Pikaraスタジアム
+  coordinates:
+    - 133.786021
+    - 34.261755
+  clubs:
+    - 讃岐
+
+- id: haruno
+  type: stadium
+  slug: haruno
+  name: 春野運動公園球技場
+  coordinates:
+    - 133.499698
+    - 33.510754
+  clubs:
+    - 高知
+
+- id: ehime
+  type: stadium
+  slug: ehime
+  name: ニンジニアスタジアム
+  coordinates:
+    - 132.797535
+    - 33.768262
+  clubs:
+    - 愛媛
+- id: yumesta
+  type: stadium
+  slug: yumesta
+  name: ありがとうサービス・夢スタジアム
+  coordinates:
+    - 132.956008
+    - 34.041102
+  clubs:
+    - 今治
+
+# 九州
+- id: hakatanomori
+  type: stadium
+  slug: hakatanomori
+  name: ベスト電器スタジアム
+  coordinates:
+    - 130.460857
+    - 33.585915
+  clubs:
+    - 福岡
+- id: kitakyushu-stadium
+  type: stadium
+  slug: kitakyushu-stadium
+  name: ミクニワールドスタジアム北九州
+  coordinates:
+    - 130.888839
+    - 33.891105
+  clubs:
+    - 北九州
+- id: honjo
+  type: stadium
+  slug: honjo
+  name: 北九州市立本城陸上競技場
+  coordinates:
+    - 130.731656
+    - 33.890377
+  clubs:
+    - その他
+
+- id: tosu
+  type: stadium
+  slug: tosu
+  name: 駅前不動産スタジアム
+  coordinates:
+    - 130.520089
+    - 33.371697
+  clubs:
+    - 鳥栖
+- id: sagariku
+  type: stadium
+  slug: sagariku
+  name: 佐賀県総合運動場陸上競技場
+  coordinates:
+    - 130.291705
+    - 33.276685
+  clubs:
+    - その他
+
+- id: big-eye
+  type: stadium
+  slug: big-eye
+  name: 昭和電工ドーム大分
+  coordinates:
+    - 131.657541
+    - 33.200765
+  clubs:
+    - 大分
+- id: oitadome-a
+  type: stadium
+  slug: oitadome-a
+  name: 昭和電工サッカー・ラグビー場 Aコート
+  coordinates:
+    - 131.650789
+    - 33.199139
+  clubs:
+    - V大分
+- id: oita-athletic
+  type: stadium
+  slug: oita-athletic
+  name: 大分市営陸上競技場
+  coordinates:
+    - 131.62318
+    - 33.246061
+  clubs:
+    - V大分
+
+- id: shintomi-centre
+  type: stadium
+  slug: shintomi-centre
+  name: ユニリーバスタジアム新富
+  coordinates:
+    - 131.495187
+    - 32.076724
+  clubs:
+    - 宮崎
+- id: tsuno-town
+  type: stadium
+  slug: tsuno-town
+  name: 都農町藤見公園陸上競技場
+  coordinates:
+    - 131.557749
+    - 32.267254
+  clubs:
+    - ロック
+- id: miyazaki-athletic
+  type: stadium
+  slug: miyazaki-athletic
+  name: KIRISHIMAハイビスカス陸上競技場
+  coordinates:
+    - 131.448123
+    - 31.824424
+  clubs:
+    - 宮崎
+
+- id: kkwing
+  type: stadium
+  slug: kkwing
+  name: えがお健康スタジアム
+  coordinates:
+    - 130.800092
+    - 32.836868
+  clubs:
+    - 熊本
+- id: suizenji
+  type: stadium
+  slug: suizenji
+  name: 熊本市水前寺競技場
+  coordinates:
+    - 130.741352
+    - 32.79415
+  clubs:
+    - その他
+
+- id: isahaya
+  type: stadium
+  slug: isahaya
+  name: トランスコスモススタジアム長崎
+  coordinates:
+    - 130.039365
+    - 32.838608
+  clubs:
+    - 長崎
+- id: nagasaki-stadium
+  type: stadium
+  slug: nagasaki-stadium
+  name: 長崎市新スタジアム (計画)
+  coordinates:
+    - 129.864712
+    - 32.759148
+  clubs:
+    - 長崎
+
+- id: kamoike
+  type: stadium
+  slug: kamoike
+  name: 白波スタジアム
+  coordinates:
+    - 130.560178
+    - 31.564892
+  clubs:
+    - 鹿児島
+
+- id: okinawa
+  type: stadium
+  slug: okinawa
+  name: タピック県総ひやごんスタジアム
+  coordinates:
+    - 127.788536
+    - 26.33296
+  clubs:
+    - 琉球
+- id: ounoyama
+  type: stadium
+  slug: ounoyama
+  name: 奥武山スタジアム (計画)
+  coordinates:
+    - 127.67629
+    - 26.20493
+  clubs:
+    - 琉球

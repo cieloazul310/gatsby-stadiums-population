@@ -1,0 +1,14 @@
+id: hirosaki
+type: stadium
+slug: hirosaki
+name: 弘前市運動公園球技場
+coordinates:
+  - 140.503158
+  - 40.590468
+clubs:
+  - 弘前
+population:
+  val_1: 5878
+  val_3: 68998
+  val_5: 139191
+  val_10: 224745

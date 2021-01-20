@@ -1,0 +1,14 @@
+id: new-aomori-athletic
+type: stadium
+slug: new-aomori-athletic
+name: カクヒログループ アスレチックスタジアム
+coordinates:
+  - 140.841116
+  - 40.838879
+clubs:
+  - その他
+population:
+  val_1: 1060
+  val_3: 9116
+  val_5: 36149
+  val_10: 173264

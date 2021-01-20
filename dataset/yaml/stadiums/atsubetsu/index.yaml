@@ -1,0 +1,14 @@
+id: atsubetsu
+type: stadium
+slug: atsubetsu
+name: 札幌厚別公園競技場
+coordinates:
+  - 141.464145
+  - 43.019009
+clubs:
+  - 札幌
+population:
+  val_1: 19734
+  val_3: 158304
+  val_5: 355226
+  val_10: 962381

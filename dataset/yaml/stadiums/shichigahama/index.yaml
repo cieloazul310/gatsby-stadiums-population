@@ -1,0 +1,14 @@
+id: shichigahama
+type: stadium
+slug: shichigahama
+name: 七ヶ浜サッカースタジアム
+coordinates:
+  - 141.063571
+  - 38.3007
+clubs:
+  - その他
+population:
+  val_1: 3974
+  val_3: 26706
+  val_5: 76915
+  val_10: 230968

@@ -1,0 +1,14 @@
+id: yabase-athletic
+type: stadium
+slug: yabase-athletic
+name: ソユースタジアム
+coordinates:
+  - 140.095758
+  - 39.721561
+clubs:
+  - 秋田
+population:
+  val_1: 12324
+  val_3: 98625
+  val_5: 211278
+  val_10: 292805

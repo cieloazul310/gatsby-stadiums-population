@@ -1,0 +1,14 @@
+id: bespa
+type: stadium
+slug: bespa
+name: NDソフトスタジアム山形
+coordinates:
+  - 140.378442
+  - 38.335592
+clubs:
+  - 山形
+population:
+  val_1: 2044
+  val_3: 29307
+  val_5: 64474
+  val_10: 220967
