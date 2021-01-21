@@ -2,13 +2,26 @@ import * as React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Layout from 'gatsby-theme-aoi/src/layout';
 import Images from '../components/Images';
-import { VenueQuery } from '../../graphql-types';
+import DrawerTable from '../components/DrawerTable';
+import DrawerNavigation from '../components/DrawerNavigation';
+import { VenueQuery, SitePageContext } from '../../graphql-types';
 
-function VenuesTemplate({ data }: PageProps<VenueQuery>) {
-  console.log(data);
+function VenuesTemplate({ data, pageContext }: PageProps<VenueQuery, SitePageContext>) {
+  console.log(data, pageContext);
   const images = data.allFile.nodes.filter((node) => node.childImageSharp);
   return (
-    <Layout title={data.venues?.name ?? undefined} image={images[1].childImageSharp?.fluid?.src} disablePaddingTop disableGutters>
+    <Layout
+      title={data.venues?.name ?? undefined}
+      image={images[1].childImageSharp?.fluid?.src}
+      disablePaddingTop
+      disableGutters
+      drawerContents={
+        <>
+          <DrawerTable venues={data.venues} />
+          <DrawerNavigation pageContext={pageContext} />
+        </>
+      }
+    >
       <div>
         <Images images={images} />
       </div>

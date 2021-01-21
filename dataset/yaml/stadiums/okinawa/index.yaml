@@ -1,0 +1,14 @@
+id: okinawa
+type: stadium
+slug: okinawa
+name: タピック県総ひやごんスタジアム
+coordinates:
+  - 127.788536
+  - 26.33296
+clubs:
+  - 琉球
+population:
+  val_1: 11583
+  val_3: 80591
+  val_5: 192482
+  val_10: 431267

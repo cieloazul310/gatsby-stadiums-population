@@ -1,0 +1,14 @@
+id: suzuka-stadium
+type: stadium
+slug: suzuka-stadium
+name: 三重交通G スポーツの杜 鈴鹿
+coordinates:
+  - 136.513733
+  - 34.834379
+clubs:
+  - その他
+population:
+  val_1: 563
+  val_3: 9786
+  val_5: 64408
+  val_10: 278628

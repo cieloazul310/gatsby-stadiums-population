@@ -1,0 +1,14 @@
+id: hakatanomori
+type: stadium
+slug: hakatanomori
+name: ベスト電器スタジアム
+coordinates:
+  - 130.460857
+  - 33.585915
+clubs:
+  - 福岡
+population:
+  val_1: 6491
+  val_3: 118180
+  val_5: 494355
+  val_10: 1537899

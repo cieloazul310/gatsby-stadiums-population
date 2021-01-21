@@ -1,0 +1,14 @@
+id: ecopa
+type: stadium
+slug: ecopa
+name: エコパスタジアム
+coordinates:
+  - 137.970743
+  - 34.743454
+clubs:
+  - その他
+population:
+  val_1: 1397
+  val_3: 14103
+  val_5: 62512
+  val_10: 229837

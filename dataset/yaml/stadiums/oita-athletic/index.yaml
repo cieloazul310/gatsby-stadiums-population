@@ -1,0 +1,14 @@
+id: oita-athletic
+type: stadium
+slug: oita-athletic
+name: 大分市営陸上競技場
+coordinates:
+  - 131.62318
+  - 33.246061
+clubs:
+  - その他
+population:
+  val_1: 15794
+  val_3: 101793
+  val_5: 222470
+  val_10: 424791

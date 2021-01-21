@@ -33,7 +33,6 @@ function Images({ images }: Props) {
   const classes = useStyles();
   const state = useAppState();
   const dispatch = useDispatch();
-  console.log(state);
   const _onClick = () => {
     dispatch({ type: 'TOGGLE_VISIBILITY' });
   };

@@ -1,0 +1,15 @@
+id: ajista
+type: stadium
+slug: ajista
+name: 味の素スタジアム
+coordinates:
+  - 139.527144
+  - 35.664311
+clubs:
+  - F東京
+  - 東京V
+population:
+  val_1: 23204
+  val_3: 237928
+  val_5: 784195
+  val_10: 3240957

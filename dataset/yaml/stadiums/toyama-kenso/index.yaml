@@ -1,0 +1,14 @@
+id: toyama-kenso
+type: stadium
+slug: toyama-kenso
+name: 富山県総合運動公園陸上競技場
+coordinates:
+  - 137.195693
+  - 36.62502
+clubs:
+  - 富山
+population:
+  val_1: 839
+  val_3: 19397
+  val_5: 79412
+  val_10: 303059

@@ -1,0 +1,14 @@
+id: nihondaira
+type: stadium
+slug: nihondaira
+name: IAIスタジアム日本平
+coordinates:
+  - 138.481265
+  - 34.984725
+clubs:
+  - 清水
+population:
+  val_1: 3673
+  val_3: 55833
+  val_5: 152095
+  val_10: 508944

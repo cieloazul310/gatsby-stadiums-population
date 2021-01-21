@@ -1,0 +1,14 @@
+id: koga
+type: stadium
+slug: koga
+name: 古河市営サッカー場
+coordinates:
+  - 139.703011
+  - 36.172157
+clubs:
+  - その他
+population:
+  val_1: 5800
+  val_3: 49493
+  val_5: 113716
+  val_10: 292295

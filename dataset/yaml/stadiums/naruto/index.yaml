@@ -1,0 +1,14 @@
+id: naruto
+type: stadium
+slug: naruto
+name: 鳴門・大塚スポーツパークポカリスウェットスタジアム
+coordinates:
+  - 134.617827
+  - 34.16829
+clubs:
+  - 徳島
+population:
+  val_1: 5024
+  val_3: 27258
+  val_5: 49668
+  val_10: 113599

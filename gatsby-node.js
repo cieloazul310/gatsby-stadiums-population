@@ -36,11 +36,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query');
   }
   const { allVenues } = result.data;
-  allVenues.edges.forEach(({ node }) => {
+  allVenues.edges.forEach(({ node, next, previous }) => {
     createPage({
       path: node.slug,
       component: path.resolve('./src/templates/venues.tsx'),
-      context: { slug: node.slug, relativeDirectory: `stadiums/${node.slug}` },
+      context: { slug: node.slug, relativeDirectory: `stadiums/${node.slug}`, next, previous },
     });
   });
 };

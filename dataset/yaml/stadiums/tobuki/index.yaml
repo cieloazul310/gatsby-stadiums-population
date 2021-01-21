@@ -1,0 +1,14 @@
+id: tobuki
+type: stadium
+slug: tobuki
+name: 戸吹スポーツ公園
+coordinates:
+  - 139.291612
+  - 35.7009
+clubs:
+  - 八王子
+population:
+  val_1: 2062
+  val_3: 67938
+  val_5: 239253
+  val_10: 1035105

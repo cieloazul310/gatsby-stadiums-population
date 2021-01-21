@@ -1,0 +1,14 @@
+id: shintomi-centre
+type: stadium
+slug: shintomi-centre
+name: ユニリーバスタジアム新富
+coordinates:
+  - 131.495187
+  - 32.076724
+clubs:
+  - 宮崎
+population:
+  val_1: 2250
+  val_3: 9657
+  val_5: 16055
+  val_10: 90489

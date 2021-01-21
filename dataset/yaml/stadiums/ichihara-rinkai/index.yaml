@@ -1,0 +1,14 @@
+id: ichihara-rinkai
+type: stadium
+slug: ichihara-rinkai
+name: ゼットエーオリプリスタジアム
+coordinates:
+  - 140.071552
+  - 35.527953
+clubs:
+  - V市原
+population:
+  val_1: 2609
+  val_3: 43299
+  val_5: 92022
+  val_10: 387896

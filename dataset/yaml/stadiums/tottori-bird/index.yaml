@@ -1,0 +1,14 @@
+id: tottori-bird
+type: stadium
+slug: tottori-bird
+name: Axisバードスタジアム
+coordinates:
+  - 134.221755
+  - 35.458214
+clubs:
+  - 鳥取
+population:
+  val_1: 1398
+  val_3: 28569
+  val_5: 81321
+  val_10: 170634

@@ -1,0 +1,14 @@
+id: edoriku
+type: stadium
+slug: edoriku
+name: 江戸川区陸上競技場
+coordinates:
+  - 139.852567
+  - 35.655174
+clubs:
+  - 東京23
+population:
+  val_1: 24961
+  val_3: 254757
+  val_5: 813172
+  val_10: 2473491

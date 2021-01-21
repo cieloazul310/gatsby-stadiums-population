@@ -1,0 +1,14 @@
+id: todoroki
+type: stadium
+slug: todoroki
+name: 等々力陸上競技場
+coordinates:
+  - 139.652698
+  - 35.585748
+clubs:
+  - 川崎
+population:
+  val_1: 37521
+  val_3: 438074
+  val_5: 1192799
+  val_10: 4517243

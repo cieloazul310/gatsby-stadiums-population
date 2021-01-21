@@ -1,0 +1,14 @@
+id: hiroshima-new-stadium
+type: stadium
+slug: hiroshima-new-stadium
+name: 広島中央公園スタジアム (計画)
+coordinates:
+  - 132.455947
+  - 34.401027
+clubs:
+  - 広島
+population:
+  val_1: 28440
+  val_3: 245157
+  val_5: 564973
+  val_10: 1074083

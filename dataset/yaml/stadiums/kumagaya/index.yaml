@@ -1,0 +1,14 @@
+id: kumagaya
+type: stadium
+slug: kumagaya
+name: 熊谷スポーツ文化公園陸上競技場
+coordinates:
+  - 139.411044
+  - 36.163806
+clubs:
+  - その他
+population:
+  val_1: 3526
+  val_3: 48269
+  val_5: 130394
+  val_10: 376134

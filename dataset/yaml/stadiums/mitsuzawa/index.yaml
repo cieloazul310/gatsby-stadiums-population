@@ -1,0 +1,15 @@
+id: mitsuzawa
+type: stadium
+slug: mitsuzawa
+name: ニッパツ三ツ沢球技場
+coordinates:
+  - 139.603761
+  - 35.469112
+clubs:
+  - 横浜FC
+  - YS横浜
+population:
+  val_1: 35314
+  val_3: 333775
+  val_5: 822546
+  val_10: 2601369

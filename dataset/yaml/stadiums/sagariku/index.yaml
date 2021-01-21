@@ -1,0 +1,14 @@
+id: sagariku
+type: stadium
+slug: sagariku
+name: 佐賀県総合運動場陸上競技場
+coordinates:
+  - 130.291705
+  - 33.276685
+clubs:
+  - その他
+population:
+  val_1: 15018
+  val_3: 90853
+  val_5: 164003
+  val_10: 292393

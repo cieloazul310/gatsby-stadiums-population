@@ -1,0 +1,14 @@
+id: toincho
+type: stadium
+slug: toincho
+name: 朝日ガスエナジー東員スタジアム
+coordinates:
+  - 136.578312
+  - 35.071393
+clubs:
+  - 三重
+population:
+  val_1: 1884
+  val_3: 20899
+  val_5: 73052
+  val_10: 325545

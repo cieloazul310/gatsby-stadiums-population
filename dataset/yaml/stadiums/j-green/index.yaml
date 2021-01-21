@@ -1,0 +1,14 @@
+id: j-green
+type: stadium
+slug: j-green
+name: J-GREEN堺メインフィールド
+coordinates:
+  - 135.443391
+  - 34.604089
+clubs:
+  - その他
+population:
+  val_1: 680
+  val_3: 29647
+  val_5: 274034
+  val_10: 1791101

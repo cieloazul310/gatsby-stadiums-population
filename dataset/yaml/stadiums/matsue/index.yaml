@@ -1,0 +1,14 @@
+id: matsue
+type: stadium
+slug: matsue
+name: 松江市営陸上競技場
+coordinates:
+  - 133.06598
+  - 35.436956
+clubs:
+  - 松江
+population:
+  val_1: 10609
+  val_3: 58836
+  val_5: 101527
+  val_10: 175525

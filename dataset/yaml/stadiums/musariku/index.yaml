@@ -1,0 +1,14 @@
+id: musariku
+type: stadium
+slug: musariku
+name: 武蔵野市立武蔵野陸上競技場
+coordinates:
+  - 139.568351
+  - 35.717417
+clubs:
+  - 武蔵野
+population:
+  val_1: 43282
+  val_3: 388406
+  val_5: 1033783
+  val_10: 3912952

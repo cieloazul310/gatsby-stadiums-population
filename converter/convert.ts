@@ -22,7 +22,7 @@ stadiums.forEach(async (slug) => {
 });
 */
 (async () => {
-  for await (const datum of stadiums.slice(0, 20)) {
+  for await (const datum of stadiums) {
     console.log(datum.slug);
     await Convert(venue(datum));
   }

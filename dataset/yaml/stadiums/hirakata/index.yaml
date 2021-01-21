@@ -1,0 +1,14 @@
+id: hirakata
+type: stadium
+slug: hirakata
+name: 枚方陸上競技場
+coordinates:
+  - 135.683667
+  - 34.818972
+clubs:
+  - 枚方
+population:
+  val_1: 9565
+  val_3: 195298
+  val_5: 454740
+  val_10: 1415207

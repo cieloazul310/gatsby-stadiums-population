@@ -1,0 +1,14 @@
+id: azuma
+type: stadium
+slug: azuma
+name: とうほう・みんなのスタジアム
+coordinates:
+  - 140.361275
+  - 37.723309
+clubs:
+  - 福島
+population:
+  val_1: 513
+  val_3: 7007
+  val_5: 15148
+  val_10: 146752

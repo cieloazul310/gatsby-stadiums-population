@@ -1,0 +1,14 @@
+id: big-lake
+type: stadium
+slug: big-lake
+name: ビッグレイク Bコート
+coordinates:
+  - 135.99195
+  - 35.109503
+clubs:
+  - レイジェンド
+population:
+  val_1: 1875
+  val_3: 15603
+  val_5: 54855
+  val_10: 318444

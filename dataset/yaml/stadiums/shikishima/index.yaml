@@ -1,0 +1,14 @@
+id: shikishima
+type: stadium
+slug: shikishima
+name: 正田醤油スタジアム群馬
+coordinates:
+  - 139.053278
+  - 36.41156
+clubs:
+  - 群馬
+population:
+  val_1: 9870
+  val_3: 85815
+  val_5: 192397
+  val_10: 522136

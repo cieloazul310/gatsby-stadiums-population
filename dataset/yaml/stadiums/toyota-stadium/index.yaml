@@ -1,0 +1,14 @@
+id: toyota-stadium
+type: stadium
+slug: toyota-stadium
+name: 豊田スタジアム
+coordinates:
+  - 137.17093
+  - 35.084576
+clubs:
+  - 名古屋
+population:
+  val_1: 7247
+  val_3: 105328
+  val_5: 222293
+  val_10: 441465

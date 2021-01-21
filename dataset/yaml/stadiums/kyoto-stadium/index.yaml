@@ -1,0 +1,14 @@
+id: kyoto-stadium
+type: stadium
+slug: kyoto-stadium
+name: サンガスタジアム by KYOCERA
+coordinates:
+  - 135.583507
+  - 35.017415
+clubs:
+  - 京都
+population:
+  val_1: 7603
+  val_3: 50919
+  val_5: 77377
+  val_10: 163487

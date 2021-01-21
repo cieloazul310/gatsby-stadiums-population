@@ -1,0 +1,14 @@
+id: hattori-ryokuchi
+type: stadium
+slug: hattori-ryokuchi
+name: 服部緑地陸上競技場
+coordinates:
+  - 135.48482
+  - 34.779202
+clubs:
+  - その他
+population:
+  val_1: 33468
+  val_3: 363064
+  val_5: 865161
+  val_10: 2927451

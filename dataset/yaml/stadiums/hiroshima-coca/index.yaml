@@ -1,0 +1,14 @@
+id: hiroshima-coca
+type: stadium
+slug: hiroshima-coca
+name: コカ・コーラボトラーズジャパン広島スタジアム
+coordinates:
+  - 132.422921
+  - 34.37568
+clubs:
+  - その他
+population:
+  val_1: 14564
+  val_3: 174774
+  val_5: 383231
+  val_10: 933058

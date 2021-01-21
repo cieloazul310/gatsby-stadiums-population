@@ -1,0 +1,14 @@
+id: toyota-ground
+type: stadium
+slug: toyota-ground
+name: 豊田市運動公園球技場
+coordinates:
+  - 137.186483
+  - 35.136704
+clubs:
+  - マルヤス
+population:
+  val_1: 3304
+  val_3: 34450
+  val_5: 97730
+  val_10: 304402

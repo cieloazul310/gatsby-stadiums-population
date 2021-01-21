@@ -1,0 +1,14 @@
+id: tosu
+type: stadium
+slug: tosu
+name: 駅前不動産スタジアム
+coordinates:
+  - 130.520089
+  - 33.371697
+clubs:
+  - 鳥栖
+population:
+  val_1: 13139
+  val_3: 48366
+  val_5: 109766
+  val_10: 416150

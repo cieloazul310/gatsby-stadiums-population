@@ -1,0 +1,14 @@
+id: seibu-ryokuchi
+type: stadium
+slug: seibu-ryokuchi
+name: 石川県西部緑地公園陸上競技場
+coordinates:
+  - 136.605197
+  - 36.575828
+clubs:
+  - 金沢
+population:
+  val_1: 4605
+  val_3: 95319
+  val_5: 249080
+  val_10: 587135

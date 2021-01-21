@@ -1,0 +1,14 @@
+id: momotaro
+type: stadium
+slug: momotaro
+name: シティライトスタジアム
+coordinates:
+  - 133.919584
+  - 34.680577
+clubs:
+  - 岡山
+population:
+  val_1: 21527
+  val_3: 135065
+  val_5: 272201
+  val_10: 611947

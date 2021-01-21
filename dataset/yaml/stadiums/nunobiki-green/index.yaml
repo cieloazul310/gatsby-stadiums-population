@@ -1,0 +1,14 @@
+id: nunobiki-green
+type: stadium
+slug: nunobiki-green
+name: 東近江市布引運動公園陸上競技場
+coordinates:
+  - 136.197006
+  - 35.084391
+clubs:
+  - 滋賀
+population:
+  val_1: 1622
+  val_3: 28984
+  val_5: 51162
+  val_10: 175541

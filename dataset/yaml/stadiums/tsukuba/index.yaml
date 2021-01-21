@@ -1,0 +1,14 @@
+id: tsukuba
+type: stadium
+slug: tsukuba
+name: セキショウチャレンジスタジアム
+coordinates:
+  - 140.071106
+  - 36.160516
+clubs:
+  - つくば
+population:
+  val_1: 535
+  val_3: 10043
+  val_5: 32270
+  val_10: 154865

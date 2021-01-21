@@ -1,0 +1,14 @@
+id: kasamatsu
+type: stadium
+slug: kasamatsu
+name: 笠松運動公園陸上競技場
+coordinates:
+  - 140.538243
+  - 36.457262
+clubs:
+  - その他
+population:
+  val_1: 1249
+  val_3: 32769
+  val_5: 101867
+  val_10: 279146

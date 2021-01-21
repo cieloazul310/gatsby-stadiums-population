@@ -1,0 +1,14 @@
+id: sagamihara
+type: stadium
+slug: sagamihara
+name: 相模原ギオンスタジアム
+coordinates:
+  - 139.386331
+  - 35.526971
+clubs:
+  - 相模原
+population:
+  val_1: 7011
+  val_3: 111832
+  val_5: 481027
+  val_10: 1736958

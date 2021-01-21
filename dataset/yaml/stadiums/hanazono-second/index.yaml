@@ -1,0 +1,14 @@
+id: hanazono-second
+type: stadium
+slug: hanazono-second
+name: 東大阪市花園ラグビー場第2グラウンド
+coordinates:
+  - 135.626778
+  - 34.670293
+clubs:
+  - F.C.大阪
+population:
+  val_1: 28559
+  val_3: 247881
+  val_5: 569432
+  val_10: 2343645

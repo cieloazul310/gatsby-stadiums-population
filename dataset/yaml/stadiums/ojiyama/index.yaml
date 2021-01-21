@@ -1,0 +1,14 @@
+id: ojiyama
+type: stadium
+slug: ojiyama
+name: 皇子山陸上競技場
+coordinates:
+  - 135.856853
+  - 35.017094
+clubs:
+  - その他
+population:
+  val_1: 12165
+  val_3: 63950
+  val_5: 140972
+  val_10: 925126

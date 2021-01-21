@@ -1,0 +1,14 @@
+id: kobe-wing
+type: stadium
+slug: kobe-wing
+name: ノエビアスタジアム神戸
+coordinates:
+  - 135.168962
+  - 34.65672
+clubs:
+  - 神戸
+population:
+  val_1: 14748
+  val_3: 155770
+  val_5: 324232
+  val_10: 818966

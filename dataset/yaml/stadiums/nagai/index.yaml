@@ -1,0 +1,14 @@
+id: nagai
+type: stadium
+slug: nagai
+name: ヤンマースタジアム長居
+coordinates:
+  - 135.51846
+  - 34.614145
+clubs:
+  - C大阪
+population:
+  val_1: 41307
+  val_3: 429782
+  val_5: 1039403
+  val_10: 3018805

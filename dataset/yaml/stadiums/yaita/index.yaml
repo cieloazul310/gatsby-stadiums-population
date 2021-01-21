@@ -1,0 +1,14 @@
+id: yaita
+type: stadium
+slug: yaita
+name: 矢板運動公園陸上競技場
+coordinates:
+  - 139.90052
+  - 36.804863
+clubs:
+  - その他
+population:
+  val_1: 576
+  val_3: 9069
+  val_5: 25140
+  val_10: 62019

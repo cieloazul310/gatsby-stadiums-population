@@ -1,0 +1,14 @@
+id: omiya
+type: stadium
+slug: omiya
+name: NACK5スタジアム大宮
+coordinates:
+  - 139.633509
+  - 35.916257
+clubs:
+  - 大宮
+population:
+  val_1: 27321
+  val_3: 251845
+  val_5: 625825
+  val_10: 1645219

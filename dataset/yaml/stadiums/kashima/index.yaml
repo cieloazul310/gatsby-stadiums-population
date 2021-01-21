@@ -1,0 +1,14 @@
+id: kashima
+type: stadium
+slug: kashima
+name: 県立カシマサッカースタジアム
+coordinates:
+  - 140.640384
+  - 35.992019
+clubs:
+  - 鹿島
+population:
+  val_1: 1607
+  val_3: 26307
+  val_5: 51760
+  val_10: 106664

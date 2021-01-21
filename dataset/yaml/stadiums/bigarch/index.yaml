@@ -1,0 +1,14 @@
+id: bigarch
+type: stadium
+slug: bigarch
+name: エディオンスタジアム広島
+coordinates:
+  - 132.394279
+  - 34.440776
+clubs:
+  - 広島
+population:
+  val_1: 5686
+  val_3: 33899
+  val_5: 98346
+  val_10: 821414

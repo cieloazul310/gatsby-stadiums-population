@@ -1,0 +1,14 @@
+id: ise-shima
+type: stadium
+slug: ise-shima
+name: 伊勢フットボールヴィレッジ
+coordinates:
+  - 136.770081
+  - 34.491149
+clubs:
+  - 伊勢志摩
+population:
+  val_1: 987
+  val_3: 11564
+  val_5: 39902
+  val_10: 125269

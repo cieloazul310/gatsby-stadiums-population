@@ -1,0 +1,14 @@
+id: miraidaira
+type: stadium
+slug: miraidaira
+name: アイデンティみらい・みらい平グランド
+coordinates:
+  - 140.051079
+  - 35.999026
+clubs:
+  - みらい
+population:
+  val_1: 5613
+  val_3: 23625
+  val_5: 49352
+  val_10: 352337

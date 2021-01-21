@@ -1,0 +1,14 @@
+id: nagoya-minato
+type: stadium
+slug: nagoya-minato
+name: 名古屋市港サッカー場
+coordinates:
+  - 136.850766
+  - 35.075829
+clubs:
+  - その他
+population:
+  val_1: 3963
+  val_3: 31542
+  val_5: 116553
+  val_10: 957943

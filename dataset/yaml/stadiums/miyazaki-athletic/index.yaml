@@ -1,0 +1,14 @@
+id: miyazaki-athletic
+type: stadium
+slug: miyazaki-athletic
+name: KIRISHIMAハイビスカス陸上競技場
+coordinates:
+  - 131.448123
+  - 31.824424
+clubs:
+  - その他
+population:
+  val_1: 722
+  val_3: 12598
+  val_5: 32192
+  val_10: 150945

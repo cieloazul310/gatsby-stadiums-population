@@ -1,0 +1,14 @@
+id: tochigi-city
+type: stadium
+slug: tochigi-city
+name: 栃木市総合運動公園陸上競技場
+coordinates:
+  - 139.7251
+  - 36.402722
+clubs:
+  - その他
+population:
+  val_1: 4647
+  val_3: 48685
+  val_5: 83116
+  val_10: 159250

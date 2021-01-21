@@ -1,0 +1,14 @@
+id: happa
+type: stadium
+slug: happa
+name: 柏の葉公園総合競技場
+coordinates:
+  - 139.936196
+  - 35.897682
+clubs:
+  - その他
+population:
+  val_1: 6420
+  val_3: 129547
+  val_5: 281156
+  val_10: 1119991

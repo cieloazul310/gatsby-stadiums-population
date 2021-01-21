@@ -1,0 +1,14 @@
+id: j-village
+type: stadium
+slug: j-village
+name: Jヴィレッジスタジアム
+coordinates:
+  - 141.00324
+  - 37.238821
+clubs:
+  - いわき
+population:
+  val_1: 942
+  val_3: 2519
+  val_5: 4430
+  val_10: 7443

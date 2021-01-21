@@ -1,0 +1,14 @@
+id: kincho-stadium
+type: stadium
+slug: kincho-stadium
+name: ヨドコウ桜スタジアム
+coordinates:
+  - 135.516438
+  - 34.615374
+clubs:
+  - その他
+population:
+  val_1: 46683
+  val_3: 438502
+  val_5: 1045944
+  val_10: 3016651

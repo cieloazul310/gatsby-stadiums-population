@@ -1,0 +1,14 @@
+id: komaba
+type: stadium
+slug: komaba
+name: 浦和駒場スタジアム
+coordinates:
+  - 139.66596
+  - 35.871501
+clubs:
+  - 浦和
+population:
+  val_1: 38147
+  val_3: 305144
+  val_5: 738306
+  val_10: 2210780

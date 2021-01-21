@@ -1,0 +1,14 @@
+id: tatsunoko
+type: stadium
+slug: tatsunoko
+name: 龍ケ崎市陸上競技場たつのこフィールド
+coordinates:
+  - 140.204646
+  - 35.927953
+clubs:
+  - 流経大
+population:
+  val_1: 9554
+  val_3: 32509
+  val_5: 66816
+  val_10: 244763

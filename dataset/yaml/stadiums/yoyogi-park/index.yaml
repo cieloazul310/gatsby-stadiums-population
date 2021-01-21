@@ -1,0 +1,14 @@
+id: yoyogi-park
+type: stadium
+slug: yoyogi-park
+name: 渋谷スクランブルスタジアム (構想)
+coordinates:
+  - 139.694943
+  - 35.667205
+clubs:
+  - その他
+population:
+  val_1: 25066
+  val_3: 407063
+  val_5: 1330884
+  val_10: 4960325

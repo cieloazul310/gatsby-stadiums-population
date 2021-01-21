@@ -63,7 +63,7 @@
     - 140.841116
     - 40.838879
   clubs:
-    - その他
+    - 青森
 - id: aomori-athletic
   type: stadium
   slug: aomori-athletic
@@ -72,7 +72,7 @@
     - 140.70789
     - 40.806434
   clubs:
-    - 青森
+    - その他
 - id: hirosaki
   type: stadium
   slug: hirosaki
@@ -160,7 +160,7 @@
 - id: onagawa
   type: stadium
   slug: onagawa
-  name: 女川サッカー場 (計画)
+  name: 女川町清水公園グラウンド
   coordinates:
     - 141.445242
     - 38.454225
@@ -174,7 +174,7 @@
     - 141.309469
     - 38.457645
   clubs:
-    - 女川
+    - その他
 
 - id: bespa
   type: stadium
@@ -203,7 +203,7 @@
     - 141.00324
     - 37.238821
   clubs:
-    - その他
+    - いわき
 - id: iwakifc-park
   type: stadium
   slug: iwakifc-park
@@ -323,6 +323,15 @@
     - 139.7251
     - 36.402722
   clubs:
+    - その他
+- id: iwafune
+  type: stadium
+  slug: iwafune
+  name: 栃木市岩舟総合運動公園サッカー場
+  coordinates:
+    - 139.645289
+    - 36.337559
+  clubs:
     - 栃木C
 - id: ashikaga
   type: stadium
@@ -336,7 +345,7 @@
 - id: tochigi-football-center
   type: stadium
   slug: tochigi-football-center
-  name: とちぎフットボールセンター (仮称)
+  name: とちぎフットボールセンター
   coordinates:
     - 139.937457
     - 36.803514
@@ -350,7 +359,7 @@
     - 139.90052
     - 36.804863
   clubs:
-    - 矢板
+    - その他
 
 - id: shikishima
   type: stadium
@@ -408,24 +417,6 @@
   clubs:
     - その他
 
-- id: fukuari
-  type: stadium
-  slug: fukuari
-  name: フクダ電子アリーナ
-  coordinates:
-    - 140.122807
-    - 35.577541
-  clubs:
-    - 千葉
-- id: ichihara-rinkai
-  type: stadium
-  slug: ichihara-rinkai
-  name: ゼットエーオリプリスタジアム
-  coordinates:
-    - 140.071552
-    - 35.527953
-  clubs:
-    - V市原
 - id: hitachidai
   type: stadium
   slug: hitachidai
@@ -435,6 +426,15 @@
     - 35.848445
   clubs:
     - 柏
+- id: fukuari
+  type: stadium
+  slug: fukuari
+  name: フクダ電子アリーナ
+  coordinates:
+    - 140.122807
+    - 35.577541
+  clubs:
+    - 千葉
 - id: happa
   type: stadium
   slug: happa
@@ -444,6 +444,15 @@
     - 35.897682
   clubs:
     - その他
+- id: ichihara-rinkai
+  type: stadium
+  slug: ichihara-rinkai
+  name: ゼットエーオリプリスタジアム
+  coordinates:
+    - 140.071552
+    - 35.527953
+  clubs:
+    - V市原
 - id: urariku
   type: stadium
   slug: urariku
@@ -794,7 +803,7 @@
     - 136.612224
     - 34.950875
   clubs:
-    - 三重
+    - その他
 - id: suzuka-stadium
   type: stadium
   slug: suzuka-stadium
@@ -1001,7 +1010,7 @@
     - 135.48482
     - 34.779202
   clubs:
-    - F.C.大阪
+    - その他
 - id: j-green
   type: stadium
   slug: j-green
@@ -1172,6 +1181,7 @@
     - 35.448225
   clubs:
     - 鳥取
+
 - id: matsue
   type: stadium
   slug: matsue
@@ -1306,7 +1316,7 @@
     - 131.62318
     - 33.246061
   clubs:
-    - V大分
+    - その他
 
 - id: shintomi-centre
   type: stadium
@@ -1334,7 +1344,7 @@
     - 131.448123
     - 31.824424
   clubs:
-    - 宮崎
+    - その他
 
 - id: kkwing
   type: stadium

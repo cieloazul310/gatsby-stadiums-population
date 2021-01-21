@@ -1,0 +1,14 @@
+id: tochigi-football-center
+type: stadium
+slug: tochigi-football-center
+name: とちぎフットボールセンター
+coordinates:
+  - 139.937457
+  - 36.803514
+clubs:
+  - 矢板
+population:
+  val_1: 7855
+  val_3: 20412
+  val_5: 30471
+  val_10: 95567

@@ -1,0 +1,14 @@
+id: kobuki
+type: stadium
+slug: kobuki
+name: ケーズデンキスタジアム水戸
+coordinates:
+  - 140.412219
+  - 36.345384
+clubs:
+  - 水戸
+population:
+  val_1: 564
+  val_3: 26192
+  val_5: 117008
+  val_10: 322534

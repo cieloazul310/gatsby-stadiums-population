@@ -1,0 +1,14 @@
+id: the-national-stadium
+type: stadium
+slug: the-national-stadium
+name: 新国立競技場
+coordinates:
+  - 139.714926
+  - 35.678092
+clubs:
+  - その他
+population:
+  val_1: 26675
+  val_3: 334973
+  val_5: 1158358
+  val_10: 5164208

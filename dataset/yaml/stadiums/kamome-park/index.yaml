@@ -1,0 +1,14 @@
+id: kamome-park
+type: stadium
+slug: kamome-park
+name: かもめパーク
+coordinates:
+  - 139.485969
+  - 35.427813
+clubs:
+  - その他
+population:
+  val_1: 17094
+  val_3: 185706
+  val_5: 550301
+  val_10: 2112337

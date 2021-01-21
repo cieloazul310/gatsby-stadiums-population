@@ -1,0 +1,14 @@
+id: kakogawa
+type: stadium
+slug: kakogawa
+name: 加古川運動公園陸上競技場
+coordinates:
+  - 134.826136
+  - 34.808041
+clubs:
+  - その他
+population:
+  val_1: 3681
+  val_3: 34974
+  val_5: 113393
+  val_10: 436089

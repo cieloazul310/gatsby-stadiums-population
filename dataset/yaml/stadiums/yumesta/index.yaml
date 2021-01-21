@@ -1,0 +1,14 @@
+id: yumesta
+type: stadium
+slug: yumesta
+name: ありがとうサービス・夢スタジアム
+coordinates:
+  - 132.956008
+  - 34.041102
+clubs:
+  - 今治
+population:
+  val_1: 281
+  val_3: 20528
+  val_5: 69810
+  val_10: 136376

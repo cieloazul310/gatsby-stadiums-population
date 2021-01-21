@@ -1,0 +1,14 @@
+id: tamariku
+type: stadium
+slug: tamariku
+name: 多摩市立陸上競技場
+coordinates:
+  - 139.460349
+  - 35.624985
+clubs:
+  - その他
+population:
+  val_1: 27615
+  val_3: 153460
+  val_5: 456278
+  val_10: 2413400

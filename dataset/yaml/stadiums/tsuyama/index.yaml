@@ -1,0 +1,14 @@
+id: tsuyama
+type: stadium
+slug: tsuyama
+name: 岡山県津山陸上競技場
+coordinates:
+  - 134.018189
+  - 35.082352
+clubs:
+  - その他
+population:
+  val_1: 6831
+  val_3: 42358
+  val_5: 69218
+  val_10: 106649

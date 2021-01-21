@@ -1,0 +1,14 @@
+id: fukuari
+type: stadium
+slug: fukuari
+name: フクダ電子アリーナ
+coordinates:
+  - 140.122807
+  - 35.577541
+clubs:
+  - 千葉
+population:
+  val_1: 8085
+  val_3: 92158
+  val_5: 256496
+  val_10: 955606
