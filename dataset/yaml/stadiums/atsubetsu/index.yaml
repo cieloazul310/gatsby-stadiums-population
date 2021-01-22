@@ -2,6 +2,7 @@ id: atsubetsu
 type: stadium
 slug: atsubetsu
 name: 札幌厚別公園競技場
+pref: 北海道
 coordinates:
   - 141.464145
   - 43.019009

@@ -2,6 +2,7 @@ id: miyagi-soccer
 type: stadium
 slug: miyagi-soccer
 name: みやぎ生協めぐみのサッカー場
+pref: 宮城県
 coordinates:
   - 140.973298
   - 38.343272

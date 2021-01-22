@@ -2,6 +2,7 @@ id: kobuki
 type: stadium
 slug: kobuki
 name: ケーズデンキスタジアム水戸
+pref: 茨城県
 coordinates:
   - 140.412219
   - 36.345384

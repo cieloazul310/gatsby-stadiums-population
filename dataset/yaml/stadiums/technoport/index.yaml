@@ -2,6 +2,7 @@ id: technoport
 type: stadium
 slug: technoport
 name: テクノポート福井
+pref: 福井県
 coordinates:
   - 136.131747
   - 36.187891

@@ -10,17 +10,22 @@ import { venue, Venue } from './helpers';
 import { draw } from './draw';
 
 const stadiums = yaml.parse(fs.readFileSync(path.resolve(__dirname, '../dataset/frames/stadiums.yaml'), 'utf8'));
-/*
-stadiums.forEach(async (slug) => {
-  const outDir = path.resolve(__dirname, '../dataset/stadiums', slug);
-  const data = venue(yaml.parse(fs.readFileSync(path.resolve(__dirname, `../dataset/stadiums/${slug}/index.yaml`), 'utf8')));
-  try {
-    await draw(data, outDir);
-  } catch (err) {
-    console.error(err);
+
+(async () => {
+  for await (const datum of stadiums) {
+    console.log(datum.slug);
+    const outDir = path.resolve(__dirname, '../dataset/yaml/stadiums', datum.slug);
+    const item = yaml.parse(fs.readFileSync(path.resolve(outDir, 'index.yaml'), 'utf8'));
+
+    const newer = {
+      ...datum,
+      population: item.population,
+    };
+    fs.writeFileSync(path.resolve(outDir, 'index.yaml'), yaml.stringify(newer));
   }
-});
-*/
+})();
+
+/*
 (async () => {
   for await (const datum of stadiums) {
     console.log(datum.slug);
@@ -33,3 +38,4 @@ function Convert(datum: Venue): Promise<void> {
   if (!fs.existsSync(outDir)) fs.mkdirSync(outDir);
   return draw(datum, outDir);
 }
+*/

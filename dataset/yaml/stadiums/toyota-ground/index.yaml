@@ -2,6 +2,7 @@ id: toyota-ground
 type: stadium
 slug: toyota-ground
 name: 豊田市運動公園球技場
+pref: 愛知県
 coordinates:
   - 137.186483
   - 35.136704

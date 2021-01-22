@@ -2,11 +2,12 @@ id: ajista
 type: stadium
 slug: ajista
 name: 味の素スタジアム
+pref: 東京都
 coordinates:
   - 139.527144
   - 35.664311
 clubs:
-  - FC東京
+  - F東京
   - 東京V
 population:
   val_1: 23204

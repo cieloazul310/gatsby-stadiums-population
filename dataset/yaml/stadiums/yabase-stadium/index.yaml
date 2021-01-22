@@ -2,6 +2,7 @@ id: yabase-stadium
 type: stadium
 slug: yabase-stadium
 name: あきぎんスタジアム
+pref: 秋田県
 coordinates:
   - 140.099758
   - 39.721528

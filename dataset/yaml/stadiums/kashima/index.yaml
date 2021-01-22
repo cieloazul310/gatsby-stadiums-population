@@ -2,6 +2,7 @@ id: kashima
 type: stadium
 slug: kashima
 name: 県立カシマサッカースタジアム
+pref: 茨城県
 coordinates:
   - 140.640384
   - 35.992019

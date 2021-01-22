@@ -2,6 +2,7 @@ id: ecopa
 type: stadium
 slug: ecopa
 name: エコパスタジアム
+pref: 静岡県
 coordinates:
   - 137.970743
   - 34.743454

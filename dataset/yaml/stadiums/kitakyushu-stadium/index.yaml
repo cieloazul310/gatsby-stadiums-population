@@ -2,6 +2,7 @@ id: kitakyushu-stadium
 type: stadium
 slug: kitakyushu-stadium
 name: ミクニワールドスタジアム北九州
+pref: 福岡県
 coordinates:
   - 130.888839
   - 33.891105

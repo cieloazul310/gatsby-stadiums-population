@@ -2,6 +2,7 @@ id: kobe-universiade
 type: stadium
 slug: kobe-universiade
 name: 神戸総合運動公園ユニバー記念競技場
+pref: 兵庫県
 coordinates:
   - 135.080375
   - 34.682358

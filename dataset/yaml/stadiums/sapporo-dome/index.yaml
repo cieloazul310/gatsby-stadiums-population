@@ -2,6 +2,7 @@ id: sapporo-dome
 type: stadium
 slug: sapporo-dome
 name: 札幌ドーム
+pref: 北海道
 coordinates:
   - 141.409652
   - 43.015161

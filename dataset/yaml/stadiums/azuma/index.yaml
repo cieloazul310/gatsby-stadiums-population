@@ -2,6 +2,7 @@ id: azuma
 type: stadium
 slug: azuma
 name: とうほう・みんなのスタジアム
+pref: 福島県
 coordinates:
   - 140.361275
   - 37.723309

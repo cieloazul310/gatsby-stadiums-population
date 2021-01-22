@@ -2,6 +2,7 @@ id: toyota-stadium
 type: stadium
 slug: toyota-stadium
 name: 豊田スタジアム
+pref: 愛知県
 coordinates:
   - 137.17093
   - 35.084576

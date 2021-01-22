@@ -2,6 +2,7 @@ id: sendai
 type: stadium
 slug: sendai
 name: ユアテックスタジアム仙台
+pref: 宮城県
 coordinates:
   - 140.881807
   - 38.319128

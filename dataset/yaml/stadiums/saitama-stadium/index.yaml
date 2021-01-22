@@ -2,6 +2,7 @@ id: saitama-stadium
 type: stadium
 slug: saitama-stadium
 name: 埼玉スタジアム2002
+pref: 埼玉県
 coordinates:
   - 139.717597
   - 35.903065

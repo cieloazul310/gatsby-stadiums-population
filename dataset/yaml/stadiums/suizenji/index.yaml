@@ -2,6 +2,7 @@ id: suizenji
 type: stadium
 slug: suizenji
 name: 熊本市水前寺競技場
+pref: 熊本県
 coordinates:
   - 130.741352
   - 32.79415

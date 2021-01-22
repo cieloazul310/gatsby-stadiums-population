@@ -2,11 +2,12 @@ id: maebashi
 type: stadium
 slug: maebashi
 name: 前橋総合運動公園陸上競技・サッカー場
+pref: 群馬県
 coordinates:
   - 139.161876
   - 36.378389
 clubs:
-  - tonan
+  - その他
 population:
   val_1: 3189
   val_3: 17245

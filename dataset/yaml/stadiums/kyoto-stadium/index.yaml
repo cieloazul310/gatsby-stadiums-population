@@ -2,6 +2,7 @@ id: kyoto-stadium
 type: stadium
 slug: kyoto-stadium
 name: サンガスタジアム by KYOCERA
+pref: 京都府
 coordinates:
   - 135.583507
   - 35.017415

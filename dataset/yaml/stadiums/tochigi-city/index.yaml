@@ -2,6 +2,7 @@ id: tochigi-city
 type: stadium
 slug: tochigi-city
 name: 栃木市総合運動公園陸上競技場
+pref: 栃木県
 coordinates:
   - 139.7251
   - 36.402722

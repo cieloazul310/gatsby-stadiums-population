@@ -1,7 +1,8 @@
 id: shimonoseki
 type: stadium
 slug: shimonoseki
-name: 下関市営下関陸上競技場
+name: セービング陸上競技場
+pref: 山口県
 coordinates:
   - 130.933305
   - 33.966265

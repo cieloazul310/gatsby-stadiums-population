@@ -2,6 +2,7 @@ id: sagariku
 type: stadium
 slug: sagariku
 name: 佐賀県総合運動場陸上競技場
+pref: 佐賀県
 coordinates:
   - 130.291705
   - 33.276685

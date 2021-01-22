@@ -2,6 +2,7 @@ id: banpaku
 type: stadium
 slug: banpaku
 name: 万博記念競技場
+pref: 大阪府
 coordinates:
   - 135.54273
   - 34.810352

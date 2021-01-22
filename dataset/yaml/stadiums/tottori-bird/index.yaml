@@ -2,6 +2,7 @@ id: tottori-bird
 type: stadium
 slug: tottori-bird
 name: Axisバードスタジアム
+pref: 鳥取県
 coordinates:
   - 134.221755
   - 35.458214

@@ -2,6 +2,7 @@ id: bespa
 type: stadium
 slug: bespa
 name: NDソフトスタジアム山形
+pref: 山形県
 coordinates:
   - 140.378442
   - 38.335592

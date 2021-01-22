@@ -2,6 +2,7 @@ id: tamariku
 type: stadium
 slug: tamariku
 name: 多摩市立陸上競技場
+pref: 東京都
 coordinates:
   - 139.460349
   - 35.624985

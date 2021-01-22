@@ -2,6 +2,7 @@ id: komaba
 type: stadium
 slug: komaba
 name: 浦和駒場スタジアム
+pref: 埼玉県
 coordinates:
   - 139.66596
   - 35.871501

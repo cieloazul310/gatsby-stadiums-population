@@ -2,6 +2,7 @@ id: big-eye
 type: stadium
 slug: big-eye
 name: 昭和電工ドーム大分
+pref: 大分県
 coordinates:
   - 131.657541
   - 33.200765

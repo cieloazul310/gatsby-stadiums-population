@@ -2,6 +2,7 @@ id: the-national-stadium
 type: stadium
 slug: the-national-stadium
 name: 新国立競技場
+pref: 東京都
 coordinates:
   - 139.714926
   - 35.678092

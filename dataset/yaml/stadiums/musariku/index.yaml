@@ -2,6 +2,7 @@ id: musariku
 type: stadium
 slug: musariku
 name: 武蔵野市立武蔵野陸上競技場
+pref: 東京都
 coordinates:
   - 139.568351
   - 35.717417

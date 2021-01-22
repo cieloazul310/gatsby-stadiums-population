@@ -2,6 +2,7 @@ id: matsue
 type: stadium
 slug: matsue
 name: 松江市営陸上競技場
+pref: 島根県
 coordinates:
   - 133.06598
   - 35.436956

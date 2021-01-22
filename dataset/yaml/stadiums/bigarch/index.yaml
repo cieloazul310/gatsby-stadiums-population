@@ -2,6 +2,7 @@ id: bigarch
 type: stadium
 slug: bigarch
 name: エディオンスタジアム広島
+pref: 広島県
 coordinates:
   - 132.394279
   - 34.440776

@@ -2,6 +2,7 @@ id: edoriku
 type: stadium
 slug: edoriku
 name: 江戸川区陸上競技場
+pref: 東京都
 coordinates:
   - 139.852567
   - 35.655174

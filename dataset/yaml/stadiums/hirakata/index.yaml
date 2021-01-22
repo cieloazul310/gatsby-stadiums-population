@@ -2,6 +2,7 @@ id: hirakata
 type: stadium
 slug: hirakata
 name: 枚方陸上競技場
+pref: 大阪府
 coordinates:
   - 135.683667
   - 34.818972

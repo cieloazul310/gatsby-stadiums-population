@@ -2,6 +2,7 @@ id: todoroki
 type: stadium
 slug: todoroki
 name: 等々力陸上競技場
+pref: 神奈川県
 coordinates:
   - 139.652698
   - 35.585748

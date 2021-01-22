@@ -2,6 +2,7 @@ id: nagasaki-stadium
 type: stadium
 slug: nagasaki-stadium
 name: 長崎市新スタジアム (計画)
+pref: 長崎県
 coordinates:
   - 129.864712
   - 32.759148

@@ -2,6 +2,7 @@ id: nissan
 type: stadium
 slug: nissan
 name: 日産スタジアム
+pref: 神奈川県
 coordinates:
   - 139.606382
   - 35.509945

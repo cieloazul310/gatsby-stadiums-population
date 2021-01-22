@@ -2,6 +2,7 @@ id: yabase-athletic
 type: stadium
 slug: yabase-athletic
 name: ソユースタジアム
+pref: 秋田県
 coordinates:
   - 140.095758
   - 39.721561
