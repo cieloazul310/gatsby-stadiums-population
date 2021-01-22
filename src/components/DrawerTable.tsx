@@ -4,7 +4,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import { format as d3Format } from 'd3-format';
+import { valToStr } from '../utils/valToStr';
 import { VenueQuery } from '../../graphql-types';
 
 interface Props {
@@ -54,9 +54,3 @@ function DrawerTable({ venues }: Props) {
 }
 
 export default DrawerTable;
-
-function valToStr(val: number | undefined | null) {
-  if (val === null || val === undefined) return '';
-  const format = d3Format(',');
-  return format(val);
-}

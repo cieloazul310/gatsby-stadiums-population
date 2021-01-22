@@ -1,9 +1,13 @@
 import * as React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import Layout from 'gatsby-theme-aoi/src/layout';
+import Container from '@material-ui/core/Container';
+import Layout from '../layout';
+import ImageContainer from '../components/ImageContainer';
 import Images from '../components/Images';
 import DrawerTable from '../components/DrawerTable';
 import DrawerNavigation from '../components/DrawerNavigation';
+import Attribution from '../components/Attribution';
+import { DataAttribution } from '../components/MapAttribution';
 import { VenueQuery, SitePageContext } from '../../graphql-types';
 
 function VenuesTemplate({ data, pageContext }: PageProps<VenueQuery, SitePageContext>) {
@@ -22,9 +26,13 @@ function VenuesTemplate({ data, pageContext }: PageProps<VenueQuery, SitePageCon
         </>
       }
     >
-      <div>
+      <ImageContainer>
         <Images images={images} />
-      </div>
+      </ImageContainer>
+      <Container maxWidth="md">
+        <Attribution />
+        <DataAttribution />
+      </Container>
     </Layout>
   );
 }

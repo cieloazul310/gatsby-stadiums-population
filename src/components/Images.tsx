@@ -2,7 +2,7 @@ import * as React from 'react';
 import clsx from 'clsx';
 import Image from 'gatsby-image';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { useAppState, useDispatch } from 'gatsby-theme-aoi-top-layout/src/utils/AppStateContext';
+import { useAppState, useDispatch } from '../gatsby-theme-aoi-top-layout/utils/AppStateContext';
 import { VenueQuery } from '../../graphql-types';
 
 interface Props {
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) =>
     },
     invisible: {
       opacity: 0,
+      pointerEvents: 'none',
     },
   })
 );
@@ -44,12 +45,6 @@ function Images({ images }: Props) {
         style={{ position: 'absolute' }}
         fluid={images[1].childImageSharp?.fluid}
       />
-      {/*<div className={clsx(classes.layer, { [classes.invisible]: !state.visibility })}>
-        <Image fluid={images[1].childImageSharp?.fluid} />
-      </div>
-      <div className={clsx(classes.layer, { [classes.invisible]: state.visibility })}>
-        <Image fluid={images[0].childImageSharp?.fluid} />
-  </div>*/}
     </div>
   );
 }

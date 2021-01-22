@@ -34,12 +34,12 @@ interface Props {
   appState: AppState;
   edges: Edge[];
   group: Group;
-  handleDrawerToggle: () => any;
-  handleZoomIn: () => any;
-  handleZoomOut: () => any;
-  handleTerrain: () => any;
-  handlePopVisibility: () => any;
-  handleBufferVisibility: () => any;
+  handleDrawerToggle: () => void;
+  handleZoomIn: () => void;
+  handleZoomOut: () => void;
+  handleTerrain: () => void;
+  handlePopVisibility: () => void;
+  handleBufferVisibility: () => void;
 }
 
 function DrawerInner({ group, appState, datum, edges, handleDrawerToggle, ...mapHandler }: Props) {

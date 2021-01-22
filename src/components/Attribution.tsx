@@ -1,14 +1,16 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
+import { useSiteMetadata } from 'gatsby-theme-aoi/src/graphql-hooks';
 
 function Attribution() {
+  const siteMetadata = useSiteMetadata();
   return (
     <section>
       <Typography variant="h5" gutterBottom>
-        {data.site.siteMetadata.title}
+        {siteMetadata.title}
       </Typography>
       <Typography variant="body1" paragraph>
-        {data.site.siteMetadata.description}
+        {siteMetadata.description}
       </Typography>
       <div>
         <div>
@@ -42,7 +44,7 @@ function Attribution() {
         <div>
           <div>制作</div>
           <div>
-            <a href={data.site.siteMetadata.author.url} target="_blank" rel="noopener noreferrer">
+            <a href={siteMetadata.baseUrl} target="_blank" rel="noopener noreferrer">
               水戸地図
             </a>
           </div>
@@ -50,7 +52,7 @@ function Attribution() {
         <div>
           <div>Twitter</div>
           <div>
-            <a href={`http://twitter.com/${data.site.siteMetadata.author.twitter}`} target="_blank" rel="noopener noreferrer">
+            <a href={`http://twitter.com/${siteMetadata.social.twitter}`} target="_blank" rel="noopener noreferrer">
               @cieloazul310
             </a>
           </div>
@@ -66,13 +68,13 @@ function Attribution() {
         <div>
           <div>公開日</div>
           <div>
-            <time>{data.site.siteMetadata.date}</time>
+            <time>{siteMetadata.date}</time>
           </div>
         </div>
         <div>
           <div>最終更新</div>
           <div>
-            <time>{data.site.siteMetadata.lastmod}</time>
+            <time>{siteMetadata.lastmod}</time>
           </div>
         </div>
       </div>

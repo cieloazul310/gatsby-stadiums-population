@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -18,7 +18,7 @@ interface Props {
 
 function FlexTable({ className, children }: Props) {
   const classes = useStyles({});
-  return <div className={classNames(classes.root, className)}>{children}</div>;
+  return <div className={clsx(classes.root, className)}>{children}</div>;
 }
 
 export default FlexTable;
