@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { withPrefix } from 'gatsby';
 import clsx from 'clsx';
 import Image from 'gatsby-image';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
@@ -36,7 +35,7 @@ function Images({ images }: Props) {
   const { visibility } = useAppState();
   return (
     <div className={classes.root}>
-      <a href={withPrefix(images[visibility ? 1 : 0].childImageSharp?.original?.src ?? '#')} target="_blank" rel="noopener noreferrer">
+      <a href={images[visibility ? 1 : 0].childImageSharp?.original?.src ?? '#'} target="_blank" rel="noopener noreferrer">
         <Image className={classes.layer} style={{ position: 'absolute' }} fluid={images[0].childImageSharp?.fluid} />
         <Image
           className={clsx(classes.layer, { [classes.invisible]: !visibility })}
