@@ -1,27 +1,29 @@
 import * as React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 import Layout from '../layout';
 import ImageContainer from '../components/ImageContainer';
 import Images from '../components/Images';
 import DrawerTable from '../components/DrawerTable';
 import DrawerNavigation from '../components/DrawerNavigation';
 import Attribution from '../components/Attribution';
-import { DataAttribution } from '../components/MapAttribution';
+import { AdInArticle } from '../components/Ads';
+import Basis from '../components/Basis';
 import { VenueQuery, SitePageContext } from '../../graphql-types';
 
 function VenuesTemplate({ data, pageContext }: PageProps<VenueQuery, SitePageContext>) {
-  console.log(data, pageContext);
-  const images = data.allFile.nodes.filter((node) => node.childImageSharp);
+  const { venues, allFile } = data;
+  const images = allFile.nodes.filter((node) => node.childImageSharp);
   return (
     <Layout
-      title={data.venues?.name ?? undefined}
+      title={venues?.name ?? undefined}
       image={images[1].childImageSharp?.fluid?.src}
       disablePaddingTop
       disableGutters
       drawerContents={
         <>
-          <DrawerTable venues={data.venues} />
+          <DrawerTable venues={venues} />
           <DrawerNavigation pageContext={pageContext} />
         </>
       }
@@ -29,10 +31,22 @@ function VenuesTemplate({ data, pageContext }: PageProps<VenueQuery, SitePageCon
       <ImageContainer>
         <Images images={images} />
       </ImageContainer>
-      <Container maxWidth="md">
-        <Attribution />
-        <DataAttribution />
-      </Container>
+      <Basis>
+        <Container maxWidth="sm">
+          <Typography variant="h5" gutterBottom>
+            地域
+          </Typography>
+          <Typography paragraph>{venues?.pref}</Typography>
+        </Container>
+      </Basis>
+      <Basis>
+        <AdInArticle />
+      </Basis>
+      <Basis>
+        <Container maxWidth="sm">
+          <Attribution />
+        </Container>
+      </Basis>
     </Layout>
   );
 }
@@ -58,6 +72,7 @@ export const query = graphql`
         slug
       }
       coordinates
+      pref
       id
       slug
       type

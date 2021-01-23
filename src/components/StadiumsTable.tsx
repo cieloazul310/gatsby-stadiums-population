@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Paper from '@material-ui/core/Paper';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -8,13 +9,13 @@ import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import AppLink from 'gatsby-theme-aoi/src/components/AppLink';
+import { useAppState, useDispatch } from '../gatsby-theme-aoi-top-layout/utils/AppStateContext';
 import { valToStr } from '../utils/valToStr';
 import { useWindowSize } from '../utils/useWindowSize';
-import { useAllVenues } from '../utils/graphql-hooks';
-import { VenuesPopulation } from '../../graphql-types';
+import { VenuesPopulation, VenuesItemFragment } from '../../graphql-types';
 
 interface StylesProps {
-  height: number;
+  height: number | undefined;
 }
 
 const useStyles = makeStyles<Theme, StylesProps>((theme) =>
@@ -22,55 +23,68 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
     root: {
       maxHeight: ({ height }) => height,
     },
+    table: {
+      minWidth: 720,
+    },
+    name: {
+      maxWidth: '18em',
+    },
+    club: {
+      wordBreak: 'keep-all',
+      msWordBreak: 'keep-all',
+    },
   })
 );
 
 type SortRadius = keyof VenuesPopulation;
 
-function StadiumsTable() {
+interface Props {
+  venues: { node: VenuesItemFragment }[];
+  enableMaxHeight?: boolean;
+}
+
+function StadiumsTable({ venues, enableMaxHeight }: Props) {
   const size = useWindowSize();
-  const classes = useStyles({ height: size.height - 64 });
-  const allVenues = useAllVenues();
-  const [sortRadius, setSortRadius] = React.useState<SortRadius>('val_1');
-  const [sortAsc, setSortAsc] = React.useState(false);
+  const classes = useStyles({ height: enableMaxHeight ? size.height - 64 : undefined });
+  const { sortRadius, sortAsc } = useAppState();
+  const dispatch = useDispatch();
   const rows = React.useMemo(() => {
-    return allVenues.sort((a, b) => (sortAsc ? -1 : 1) * ((b.node.population?.[sortRadius] ?? 0) - (a.node.population?.[sortRadius] ?? 0)));
-  }, [allVenues, sortRadius, sortAsc]);
+    return venues.sort((a, b) => (sortAsc ? -1 : 1) * ((b.node.population?.[sortRadius] ?? 0) - (a.node.population?.[sortRadius] ?? 0)));
+  }, [venues, sortRadius, sortAsc]);
 
   const _onSortLabelClick = (str: SortRadius) => () => {
     if (str === sortRadius) {
-      setSortAsc(!sortAsc);
+      dispatch({ type: 'TOGGLE_SORTASC' });
     } else {
-      setSortRadius(str);
-      setSortAsc(false);
+      dispatch({ type: 'CHANGE_SORTRADIUS', sortRadius: str });
     }
   };
   return (
-    <TableContainer className={classes.root}>
-      <Table stickyHeader>
+    <TableContainer className={classes.root} component={Paper}>
+      <Table className={classes.table} stickyHeader>
         <TableHead>
           <TableRow>
             <TableCell></TableCell>
-            <TableCell>名称</TableCell>
-            <TableCell>クラブ</TableCell>
+            <TableCell className={classes.name}>名称</TableCell>
+            <TableCell className={classes.club}>クラブ</TableCell>
             <TableCell align="center" sortDirection={sortAsc ? 'asc' : 'desc'}>
               <TableSortLabel active={sortRadius === 'val_1'} direction={sortAsc ? 'asc' : 'desc'} onClick={_onSortLabelClick('val_1')}>
-                1km
+                1km圏
               </TableSortLabel>
             </TableCell>
             <TableCell align="center" sortDirection={sortAsc ? 'asc' : 'desc'}>
               <TableSortLabel active={sortRadius === 'val_3'} direction={sortAsc ? 'asc' : 'desc'} onClick={_onSortLabelClick('val_3')}>
-                3km
+                3km圏
               </TableSortLabel>
             </TableCell>
             <TableCell align="center" sortDirection={sortAsc ? 'asc' : 'desc'}>
               <TableSortLabel active={sortRadius === 'val_5'} direction={sortAsc ? 'asc' : 'desc'} onClick={_onSortLabelClick('val_5')}>
-                5km
+                5km圏
               </TableSortLabel>
             </TableCell>
             <TableCell align="center" sortDirection={sortAsc ? 'asc' : 'desc'}>
               <TableSortLabel active={sortRadius === 'val_10'} direction={sortAsc ? 'asc' : 'desc'} onClick={_onSortLabelClick('val_10')}>
-                10km
+                10km圏
               </TableSortLabel>
             </TableCell>
           </TableRow>
@@ -79,12 +93,12 @@ function StadiumsTable() {
           {rows.map(({ node }, index) => (
             <TableRow key={index}>
               <TableCell>{index + 1}</TableCell>
-              <TableCell>
+              <TableCell className={classes.name}>
                 <AppLink to={`/${node.slug}`} color="inherit">
                   {node.name}
                 </AppLink>
               </TableCell>
-              <TableCell>{node.clubs?.map((club) => club?.short_name).join(' ')}</TableCell>
+              <TableCell className={classes.club}>{node.clubs?.map((club) => club?.short_name).join(' ')}</TableCell>
               <TableCell align="right">{valToStr(node.population?.val_1)}</TableCell>
               <TableCell align="right">{valToStr(node.population?.val_3)}</TableCell>
               <TableCell align="right">{valToStr(node.population?.val_5)}</TableCell>

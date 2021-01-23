@@ -2,13 +2,13 @@ const path = require('path');
 
 module.exports = {
   siteMetadata: {
-    title: 'スタジアム・アリーナと人口',
-    description: 'スタジアム・アリーナと人口は、日本国内の主要スタジアム・アリーナの周辺の人口を地図で表示したサイトです。',
+    title: '国内のサッカースタジアム周辺の人口',
+    description: '国内のサッカースタジアム周辺の人口は、日本国内の主要スタジアム周辺の人口を地図で表示したサイトです。',
     lang: 'ja',
     siteUrl: 'https://cieloazul310.github.io/gatsby-stadiums-population/',
     baseUrl: 'https://cieloazul310.github.io',
     date: '2019-02-25',
-    lastmod: '2019-03-03',
+    lastmod: '2021-01-23',
     author: 'cieloazul310',
     keywords: ['J League'],
     social: {

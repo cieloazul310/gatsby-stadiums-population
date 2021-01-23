@@ -1,99 +1,82 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { useSiteMetadata } from 'gatsby-theme-aoi/src/graphql-hooks';
+import MuiLink from '@material-ui/core/Link';
 
 function Attribution() {
-  const siteMetadata = useSiteMetadata();
   return (
-    <section>
-      <Typography variant="h5" gutterBottom>
-        {siteMetadata.title}
-      </Typography>
-      <Typography variant="body1" paragraph>
-        {siteMetadata.description}
-      </Typography>
-      <div>
-        <div>
-          <div>人口データ</div>
-          <div>
-            <a
-              href="https://www.e-stat.go.jp/gis/statmap-search?page=1&type=1&toukeiCode=00200521&toukeiYear=2015&aggregateUnit=Q&serveyId=Q002005112015&statsId=T000876"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              国勢調査2015年 5次メッシュ(250mメッシュ)
-            </a>
-          </div>
-        </div>
-        <div>
-          <div>演算</div>
-          <div>
-            <a href="http://turfjs.org" target="_blank" rel="noopener noreferrer">
-              Turf.js
-            </a>
-          </div>
-        </div>
-        <div>
-          <div>地図</div>
-          <div>
-            <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener noreferrer">
-              地理院タイル
-            </a>
-          </div>
-        </div>
-        <div>
-          <div>制作</div>
-          <div>
-            <a href={siteMetadata.baseUrl} target="_blank" rel="noopener noreferrer">
-              水戸地図
-            </a>
-          </div>
-        </div>
-        <div>
-          <div>Twitter</div>
-          <div>
-            <a href={`http://twitter.com/${siteMetadata.social.twitter}`} target="_blank" rel="noopener noreferrer">
-              @cieloazul310
-            </a>
-          </div>
-        </div>
-        <div>
-          <div>GitHub</div>
-          <div>
-            <a href="https://github.com/cieloazul310/gatsby-stadiums-population" target="_blank" rel="noopener noreferrer">
-              gatsby-stadiums-population
-            </a>
-          </div>
-        </div>
-        <div>
-          <div>公開日</div>
-          <div>
-            <time>{siteMetadata.date}</time>
-          </div>
-        </div>
-        <div>
-          <div>最終更新</div>
-          <div>
-            <time>{siteMetadata.lastmod}</time>
-          </div>
-        </div>
-      </div>
-      <Typography variant="body1" paragraph />
-      <Typography variant="h6" gutterBottom>
-        データの利用について
-      </Typography>
-      <Typography variant="body1" paragraph>
-        本サイトに掲載しているデータは「URL または
-        サイト名」及び「データの出典元（地域メッシュ統計）」を明記した上で、自由に利用可能です。地図を利用する際には、
-        <a href="http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html" target="_blank" rel="noopener noreferrer">
-          国土地理院コンテンツ利用規約
-        </a>
-        を参照ください。
-      </Typography>
-      <Typography variant="body2" paragraph>
-        記載例: 「出典: 水戸地図、2015年度国勢調査250mメッシュ人口」
-      </Typography>
-    </section>
+    <>
+      <section>
+        <Typography variant="h5" component="h2" gutterBottom>
+          国内のサッカースタジアム周辺の人口
+        </Typography>
+        <Typography paragraph>国内のサッカースタジアム周辺の人口を算出して地図に可視化したサイトです。</Typography>
+      </section>
+      <section>
+        <Typography variant="h6" component="h3" gutterBottom>
+          データについて
+        </Typography>
+        <Typography paragraph>
+          <MuiLink
+            href="https://www.e-stat.go.jp/gis/statmap-search?page=1&type=1&toukeiCode=00200521&toukeiYear=2015&aggregateUnit=Q&serveyId=Q002005112015&statsId=T000876"
+            target="_blank"
+            rel="noopener noreferrer"
+            color="secondary"
+          >
+            国勢調査2015年 5次メッシュ(250mメッシュ)人口データ
+          </MuiLink>
+          を基に計算しています。
+        </Typography>
+      </section>
+      <section>
+        <Typography variant="h6" component="h3" gutterBottom>
+          演算
+        </Typography>
+        <Typography paragraph>
+          <MuiLink href="http://turfjs.org" target="_blank" rel="noopener noreferrer" color="secondary">
+            Turf.js
+          </MuiLink>
+          を使って作成した人口算出モジュール
+          <MuiLink href="https://github.com/cieloazul310/population" target="_blank" rel="noopener noreferrer" color="secondary">
+            Population Calculator
+          </MuiLink>
+          による演算
+        </Typography>
+      </section>
+      <section>
+        <Typography variant="h6" component="h3" gutterBottom>
+          地図
+        </Typography>
+        <Typography paragraph>
+          <MuiLink
+            href="https://github.com/gsi-cyberjapan/gsimaps-vector-experiment"
+            target="_blank"
+            rel="noopener noreferrer"
+            color="secondary"
+          >
+            国土地理院ベクトルタイル提供実験
+          </MuiLink>
+          を使って
+          <MuiLink href="https://github.com/cieloazul310/canvasmap" target="_blank" rel="noopener noreferrer" color="secondary">
+            CanvasMap
+          </MuiLink>
+          によって作成
+        </Typography>
+      </section>
+      <section>
+        <Typography variant="h6" component="h3" gutterBottom>
+          制作
+        </Typography>
+        <Typography paragraph>
+          <MuiLink href="https://cieloazul310.github.io" target="_blank" rel="noopener noreferrer" color="secondary">
+            水戸地図
+          </MuiLink>
+          <br />
+          <MuiLink href="https://twitter.com/cieloazul310" target="_blank" rel="noopener noreferrer" color="secondary">
+            @cieloazul310
+          </MuiLink>
+        </Typography>
+      </section>
+    </>
   );
 }
 

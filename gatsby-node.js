@@ -15,16 +15,33 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
   const result = await graphql(`
     query CreatePages {
-      allVenues(sort: { fields: population___val_10, order: DESC }) {
+      j1: allVenues(filter: { clubs: { elemMatch: { category: { eq: "J1" } } } }, sort: { fields: population___val_10, order: DESC }) {
         edges {
           node {
             slug
+            name
           }
-          next {
+        }
+      }
+      j2: allVenues(filter: { clubs: { elemMatch: { category: { eq: "J2" } } } }, sort: { fields: population___val_10, order: DESC }) {
+        edges {
+          node {
             slug
             name
           }
-          previous {
+        }
+      }
+      j3: allVenues(filter: { clubs: { elemMatch: { category: { eq: "J3" } } } }, sort: { fields: population___val_10, order: DESC }) {
+        edges {
+          node {
+            slug
+            name
+          }
+        }
+      }
+      jfl: allVenues(filter: { clubs: { elemMatch: { category: { eq: "JFL" } } } }, sort: { fields: population___val_10, order: DESC }) {
+        edges {
+          node {
             slug
             name
           }
@@ -35,8 +52,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   if (result.errors) {
     reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query');
   }
-  const { allVenues } = result.data;
-  allVenues.edges.forEach(({ node, next, previous }) => {
+  const { j1, j2, j3, jfl } = result.data;
+  const allVenues = [...j1.edges, ...j2.edges, ...j3.edges, ...jfl.edges].reduce(
+    (accum, curr) => (accum.map(({ node }) => node.slug).indexOf(curr.node.slug) < 0 ? [...accum, curr] : accum),
+    []
+  );
+  allVenues.forEach(({ node }, index, arr) => {
+    const previous = index !== 0 ? arr[index - 1] : null;
+    const next = index !== arr.length - 1 ? arr[index + 1] : null;
     createPage({
       path: node.slug,
       component: path.resolve('./src/templates/venues.tsx'),
@@ -44,50 +67,3 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     });
   });
 };
-
-/*
-exports.createPages = async ({ graphql, actions, reporter }) => {
-  const { createPage } = actions;
-  const result = await graphql(`
-    {
-      allVenuesJson {
-        edges {
-          node {
-            fields {
-              slug
-            }
-          }
-        }
-      }
-      allArenasJson {
-        edges {
-          node {
-            fields {
-              slug
-            }
-          }
-        }
-      }
-    }
-  `);
-  if (result.errors) {
-    reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query');
-  }
-  const { allVenuesJson, allArenasJson } = result.data;
-
-  allVenuesJson.edges.forEach(({ node }) => {
-    createPage({
-      path: node.fields.slug,
-      component: path.resolve(`./src/templates/venuesContainer.tsx`),
-      context: { slug: node.fields.slug, group: 'venues' },
-    });
-  });
-  allArenasJson.edges.forEach(({ node }) => {
-    createPage({
-      path: node.fields.slug,
-      component: path.resolve(`./src/templates/arenasContainer.tsx`),
-      context: { slug: node.fields.slug, group: 'arenas' },
-    });
-  });
-};
-*/
