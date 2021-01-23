@@ -18,8 +18,12 @@ function DrawerTable({ venues }: Props) {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell component="th">半径</TableCell>
-            <TableCell component="th">人口</TableCell>
+            <TableCell align="center" component="th">
+              半径
+            </TableCell>
+            <TableCell align="center" component="th">
+              人口
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

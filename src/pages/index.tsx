@@ -6,7 +6,7 @@ import Layout from 'gatsby-theme-aoi/src/layouts/TabPageLayout';
 import TabPane from 'gatsby-theme-aoi/src/layout/TabPane';
 import StadiumsTable from '../components/StadiumsTable';
 import Basis from '../components/Basis';
-import { AdInArticle } from '../components/Ads';
+import { AdInArticle, AdInFooter } from '../components/Ads';
 import Attribution from '../components/Attribution';
 import { useIsMobile } from '../utils/useIsMobile';
 import { useAllVenues } from '../utils/graphql-hooks';
@@ -51,6 +51,9 @@ function IndexPage() {
         <Container maxWidth="md">
           <Attribution />
         </Container>
+      </Basis>
+      <Basis>
+        <AdInFooter />
       </Basis>
     </Layout>
   );

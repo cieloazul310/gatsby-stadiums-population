@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { withPrefix } from 'gatsby';
 import clsx from 'clsx';
 import Image from 'gatsby-image';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { useAppState, useDispatch } from '../gatsby-theme-aoi-top-layout/utils/AppStateContext';
+import { useAppState } from '../gatsby-theme-aoi-top-layout/utils/AppStateContext';
 import { VenueQuery } from '../../graphql-types';
 
 interface Props {
@@ -32,19 +33,17 @@ const useStyles = makeStyles((theme) =>
 
 function Images({ images }: Props) {
   const classes = useStyles();
-  const state = useAppState();
-  const dispatch = useDispatch();
-  const _onClick = () => {
-    dispatch({ type: 'TOGGLE_VISIBILITY' });
-  };
+  const { visibility } = useAppState();
   return (
-    <div className={classes.root} onClick={_onClick}>
-      <Image className={classes.layer} style={{ position: 'absolute' }} fluid={images[0].childImageSharp?.fluid} />
-      <Image
-        className={clsx(classes.layer, { [classes.invisible]: !state.visibility })}
-        style={{ position: 'absolute' }}
-        fluid={images[1].childImageSharp?.fluid}
-      />
+    <div className={classes.root}>
+      <a href={withPrefix(images[visibility ? 1 : 0].childImageSharp?.original?.src ?? '#')} target="_blank" rel="noopener noreferrer">
+        <Image className={classes.layer} style={{ position: 'absolute' }} fluid={images[0].childImageSharp?.fluid} />
+        <Image
+          className={clsx(classes.layer, { [classes.invisible]: !visibility })}
+          style={{ position: 'absolute' }}
+          fluid={images[1].childImageSharp?.fluid}
+        />
+      </a>
     </div>
   );
 }

@@ -26,8 +26,15 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) =>
     table: {
       minWidth: 720,
     },
+    theadName: {
+      zIndex: 3,
+    },
     name: {
       maxWidth: '18em',
+      zIndex: 1,
+      background: theme.palette.background.paper,
+      position: 'sticky',
+      left: 0,
     },
     club: {
       wordBreak: 'keep-all',
@@ -40,12 +47,12 @@ type SortRadius = keyof VenuesPopulation;
 
 interface Props {
   venues: { node: VenuesItemFragment }[];
-  enableMaxHeight?: boolean;
+  //enableMaxHeight?: boolean;
 }
 
-function StadiumsTable({ venues, enableMaxHeight }: Props) {
+function StadiumsTable({ venues }: Props) {
   const size = useWindowSize();
-  const classes = useStyles({ height: enableMaxHeight ? size.height - 64 : undefined });
+  const classes = useStyles({ height: size.height - 64 });
   const { sortRadius, sortAsc } = useAppState();
   const dispatch = useDispatch();
   const rows = React.useMemo(() => {
@@ -65,7 +72,7 @@ function StadiumsTable({ venues, enableMaxHeight }: Props) {
         <TableHead>
           <TableRow>
             <TableCell></TableCell>
-            <TableCell className={classes.name}>名称</TableCell>
+            <TableCell className={classes.theadName}>名称</TableCell>
             <TableCell className={classes.club}>クラブ</TableCell>
             <TableCell align="center" sortDirection={sortAsc ? 'asc' : 'desc'}>
               <TableSortLabel active={sortRadius === 'val_1'} direction={sortAsc ? 'asc' : 'desc'} onClick={_onSortLabelClick('val_1')}>

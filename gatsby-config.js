@@ -92,6 +92,12 @@ module.exports = {
         trackingId: 'UA-74683419-3',
       },
     },
+    {
+      resolve: `gatsby-plugin-google-adsense`,
+      options: {
+        publisherId: 'ca-pub-7323207940463794',
+      },
+    },
     `gatsby-plugin-graphql-codegen`,
     {
       resolve: `gatsby-plugin-sitemap`,
