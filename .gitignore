@@ -119,3 +119,4 @@ data
 src/data
 graphql-types.ts
 */graphql-types.ts
+dataset/**/*.png
