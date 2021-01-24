@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import ListItemAppLink from 'gatsby-theme-aoi/src/components/ListItemAppLink';
 import { useLocation } from '@reach/router';
+import { TableIcon } from '../../../icons';
 
 function Contents() {
   const { pathname } = useLocation();
@@ -17,7 +18,13 @@ function Contents() {
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
-        <ListItemText primary="Top" />
+        <ListItemText primary="トップページ" />
+      </ListItemAppLink>
+      <ListItemAppLink to="/venues" button selected={pathname === withPrefix('/venues')} role="menuitem">
+        <ListItemIcon>
+          <TableIcon />
+        </ListItemIcon>
+        <ListItemText primary="表" />
       </ListItemAppLink>
     </List>
   );

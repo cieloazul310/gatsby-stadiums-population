@@ -442,7 +442,7 @@
 - id: "63"
   slug: fcmaruyasu
   name: FCマルヤス岡崎
-  short_name: 岡崎
+  short_name: マルヤス
   category: JFL
   hometown: 岡崎市
   area: 愛知県
@@ -491,7 +491,7 @@
 - id: "70"
   slug: fcosaka
   name: F.C.大阪
-  short_name: FC大阪
+  short_name: F.C.大阪
   category: JFL
   hometown: 東大阪市
   area: 大阪府
