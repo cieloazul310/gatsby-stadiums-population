@@ -10012,16 +10012,14 @@ gatsby-theme-aoi-top-layout@1.2.1:
     gatsby-plugin-react-helmet "^3.9.0"
     gatsby-plugin-webfonts "^1.1.4"
 
-gatsby-theme-aoi@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/gatsby-theme-aoi/-/gatsby-theme-aoi-1.2.1.tgz#e8eaf00cff753f3f87ab9b58c820c9b071575986"
-  integrity sha512-5G266Pi+lQh8X+9GRbmyToCott2p0xKqh4OFDzDBuGjFI9XAuFgNnKzHXupjksbZ5cUusfMSo+wmpo5qsAaGsg==
+gatsby-theme-aoi@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/gatsby-theme-aoi/-/gatsby-theme-aoi-1.2.2.tgz#4951bf7adb7dbe50ffeb48a84a92d20df073cfc0"
+  integrity sha512-inCjPToih+jJz77dUy6aDJFXgiDO/xP5yrYRpZ69+MlgUHdqe65OhZ8qDpsAxnxqH3eOIrbdE6ciEiHY1KxtKw==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.34"
     "@fortawesome/free-brands-svg-icons" "^5.15.2"
     "@fortawesome/react-fontawesome" "^0.1.14"
-    "@material-ui/core" "^4.11.2"
-    "@material-ui/icons" "^4.11.2"
     "@types/react-helmet" "^6.1.0"
     gatsby-plugin-material-ui "^2.1.10"
     gatsby-plugin-react-helmet "^3.9.0"

@@ -4,20 +4,20 @@ import Tab from '@material-ui/core/Tab';
 import Container from '@material-ui/core/Container';
 import Layout from 'gatsby-theme-aoi/src/layouts/TabPageLayout';
 import TabPane from 'gatsby-theme-aoi/src/layout/TabPane';
-import Thumbnails from '../components/Thumbnails';
+import StadiumsTable from '../components/StadiumsTable';
 import Basis from '../components/Basis';
 import { AdInArticle, AdInFooter } from '../components/Ads';
 import Attribution from '../components/Attribution';
 import { useIsMobile } from '../utils/useIsMobile';
-import { useThumbnails } from '../utils/graphql-hooks';
+import { useAllVenues } from '../utils/graphql-hooks';
 
 function IndexPage() {
   const isMobile = useIsMobile();
-  const { J1, J2, J3, JFL } = useThumbnails();
   const [tab, setTab] = React.useState(0);
   const _handleTab = (event: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
     setTab(newValue);
   };
+  const data = useAllVenues();
   return (
     <Layout
       disablePaddingTop
@@ -33,16 +33,16 @@ function IndexPage() {
       }
     >
       <TabPane index={0} value={tab} id="tab-1" disableGutters>
-        <Thumbnails items={J1} />
+        <StadiumsTable venues={data.J1.edges} />
       </TabPane>
       <TabPane index={1} value={tab} id="tab-2" disableGutters>
-        <Thumbnails items={J2} />
+        <StadiumsTable venues={data.J2.edges} />
       </TabPane>
       <TabPane index={2} value={tab} id="tab-3" disableGutters>
-        <Thumbnails items={J3} />
+        <StadiumsTable venues={data.J3.edges} />
       </TabPane>
       <TabPane index={3} value={tab} id="tab-4" disableGutters>
-        <Thumbnails items={JFL} />
+        <StadiumsTable venues={data.JFL.edges} />
       </TabPane>
       <Basis>
         <AdInArticle />
