@@ -41,7 +41,7 @@ function VenuesTemplate({ data, pageContext }: PageProps<VenueQuery, SitePageCon
   return (
     <Layout
       title={venues?.name ?? undefined}
-      image={images[1].childImageSharp?.fluid?.src}
+      image={images[1].childImageSharp?.gatsbyImageData?.src}
       disablePaddingTop
       disableGutters
       drawerContents={
@@ -117,9 +117,7 @@ export const query = graphql`
     allFile(filter: { relativeDirectory: { eq: $relativeDirectory }, ext: { eq: ".png" } }) {
       nodes {
         childImageSharp {
-          fluid(maxWidth: 1600) {
-            ...GatsbyImageSharpFluid
-          }
+          gatsbyImageData(layout: FULL_WIDTH)
           original {
             src
           }

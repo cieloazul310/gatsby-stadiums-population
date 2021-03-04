@@ -29,9 +29,7 @@ export function useThumbnails() {
           images: edges {
             node {
               childImageSharp {
-                fluid(maxWidth: 360) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(width: 360, layout: CONSTRAINED)
               }
               name
             }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import Image from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { useAppState } from '../gatsby-theme-aoi-top-layout/utils/AppStateContext';
 import { VenueQuery } from '../../graphql-types';
@@ -36,11 +36,17 @@ function Images({ images }: Props) {
   return (
     <div className={classes.root}>
       <a href={images[visibility ? 1 : 0].childImageSharp?.original?.src ?? '#'} target="_blank" rel="noopener noreferrer">
-        <Image className={classes.layer} style={{ position: 'absolute' }} fluid={images[0].childImageSharp?.fluid} />
-        <Image
+        <GatsbyImage
+          image={images[0]?.childImageSharp?.gatsbyImageData}
+          className={classes.layer}
+          style={{ position: 'absolute' }}
+          alt="population"
+        />
+        <GatsbyImage
+          image={images[1]?.childImageSharp?.gatsbyImageData}
           className={clsx(classes.layer, { [classes.invisible]: !visibility })}
           style={{ position: 'absolute' }}
-          fluid={images[1].childImageSharp?.fluid}
+          alt="background"
         />
       </a>
     </div>

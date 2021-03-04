@@ -77,6 +77,7 @@ module.exports = {
         path: path.join(__dirname, `dataset`, `yaml`),
       },
     },
+    `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     {
